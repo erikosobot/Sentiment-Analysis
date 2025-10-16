@@ -696,20 +696,47 @@
 
         /* Page Break Control */
         .page-section {
-            min-height: 27cm;
             page-break-after: always;
             page-break-inside: avoid;
-            padding: 0;
-            margin-bottom: 2cm;
+            padding: 20px 0;
+            margin-bottom: 1cm;
         }
 
         .page-section:last-child {
             page-break-after: avoid;
-            min-height: auto;
         }
 
         .section-page-break {
             page-break-after: always;
+        }
+
+        /* Evitar rupturas dentro de elementos */
+        .page-section .section {
+            page-break-inside: avoid;
+        }
+
+        .section-subtitle {
+            page-break-after: avoid;
+        }
+
+        .section-title {
+            page-break-after: avoid;
+        }
+
+        ul, ol {
+            page-break-inside: avoid;
+        }
+
+        .format-table {
+            page-break-inside: avoid;
+        }
+
+        .spec-card {
+            page-break-inside: avoid;
+        }
+
+        .highlight-box {
+            page-break-inside: avoid;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
@@ -856,9 +883,6 @@ ${html}
             </div>
         </div>
 
-        <!-- PAGE BREAK -->
-        <div style="page-break-after: always; margin-top: 50px;"></div>
-
         <!-- TABLE OF CONTENTS -->
         <div style="page-break-after: always; padding: 40px 0;">
             <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">Índice</h2>
@@ -883,8 +907,6 @@ ${html}
             </ol>
         </div>
 
-        <!-- PAGE BREAK -->
-        <div style="page-break-after: always; margin-top: 50px;"></div>
         <div class="download-container">
             <button class="download-btn" onclick="downloadAsWord()">📥 Descargar Word</button>
         </div>
