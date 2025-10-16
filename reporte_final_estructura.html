@@ -73,7 +73,7 @@
 
         .section-title {
             font-size: 14pt;
-            color: #8B1538;
+            color: #000;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 3px solid #C41E3A;
@@ -82,7 +82,7 @@
 
         .section-subtitle {
             font-size: 12pt;
-            color: #8B1538;
+            color: #000;
             margin-top: 30px;
             margin-bottom: 15px;
             font-weight: bold;
@@ -111,7 +111,7 @@
         }
 
         .spec-card {
-            background: linear-gradient(135deg, #C41E3A15 0%, #8B153815 100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
             padding: 20px;
             border-radius: 8px;
             border-left: 4px solid #C41E3A;
@@ -124,7 +124,7 @@
         }
 
         .spec-card strong {
-            color: #8B1538;
+            color: #000;
             display: block;
             margin-bottom: 8px;
         }
@@ -166,7 +166,7 @@
         }
 
         .structure-item h4 {
-            color: #8B1538;
+            color: #000;
             font-size: 1.15em;
             margin-bottom: 10px;
             display: flex;
@@ -216,7 +216,7 @@
 
         /* Deliverables */
         .deliverables {
-            background: linear-gradient(135deg, #C41E3A15 0%, #8B153815 100%);
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
             padding: 30px;
             border-radius: 8px;
             border: 2px solid #C41E3A;
@@ -299,16 +299,16 @@
 
         /* Highlight boxes */
         .highlight-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-left: 4px solid #C41E3A;
             padding: 15px 20px;
             border-radius: 4px;
             margin: 20px 0;
-            color: #856404;
+            color: #000;
         }
 
         .highlight-box strong {
-            color: #856404;
+            color: #000;
         }
 
         /* Responsiveness */
@@ -719,11 +719,11 @@
         <div class="content">
             <!-- Title and Author -->
             <div class="section" style="text-align: center; margin-bottom: 60px;">
-                <h2 style="font-size: 2.2em; color: #8B1538; margin-bottom: 10px;">Análisis de Sentimientos</h2>
-                <p style="font-size: 1.2em; color: #C41E3A; margin-bottom: 30px;"><strong>Autor:</strong> Erik Osornio Botello</p>
+                <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de Sentimientos</h2>
+                <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik Osornio Botello</p>
                 
-                <div class="highlight-box" style="background: linear-gradient(135deg, #C41E3A15 0%, #8B153815 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
-                    <h3 style="color: #8B1538; margin-bottom: 15px;">Resumen</h3>
+                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
+                    <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
                     <p style="text-align: justify; line-height: 1.8; color: #333;">
                         Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis de sentimientos 
                         sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión Logística</strong> (con CountVectorizer), 
@@ -847,7 +847,7 @@
                     </tbody>
                 </table>
 
-                <div class="highlight-box" style="background: #f8d7da; border-left-color: #dc3545;">
+                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
                     <strong>⚠️ Problema de Desbalance:</strong> La mayoría de los versos pertenecen a la clase "No impacto", 
                     mientras que la clase "Mixto" tiene muy pocos ejemplos. Este desbalance puede generar: 
                     (1) Bias hacia la clase mayoritaria, (2) Problemas de generalización, (3) Métricas poco confiables 
@@ -1125,7 +1125,7 @@
                     </tbody>
                 </table>
 
-                <div class="highlight-box" style="background: #fff3cd; border-left-color: #ffc107; margin-top: 30px;">
+                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
                     <strong>⚠️ Observación Clave:</strong> Se observa un patrón consistente de sobreajuste en todos los modelos, 
                     con desempeño significativamente mejor durante el entrenamiento que en el conjunto de prueba.
                 </div>
@@ -1150,7 +1150,7 @@
                     </ul>
                 </div>
 
-                <div class="highlight-box" style="background: #d4edda; border-left-color: #28a745;">
+                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
                     <strong>✓ Conclusión Parcial:</strong> El modelo Multinomial Naive Bayes demuestra la mejor capacidad de 
                     generalización, manteniendo un F1-score consistente de 0.48 tanto en métricas generales como en recall, 
                     indicando un equilibrio adecuado entre precisión y cobertura.
