@@ -1071,15 +1071,18 @@ ${html}
                 </table>
 
                 <div style="text-align: center; margin: 30px 0;">
-                    <img src="sentiment_distribution.png" alt="Gráfico de Distribución de Sentimientos en Datos de Entrenamiento" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                    <img src="sentiment_distribution.png" alt="Gráfico de Distribución de Clases en Datos de Entrenamiento" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
                     <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Figura 1: Distribución de Sentimientos en los Datos de Entrenamiento Original</p>
                 </div>
 
                 <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
                     <strong>⚠️ Problema de Desbalance:</strong> La mayoría de los versos pertenecen a la clase "No impacto", 
                     mientras que la clase "Mixto" tiene muy pocos ejemplos. Este desbalance puede generar: 
-                    (1) Bias hacia la clase mayoritaria, (2) Problemas de generalización, (3) Métricas poco confiables 
-                    para clases minoritarias.
+                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px; line-height: 1.8;">
+                        <li><strong>Bias hacia la clase mayoritaria:</strong> Los modelos tienden a predecir con mayor frecuencia la clase predominante (No impacto), lo que puede inflar el accuracy aparente, pero reducir la capacidad de identificar correctamente las clases minoritarias.</li>
+                        <li><strong>Problemas de generalización en LSTM y modelos complejos:</strong> Las redes neuronales pueden sobreajustar fácilmente a la clase mayoritaria, especialmente cuando el dataset es pequeño. En este caso, modelos como LSTM pueden aprender patrones sesgados en lugar de representaciones robustas de todas las clases.</li>
+                        <li><strong>Métricas poco confiables para clases minoritarias:</strong> Las métricas de rendimiento pueden ser engañosas si se interpretan sin considerar el desbalance.</li>
+                    </ul>
                 </div>
 
                 <div class="section-subtitle">Estrategias de Mitigación</div>
