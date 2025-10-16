@@ -69,6 +69,8 @@
 
         .section {
             margin-bottom: 50px;
+            page-break-inside: avoid;
+            page-break-after: auto;
         }
 
         .section-title {
@@ -78,6 +80,7 @@
             padding-bottom: 10px;
             border-bottom: 3px solid #C41E3A;
             font-weight: bold;
+            page-break-after: avoid;
         }
 
         .section-subtitle {
@@ -690,6 +693,24 @@
                 display: none;
             }
         }
+
+        /* Page Break Control */
+        .page-section {
+            min-height: 27cm;
+            page-break-after: always;
+            page-break-inside: avoid;
+            padding: 0;
+            margin-bottom: 2cm;
+        }
+
+        .page-section:last-child {
+            page-break-after: avoid;
+            min-height: auto;
+        }
+
+        .section-page-break {
+            page-break-after: always;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://unpkg.com/docx@8.12.6/build/index.js"></script>
@@ -868,35 +889,38 @@ ${html}
             <button class="download-btn" onclick="downloadAsWord()">📥 Descargar Word</button>
         </div>
 
-        <!-- Header -->
-        <div class="header">
-            <div class="header-logo">📚</div>
-            <h1>Reporte Final del Participante</h1>
-            <p>Curso de Inteligencia Artificial</p>
-            <p>Estructura y Guía de Entrega</p>
-        </div>
-
         <!-- Main Content -->
         <div class="content">
-            <!-- Title and Author -->
-            <div class="section" style="text-align: center; margin-bottom: 60px;">
-                <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de Sentimientos</h2>
-                <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik Osornio Botello</p>
-                
-                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
-                    <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
-                    <p style="text-align: justify; line-height: 1.8; color: #333;">
-                        Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis de sentimientos 
-                        sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión Logística</strong> (con CountVectorizer), 
-                        <strong>Naive Bayes Multinomial</strong> (con CountVectorizer) y una red neuronal <strong>LSTM</strong> (trabajando sobre secuencias tokenizadas). 
-                        El objetivo es describir el flujo completo: exploración y limpieza de datos, extracción de características, entrenamiento, 
-                        validación, evaluación cuantitativa y análisis crítico de resultados.
-                    </p>
+            <!-- PAGE 1: Title and Header -->
+            <div class="page-section">
+                <div class="header">
+                    <div class="header-logo">📚</div>
+                    <h1>Reporte Final del Participante</h1>
+                    <p>Curso de Inteligencia Artificial</p>
+                    <p>Estructura y Guía de Entrega</p>
+                </div>
+
+                <!-- Title and Author -->
+                <div class="section" style="text-align: center; margin-bottom: 60px;">
+                    <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de Sentimientos</h2>
+                    <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik Osornio Botello</p>
+                    
+                    <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
+                        <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
+                        <p style="text-align: justify; line-height: 1.8; color: #333;">
+                            Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis de sentimientos 
+                            sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión Logística</strong> (con CountVectorizer), 
+                            <strong>Naive Bayes Multinomial</strong> (con CountVectorizer) y una red neuronal <strong>LSTM</strong> (trabajando sobre secuencias tokenizadas). 
+                            El objetivo es describir el flujo completo: exploración y limpieza de datos, extracción de características, entrenamiento, 
+                            validación, evaluación cuantitativa y análisis crítico de resultados.
+                        </p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Introduction Section -->
-            <div class="section">
+            <!-- PAGE 2: Introduction Section -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">📋 1. Introducción</div>
                 <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                     El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa, neutral) a textos. 
@@ -911,10 +935,12 @@ ${html}
                     <li>Evaluar rendimiento con métricas estándar (accuracy, precision, recall, F1, AUC cuando aplique).</li>
                     <li>Documentar decisiones de diseño y parámetros.</li>
                 </ul>
+                </div>
             </div>
 
-            <!-- Data Section -->
-            <div class="section">
+            <!-- PAGE 3: Data Section -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">📊 2. Datos</div>
                 
                 <div class="section-subtitle">Descripción del Dataset</div>
@@ -1048,10 +1074,12 @@ ${html}
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
 
-            <!-- Format Specifications -->
-            <div class="section">
+            <!-- PAGE 4: Preprocesamiento -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">📝 3. Preprocesamiento</div>
                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
                     El texto se sometió a un pipeline de preprocesamiento con dos funciones principales: <code>clean_text</code> y <code>preprocess_text</code>.
@@ -1114,8 +1142,9 @@ ${html}
                 </div>
             </div>
 
-            <!-- Text Representation -->
-            <div class="section">
+            <!-- PAGE 5: Text Representation -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">🔢 4. Representación de Texto</div>
                 
                 <div class="section-subtitle">Count Vectorizer (Modelos Clásicos)</div>
@@ -1161,8 +1190,9 @@ ${html}
                 </div>
             </div>
 
-            <!-- Models Section -->
-            <div class="section">
+            <!-- PAGE 6: Models -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">🤖 5. Modelos Implementados</div>
                 
                 <div class="section-subtitle">5.1 Regresión Logística</div>
@@ -1221,8 +1251,9 @@ ${html}
                 <p style="margin-top: 10px;"><strong>Optimizer:</strong> Adam</p>
             </div>
 
-            <!-- Metrics Section -->
-            <div class="section">
+            <!-- PAGE 7: Metrics and Training -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
                 
                 <div class="section-subtitle">División del Dataset</div>
@@ -1246,8 +1277,9 @@ ${html}
                 </p>
             </div>
 
-            <!-- Results Section -->
-            <div class="section">
+            <!-- PAGE 8: Results -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">📈 7. Resultados</div>
                 
                 <div class="section-subtitle">Resumen de Métricas</div>
@@ -1292,8 +1324,9 @@ ${html}
                 </div>
             </div>
 
-            <!-- Discussion Section -->
-            <div class="section">
+            <!-- PAGE 9: Discussion -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">💡 8. Discusión</div>
                 
                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
@@ -1318,8 +1351,9 @@ ${html}
                 </div>
             </div>
 
-            <!-- Conclusions Section -->
-            <div class="section">
+            <!-- PAGE 10: Conclusions -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">🎯 9. Conclusiones y Trabajo Futuro</div>
                 
                 <div class="section-subtitle">Conclusiones Principales</div>
@@ -1340,8 +1374,9 @@ ${html}
                 </ul>
             </div>
 
-            <!-- References Section -->
-            <div class="section">
+            <!-- PAGE 11: References & Footer -->
+            <div class="page-section">
+                <div class="section">
                 <div class="section-title">📚 10. Referencias Bibliográficas</div>
                 
                 <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2;">
@@ -1372,6 +1407,7 @@ ${html}
             </div>
 
             <div class="page-number"></div>
+            </div>
         </div>
     </div>
 </body>
