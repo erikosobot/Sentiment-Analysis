@@ -436,14 +436,25 @@
         /* COVER PAGE STYLES */
         .cover-page {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
             color: white;
             text-align: center;
-            padding: 60px 40px;
+            padding: 60px 60px 80px 60px;
             page-break-after: always;
+            position: relative;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700, rgba(255, 215, 0, 0) 50%, rgba(255, 215, 0, 0));
         }
 
         .cover-content {
@@ -464,20 +475,28 @@
 
         .cover-logos {
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
+            justify-content: space-between;
+            gap: 0;
+            margin-bottom: 50px;
             align-items: center;
+            width: 100%;
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
         }
 
         .cover-logo {
             flex: 0 0 auto;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
 
         .cover-logo img {
             max-width: 100px;
             height: auto;
-            filter: brightness(1.2);
+            filter: brightness(1);
             transition: transform 0.3s ease;
         }
 
@@ -486,74 +505,97 @@
         }
 
         .cover-institution {
-            margin-bottom: 40px;
-            border-bottom: 3px solid rgba(255, 215, 0, 0.7);
-            padding-bottom: 20px;
+            margin-bottom: 60px;
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 25px;
+            letter-spacing: 0.5px;
         }
 
         .cover-institution h2 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
-            font-weight: bold;
+            font-size: 2em;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
         }
 
         .cover-institution p {
-            font-size: 1.1em;
-            opacity: 0.95;
+            font-size: 1.15em;
+            opacity: 1;
+            font-weight: 500;
+            letter-spacing: 0.2px;
         }
 
         .cover-course {
-            margin-bottom: 60px;
-            font-size: 1.2em;
+            margin-bottom: 90px;
+            font-size: 1.25em;
             font-style: italic;
-            opacity: 0.9;
+            opacity: 0.92;
+            font-weight: 400;
+            letter-spacing: 0.3px;
         }
 
         .cover-main {
-            margin-bottom: 80px;
+            margin-bottom: 100px;
         }
 
         .cover-main h1 {
-            font-size: 3em;
-            margin-bottom: 15px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: none;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
         }
 
         .cover-subtitle {
-            font-size: 1.3em;
+            font-size: 1.4em;
             opacity: 0.95;
             font-style: italic;
+            line-height: 1.5;
+            font-weight: 300;
         }
 
         .cover-author {
-            margin-bottom: 40px;
+            margin-bottom: 70px;
             font-size: 1.1em;
         }
 
         .cover-author p:first-child {
-            margin-bottom: 10px;
-            opacity: 0.8;
+            margin-bottom: 12px;
+            opacity: 0.85;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .cover-author p:last-child {
-            font-size: 1.3em;
-            font-weight: bold;
+            font-size: 1.4em;
+            font-weight: 700;
+            letter-spacing: 0.2px;
         }
 
         .cover-date {
             font-size: 1.1em;
-            margin-top: 60px;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 215, 0, 0.5);
         }
 
         .cover-date p:first-child {
-            margin-bottom: 10px;
-            opacity: 0.8;
+            margin-bottom: 12px;
+            opacity: 0.85;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .cover-date p:last-child {
-            font-size: 1.2em;
-            font-weight: bold;
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: 0.2px;
         }
 
         /* Print styles for cover */
