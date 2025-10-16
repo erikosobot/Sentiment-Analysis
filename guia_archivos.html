@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Arquivos - Reporte Análisis de Sentimientos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.3em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .card-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+
+        .card-features li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .stat-label {
+            color: #999;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Guía de Archivos</h1>
+            <p>Reporte Final: Análisis de Sentimientos</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📄</div>
+                    <div class="card-title">Reporte Principal</div>
+                </div>
+                <div class="card-description">
+                    Documento completo con todas las secciones del proyecto
+                </div>
+                <ul class="card-features">
+                    <li>10 secciones completas</li>
+                    <li>Tablas y ejemplos</li>
+                    <li>Análisis profundo</li>
+                    <li>Diseño responsivo</li>
+                </ul>
+                <a href="reporte_final_estructura.html" class="button" style="display: block; text-align: center; margin-top: 15px;">
+                    Abrir Reporte
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📖</div>
+                    <div class="card-title">Índice Interactivo</div>
+                </div>
+                <div class="card-description">
+                    Página de navegación con tabla de contenidos
+                </div>
+                <ul class="card-features">
+                    <li>Navegación fluida</li>
+                    <li>10 secciones listadas</li>
+                    <li>Números de página</li>
+                    <li>Enlaces directos</li>
+                </ul>
+                <a href="indice_reporte.html" class="button" style="display: block; text-align: center; margin-top: 15px;">
+                    Ver Índice
+                </a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <div class="card-title">Documentación</div>
+                </div>
+                <div class="card-description">
+                    Guías en formato Markdown
+                </div>
+                <ul class="card-features">
+                    <li>README_REPORTE.md</li>
+                    <li>ESTRUCTURA_PROYECTO.md</li>
+                    <li>RESUMEN_FINAL.txt</li>
+                    <li>Información de uso</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📊 Estructura del Reporte</div>
+            <div class="two-column">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Secciones Principales</h3>
+                    <ol style="color: #555; line-height: 2;">
+                        <li><strong>Introducción</strong> - Contexto y objetivos</li>
+                        <li><strong>Datos</strong> - Dataset Poem Sentiment</li>
+                        <li><strong>Preprocesamiento</strong> - Limpieza y tokenización</li>
+                        <li><strong>Representación de Texto</strong> - CountVectorizer</li>
+                        <li><strong>Modelos Implementados</strong> - Tres enfoques</li>
+                    </ol>
+                </div>
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Secciones Complementarias</h3>
+                    <ol style="color: #555; line-height: 2; margin-top: 0;">
+                        <li style="margin-top: 0;"><strong>Entrenamiento y Validación</strong> - Proceso</li>
+                        <li><strong>Resultados</strong> - Métricas comparativas</li>
+                        <li><strong>Discusión</strong> - Análisis profundo</li>
+                        <li><strong>Conclusiones</strong> - Hallazgos y futuro</li>
+                        <li><strong>Referencias</strong> - Citas APA</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📈 Estadísticas del Proyecto</div>
+            <div class="two-column">
+                <div>
+                    <div class="stat-box">
+                        <div class="stat-label">Dataset</div>
+                        <div class="stat-value">1,101</div>
+                        <p style="color: #999; margin-top: 5px;">ejemplos totales</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Post-Augmentation</div>
+                        <div class="stat-value">7,830</div>
+                        <p style="color: #999; margin-top: 5px;">ejemplos aumentados</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Clases</div>
+                        <div class="stat-value">4</div>
+                        <p style="color: #999; margin-top: 5px;">sentimientos</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="stat-box">
+                        <div class="stat-label">Modelos</div>
+                        <div class="stat-value">3</div>
+                        <p style="color: #999; margin-top: 5px;">implementados</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Mejor Performance</div>
+                        <div class="stat-value">Naive Bayes</div>
+                        <p style="color: #999; margin-top: 5px;">F1: 0.48</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Líneas HTML</div>
+                        <div class="stat-value">902</div>
+                        <p style="color: #999; margin-top: 5px;">código profesional</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🎯 Cómo Usar los Archivos</div>
+            <div class="two-column">
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">📖 Lectura en Navegador</h3>
+                    <ol style="color: #555; line-height: 1.9;">
+                        <li>Abre <strong>reporte_final_estructura.html</strong></li>
+                        <li>Navega por las secciones</li>
+                        <li>Lee el contenido técnico</li>
+                        <li>Revisa tablas y ejemplos</li>
+                    </ol>
+                </div>
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🖨️ Impresión a PDF</h3>
+                    <ol style="color: #555; line-height: 1.9;">
+                        <li>Abre el archivo HTML</li>
+                        <li>Presiona <strong>Ctrl + P</strong></li>
+                        <li>Selecciona "Guardar como PDF"</li>
+                        <li>Configura márgenes: 2.5cm</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">✨ Características Destacadas</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                <div style="padding: 15px; background: #f0f0f0; border-radius: 5px;">
+                    <strong style="color: #667eea;">🎨 Diseño Profesional</strong>
+                    <p style="color: #555; margin-top: 10px;">Gradientes, colores armónicos, tipografía clara</p>
+                </div>
+                <div style="padding: 15px; background: #f0f0f0; border-radius: 5px;">
+                    <strong style="color: #667eea;">📱 Responsivo</strong>
+                    <p style="color: #555; margin-top: 10px;">Funciona en desktop, tablet y móvil</p>
+                </div>
+                <div style="padding: 15px; background: #f0f0f0; border-radius: 5px;">
+                    <strong style="color: #667eea;">♿ Accesible</strong>
+                    <p style="color: #555; margin-top: 10px;">Contraste WCAG AA, navegación clara</p>
+                </div>
+                <div style="padding: 15px; background: #f0f0f0; border-radius: 5px;">
+                    <strong style="color: #667eea;">🔍 Completo</strong>
+                    <p style="color: #555; margin-top: 10px;">10 secciones, múltiples tablas, ejemplos</p>
+                </div>
+                <div style="padding: 15px; background: #f0f0f0; border-radius: 5px;">
+                    <strong style="color: #667eea;">⚡ Rápido</strong>
+                    <p style="color: #555; margin-top: 10px;">Carga instantáneamente en cualquier navegador</p>
+                </div>
+                <div style="padding: 15px; background: #f0f0f0; border-radius: 5px;">
+                    <strong style="color: #667eea;">📦 Independiente</strong>
+                    <p style="color: #555; margin-top: 10px;">No requiere servidor ni instalaciones</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📞 Información del Autor</div>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 5px; border-left: 4px solid #667eea;">
+                <p style="color: #333; line-height: 1.9;">
+                    <strong>Nombre:</strong> Erik Osornio Botello<br>
+                    <strong>Institución:</strong> Centro de Investigación en Computación (CIC)<br>
+                    <strong>Programa:</strong> Diplomado en Inteligencia Artificial<br>
+                    <strong>Proyecto:</strong> Análisis de Sentimientos<br>
+                    <strong>Fecha:</strong> Octubre 2025
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>✨ Reporte Completo y Listo para Entrega ✨</strong></p>
+            <p style="margin-top: 15px;">
+                <a href="reporte_final_estructura.html" class="button">Ir al Reporte</a>
+                <a href="indice_reporte.html" class="button">Ver Índice</a>
+            </p>
+            <p style="margin-top: 20px; color: #ccc;">
+                © 2025 Diplomado en Inteligencia Artificial | CIC
+            </p>
+        </div>
+    </div>
+</body>
+</html>

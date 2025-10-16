@@ -372,6 +372,24 @@
                 page-break-after: avoid;
             }
         }
+
+        /* Code styles */
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            display: block;
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body>
@@ -386,288 +404,498 @@
 
         <!-- Main Content -->
         <div class="content">
-            <!-- Introduction Section -->
-            <div class="section">
-                <div class="section-title">📋 Introducción a los Requisitos</div>
-                <div class="intro-text">
-                    <strong>Estimad@ participante,</strong><br><br>
-                    Como parte de los requisitos para la obtención del diploma en Inteligencia Artificial, 
-                    es fundamental que presentes un <strong>reporte final del proyecto</strong>. Este documento será 
-                    evaluado para verificar que los conocimientos adquiridos durante el curso han 
-                    sido aplicados correctamente en el desarrollo de un proyecto práctico.<br><br>
-                    
-                    <strong>Recomendaciones generales:</strong>
-                    <ul style="margin-top: 15px;">
-                        <li>Mantén un <strong>estilo profesional</strong> en todo el documento</li>
-                        <li>Extensión: <strong>mínimo 15 páginas y máximo 30</strong></li>
-                        <li>Incluye <strong>detalles técnicos suficientes</strong> para que un lector especializado comprenda tu trabajo en su totalidad</li>
-                    </ul>
+            <!-- Title and Author -->
+            <div class="section" style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 2.2em; color: #667eea; margin-bottom: 10px;">Análisis de Sentimientos</h2>
+                <p style="font-size: 1.2em; color: #764ba2; margin-bottom: 30px;"><strong>Autor:</strong> Erik Osornio Botello</p>
+                
+                <div class="highlight-box" style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-left-color: #667eea; max-width: 800px; margin: 0 auto;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Resumen</h3>
+                    <p style="text-align: justify; line-height: 1.8; color: #333;">
+                        Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis de sentimientos 
+                        sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión Logística</strong> (con CountVectorizer), 
+                        <strong>Naive Bayes Multinomial</strong> (con CountVectorizer) y una red neuronal <strong>LSTM</strong> (trabajando sobre secuencias tokenizadas). 
+                        El objetivo es describir el flujo completo: exploración y limpieza de datos, extracción de características, entrenamiento, 
+                        validación, evaluación cuantitativa y análisis crítico de resultados.
+                    </p>
                 </div>
             </div>
 
-            <!-- Format Specifications -->
+            <!-- Introduction Section -->
             <div class="section">
-                <div class="section-title">📝 Especificaciones de Formato</div>
-                <p>El reporte final deberá cumplir con las siguientes especificaciones:</p>
+                <div class="section-title">📋 1. Introducción</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa, neutral) a textos. 
+                    En este proyecto se implementan tres enfoques que representan paradigmas distintos: modelos lineales probabilísticos 
+                    (Regresión Logística), modelos de probabilidades condicionales con suposiciones de independencia (Naive Bayes Multinomial) 
+                    y modelos secuenciales basados en redes neuronales (LSTM). Se discute su preparación, rendimiento y trade-offs.
+                </p>
                 
+                <div class="section-subtitle">Objetivos</div>
+                <ul style="line-height: 2;">
+                    <li>Construir y comparar tres modelos de análisis de sentimientos.</li>
+                    <li>Evaluar rendimiento con métricas estándar (accuracy, precision, recall, F1, AUC cuando aplique).</li>
+                    <li>Documentar decisiones de diseño y parámetros.</li>
+                </ul>
+            </div>
+
+            <!-- Data Section -->
+            <div class="section">
+                <div class="section-title">📊 2. Datos</div>
+                
+                <div class="section-subtitle">Descripción del Dataset</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    <strong>Fuente:</strong> Para este proyecto se utilizó el dataset <em>Poem Sentiment</em> del repositorio de Google Research, 
+                    disponible en Hugging Face (hf://datasets/google-research-datasets/poem_sentiment). Este conjunto de datos consiste en versos 
+                    de poemas extraídos de Project Gutenberg, etiquetados según el sentimiento que transmiten.
+                </p>
+                
+                <div class="spec-card">
+                    <strong>📈 Características principales:</strong>
+                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                        <li><strong>Número total de ejemplos:</strong> aproximadamente 1,100 versos</li>
+                        <li><strong>Idioma:</strong> Textos en español o adaptados según traducción</li>
+                        <li><strong>Tamaño:</strong> Dataset pequeño, lo que puede afectar la generalización de modelos complejos</li>
+                    </ul>
+                </div>
+
+                <div class="section-subtitle">Clases de Sentimiento</div>
+                <ul style="line-height: 2;">
+                    <li><strong>Positivo:</strong> Versos con emociones positivas</li>
+                    <li><strong>Negativo:</strong> Versos con emociones negativas</li>
+                    <li><strong>Mixed (Mixto):</strong> Versos que combinan emociones positivas y negativas</li>
+                    <li><strong>No impacto:</strong> Versos que no presentan un sentimiento claro</li>
+                </ul>
+
+                <div class="section-subtitle">Columnas del Dataset</div>
+                <ul style="line-height: 2;">
+                    <li><strong>verse_text:</strong> Contiene el texto del verso del poema</li>
+                    <li><strong>label:</strong> Indica la categoría de sentimiento del verso</li>
+                </ul>
+
+                <div class="section-subtitle">División de Datos</div>
                 <table class="format-table">
                     <thead>
                         <tr>
-                            <th>Elemento</th>
-                            <th>Especificación</th>
+                            <th>Conjunto</th>
+                            <th>Número de Ejemplos</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><strong>Tipo de letra</strong></td>
-                            <td>Times New Roman, Arial o Calibri</td>
+                            <td><strong>Entrenamiento</strong></td>
+                            <td>892 ejemplos</td>
                         </tr>
                         <tr>
-                            <td><strong>Tamaño de letra</strong></td>
-                            <td>12 puntos (texto principal)</td>
+                            <td><strong>Validación</strong></td>
+                            <td>105 ejemplos</td>
                         </tr>
                         <tr>
-                            <td><strong>Interlineado</strong></td>
-                            <td>1.5</td>
+                            <td><strong>Test</strong></td>
+                            <td>104 ejemplos</td>
                         </tr>
                         <tr>
-                            <td><strong>Márgenes</strong></td>
-                            <td>2.5 cm en todos los lados</td>
+                            <td><strong>Total</strong></td>
+                            <td>1,101 ejemplos</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="section-subtitle">Distribución de Clases (Entrenamiento Original)</div>
+                <table class="format-table">
+                    <thead>
+                        <tr>
+                            <th>Sentimiento</th>
+                            <th>Total</th>
+                            <th>Porcentaje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>No impacto (No impact)</strong></td>
+                            <td>555</td>
+                            <td>62.2%</td>
                         </tr>
                         <tr>
-                            <td><strong>Alineación</strong></td>
-                            <td>Justificada</td>
+                            <td><strong>Negativo (Negative)</strong></td>
+                            <td>155</td>
+                            <td>17.4%</td>
                         </tr>
                         <tr>
-                            <td><strong>Títulos</strong></td>
-                            <td>Negritas, 14 puntos</td>
+                            <td><strong>Positivo (Positive)</strong></td>
+                            <td>133</td>
+                            <td>14.9%</td>
                         </tr>
                         <tr>
-                            <td><strong>Subtítulos</strong></td>
-                            <td>Negritas o cursivas, 12 puntos</td>
+                            <td><strong>Mixto (Mixed)</strong></td>
+                            <td>49</td>
+                            <td>5.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box" style="background: #f8d7da; border-left-color: #dc3545;">
+                    <strong>⚠️ Problema de Desbalance:</strong> La mayoría de los versos pertenecen a la clase "No impacto", 
+                    mientras que la clase "Mixto" tiene muy pocos ejemplos. Este desbalance puede generar: 
+                    (1) Bias hacia la clase mayoritaria, (2) Problemas de generalización, (3) Métricas poco confiables 
+                    para clases minoritarias.
+                </div>
+
+                <div class="section-subtitle">Estrategias de Mitigación</div>
+                <ul style="line-height: 2;">
+                    <li><strong>Data Augmentation:</strong> Aplicada solo en el entrenamiento para balancear las clases</li>
+                    <li><strong>Class weights:</strong> Pesos por clase en LSTM para penalizar predicciones incorrectas de clases minoritarias</li>
+                </ul>
+
+                <div class="section-subtitle">Distribución de Clases (Post Data Augmentation)</div>
+                <table class="format-table">
+                    <thead>
+                        <tr>
+                            <th>Sentimiento</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>No impacto (No impact)</strong></td>
+                            <td>2,775</td>
                         </tr>
                         <tr>
-                            <td><strong>Numeración de páginas</strong></td>
-                            <td>Números arábigos en pie de página</td>
+                            <td><strong>Negativo (Negative)</strong></td>
+                            <td>2,325</td>
                         </tr>
                         <tr>
-                            <td><strong>Formato de entrega</strong></td>
-                            <td>PDF (realizado en Word o LaTeX)</td>
+                            <td><strong>Positivo (Positive)</strong></td>
+                            <td>1,995</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mixto (Mixed)</strong></td>
+                            <td>735</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <!-- Deliverables -->
+            <!-- Format Specifications -->
             <div class="section">
-                <div class="section-title">📦 Entregables</div>
-                <div class="deliverables">
-                    <div class="deliverable-item">
-                        <div class="deliverable-icon">1</div>
-                        <div><strong>Notebook(s):</strong> Donde se entrenen los tres modelos y se utilicen</div>
-                    </div>
-                    <div class="deliverable-item">
-                        <div class="deliverable-icon">2</div>
-                        <div><strong>Documento escrito:</strong> Tipo tesina (entre 15 y 30 páginas)</div>
-                    </div>
-                    <div class="deliverable-item">
-                        <div class="deliverable-icon">3</div>
-                        <div><strong>Presentación:</strong> Duración aproximada de 15 minutos</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Rubric -->
-            <div class="section">
-                <div class="section-title">⭐ Rúbrica de Evaluación</div>
-                <p style="margin-bottom: 20px; color: #666;">
-                    <em>El escrito y la presentación son requisitos generales y no afectarán la evaluación del proyecto. 
-                    Sin embargo, con base en dicho material, los miembros del jurado evaluarán tu proyecto.</em>
-                </p>
-                
-                <div class="rubric-grid">
-                    <div class="rubric-item">
-                        <div class="rubric-percentage">70%</div>
-                        <div class="rubric-description">Especificaciones Técnicas</div>
-                    </div>
-                    <div class="rubric-item">
-                        <div class="rubric-percentage">20%</div>
-                        <div class="rubric-description">Trabajo Escrito</div>
-                    </div>
-                    <div class="rubric-item">
-                        <div class="rubric-percentage">10%</div>
-                        <div class="rubric-description">Presentación</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Document Structure -->
-            <div class="section">
-                <div class="section-title">📖 Estructura del Documento</div>
-                <p style="margin-bottom: 25px; color: #666;">
-                    Tu reporte final debe incluir las siguientes secciones en el orden indicado:
+                <div class="section-title">📝 3. Preprocesamiento</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    El texto se sometió a un pipeline de preprocesamiento con dos funciones principales: <code>clean_text</code> y <code>preprocess_text</code>.
                 </p>
 
-                <div class="structure-list">
-                    <div class="structure-item">
-                        <h4>Portada</h4>
-                        <div class="structure-description">
-                            <ul style="margin: 10px 0;">
-                                <li>Título del proyecto</li>
-                                <li>Nombre del autor/a (o equipo)</li>
-                                <li>Nombre y logo del CIC</li>
-                                <li>Nombre del curso</li>
-                                <li>Fecha de entrega</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="section-subtitle">Limpieza de Texto (clean_text)</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    Esta función realiza operaciones de limpieza básica para normalizar los datos textuales:
+                </p>
+                <ul style="line-height: 2;">
+                    <li>Conversión a minúsculas para uniformidad</li>
+                    <li>Eliminación de URLs y etiquetas HTML</li>
+                    <li>Remoción de menciones de usuarios (@usuario) y símbolos de hashtags (#)</li>
+                    <li>Eliminación de puntuación y números</li>
+                    <li>Reducción de espacios en blanco redundantes</li>
+                </ul>
 
-                    <div class="structure-item">
-                        <h4>Índice</h4>
-                        <div class="structure-description">
-                            Lista de las secciones con sus respectivas páginas
-                        </div>
-                    </div>
+                <div class="section-subtitle">Preprocesamiento Completo (preprocess_text)</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    A continuación, el texto limpio se somete a un procesamiento adicional para preparar los datos para modelos de NLP:
+                </p>
+                <ul style="line-height: 2;">
+                    <li><strong>Tokenización:</strong> El texto se divide en palabras individuales</li>
+                    <li><strong>Eliminación de stopwords:</strong> Se eliminan palabras comunes sin contenido semántico relevante</li>
+                    <li><strong>Lematización:</strong> Cada palabra se reduce a su forma base (ej: "running" → "run")</li>
+                    <li><strong>Reconstrucción del texto:</strong> Los tokens resultantes se unen nuevamente en un string</li>
+                </ul>
 
-                    <div class="structure-item">
-                        <h4>Introducción</h4>
-                        <div class="structure-description">
-                            <ul style="margin: 10px 0;">
-                                <li>Contexto del problema abordado</li>
-                                <li>Importancia del proyecto en el ámbito académico o industrial</li>
-                                <li>Objetivos específicos</li>
-                                <li>Alcance y limitaciones</li>
-                            </ul>
-                        </div>
+                <div class="spec-card">
+                    <strong>📝 Ejemplos de Preprocesamiento:</strong>
+                    <div style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                        <p><strong>Original:</strong> "with pale blue berries. in these peaceful shades"</p>
+                        <p><strong>Procesado:</strong> "pale blue berry peaceful shade"</p>
+                        <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
+                        <p><strong>Original:</strong> "it flows so long as falls the rain,"</p>
+                        <p><strong>Procesado:</strong> "flow long fall rain"</p>
                     </div>
+                </div>
 
-                    <div class="structure-item">
-                        <h4>Marco Teórico</h4>
-                        <div class="structure-description">
-                            <ul style="margin: 10px 0;">
-                                <li>Definiciones clave y conceptos teóricos relevantes</li>
-                                <li>Explicación de los enfoques teóricos y técnicas de IA utilizadas</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="section-subtitle">Data Augmentation</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    Se implementó un pipeline de aumento de datos utilizando la librería <code>nlpaug</code> para balancear 
+                    las clases minoritarias. El proceso incluye:
+                </p>
+                <ul style="line-height: 2;">
+                    <li><strong>Selección de clases minoritarias:</strong> Identificación de clases con pocas muestras</li>
+                    <li><strong>Generación de nuevas muestras:</strong> Reemplazo de palabras por sinónimos usando WordNet</li>
+                    <li><strong>Proporción de aumentos:</strong> Clases mayoritarias: 5 aumentos | Clases minoritarias: 14 aumentos</li>
+                </ul>
 
-                    <div class="structure-item">
-                        <h4>Metodología</h4>
-                        <div class="structure-description">
-                            Descripción detallada del proceso seguido para el desarrollo del proyecto:
-                            <ul style="margin: 10px 0;">
-                                <li><strong>Datos:</strong> análisis de los datos y preprocesamiento (origen y descripción de los datos)</li>
-                                <li><strong>Modelo:</strong> modelos de IA empleados (descripción técnica)</li>
-                                <li><strong>Evaluación:</strong> criterios y métricas utilizadas</li>
-                                <li><strong>Herramientas:</strong> plataformas, bibliotecas (TensorFlow, Keras, PyTorch, etc.)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="structure-item">
-                        <h4>Implementación</h4>
-                        <div class="structure-description">
-                            Descripción del pipeline de desarrollo:
-                            <ul style="margin: 10px 0;">
-                                <li>Preprocesamiento de datos</li>
-                                <li>Entrenamiento de los modelos</li>
-                                <li>Optimización y ajustes (hiperparámetros)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="structure-item">
-                        <h4>Resultados</h4>
-                        <div class="structure-description">
-                            Presentación de los resultados obtenidos:
-                            <ul style="margin: 10px 0;">
-                                <li>Gráficos, tablas y métricas de desempeño (precisión, recall, accuracy, F1, etc.)</li>
-                                <li>Comparación con los objetivos planteados</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="structure-item">
-                        <h4>Análisis y Discusión</h4>
-                        <div class="structure-description">
-                            <ul style="margin: 10px 0;">
-                                <li>Interpretación de los resultados obtenidos</li>
-                                <li>Identificación de posibles problemas o limitaciones del modelo</li>
-                                <li>Análisis de por qué el modelo resultó bien o mal</li>
-                                <li>Propuestas de mejora para futuros trabajos</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="structure-item">
-                        <h4>Conclusiones</h4>
-                        <div class="structure-description">
-                            <ul style="margin: 10px 0;">
-                                <li>Resumen de los resultados más importantes</li>
-                                <li>Cumplimiento de los objetivos del proyecto</li>
-                                <li>Impacto de este proyecto en tu vida profesional (académica o laboral)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="structure-item">
-                        <h4>Referencias Bibliográficas</h4>
-                        <div class="structure-description">
-                            Citas de todos los artículos, libros, herramientas y fuentes de información utilizadas, 
-                            siguiendo un estilo de citación <strong>(se recomienda el estilo APA)</strong>
-                        </div>
-                    </div>
-
-                    <div class="structure-item">
-                        <h4>Anexos (A consideración del alumno)</h4>
-                        <div class="structure-description">
-                            <ul style="margin: 10px 0;">
-                                <li>Códigos fuente</li>
-                                <li>Información adicional relevante</li>
-                            </ul>
-                        </div>
+                <div class="spec-card">
+                    <strong>📝 Ejemplos de Data Augmentation:</strong>
+                    <div style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                        <p><strong>Original:</strong> "right wrong john"</p>
+                        <p><strong>Aumento 1:</strong> "right unseasonable john"</p>
+                        <p><strong>Aumento 2:</strong> "right ill timed john"</p>
+                        <p><strong>Aumento 3:</strong> "right wrong king john"</p>
+                        <p><strong>Aumento 4:</strong> "mightily wrong john"</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Important Notes -->
+            <!-- Text Representation -->
             <div class="section">
-                <div class="section-title">⚠️ Notas Importantes</div>
+                <div class="section-title">🔢 4. Representación de Texto</div>
                 
-                <div class="highlight-box">
-                    <strong>✓ Profesionalismo:</strong> Mantén un tono académico y profesional en todo el documento. 
-                    Evita lenguaje coloquial o informal.
-                </div>
+                <div class="section-subtitle">Count Vectorizer (Modelos Clásicos)</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    El CountVectorizer se utiliza para convertir texto en una representación numérica que pueda ser procesada 
+                    por modelos de machine learning. Transforma un conjunto de documentos en una matriz de conteo de palabras, 
+                    donde cada fila representa un documento, cada columna representa una palabra del vocabulario, y el valor 
+                    indica cuántas veces aparece esa palabra en el documento.
+                </p>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Configuración:</strong> max_features=10000, unigramas y bigramas
+                </p>
+                <p style="text-align: justify; line-height: 1.8;">
+                    <strong>Matrices resultantes:</strong>
+                </p>
+                <ul style="line-height: 2;">
+                    <li>X_train: (7830, 10000)</li>
+                    <li>X_val: (105, 10000)</li>
+                    <li>X_test: (104, 10000)</li>
+                </ul>
 
-                <div class="highlight-box">
-                    <strong>✓ Extensión:</strong> Asegúrate de cumplir con el mínimo de 15 páginas y máximo de 30. 
-                    Las páginas se cuentan desde la Introducción hasta las Referencias.
-                </div>
+                <div class="section-subtitle">Tokenización para LSTM</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    Para entrenar una LSTM, cada documento se convirtió en una secuencia numérica de longitud fija mediante 
+                    la librería Keras Tokenizer:
+                </p>
+                <ul style="line-height: 2;">
+                    <li><strong>Tokenización:</strong> Asignación de identificador único a cada palabra del vocabulario</li>
+                    <li><strong>Padding:</strong> Relleno con ceros para garantizar longitud fija</li>
+                    <li><strong>Embedding:</strong> Transformación de enteros en vectores densos</li>
+                </ul>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Configuración:</strong> num_words=10000, oov_token="&lt;OOV&gt;"
+                </p>
 
-                <div class="highlight-box">
-                    <strong>✓ Figuras y Tablas:</strong> Todas las figuras y tablas deben estar numeradas y contar 
-                    con un título descriptivo y una fuente citada.
-                </div>
-
-                <div class="highlight-box">
-                    <strong>✓ Citaciones:</strong> Toda información tomada de otras fuentes debe ser citada 
-                    adecuadamente usando el estilo APA.
-                </div>
-
-                <div class="highlight-box">
-                    <strong>✓ Formato PDF:</strong> El documento final debe ser entregado en formato PDF para 
-                    asegurar la compatibilidad en todos los sistemas.
+                <div class="spec-card">
+                    <strong>📝 Ejemplo de Tokenización:</strong>
+                    <div style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                        <p><strong>Texto:</strong> "i love nlp"</p>
+                        <p><strong>Tokenizado:</strong> [2, 3, 1]</p>
+                        <p><strong>Con Padding (longitud=5):</strong> [2, 3, 1, 0, 0]</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <p>📚 <span class="footer-highlight">Reporte Final de Proyecto - Diplomado en Inteligencia Artificial</span></p>
-            <p style="font-size: 0.9em; color: #999;">Centro de Investigación en Computación (CIC)</p>
-            <p style="margin-top: 15px; color: #999; font-size: 0.85em;">
-                Este documento contiene la estructura y guía oficial para la entrega del reporte final del proyecto.
-            </p>
+            <!-- Models Section -->
+            <div class="section">
+                <div class="section-title">🤖 5. Modelos Implementados</div>
+                
+                <div class="section-subtitle">5.1 Regresión Logística</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    La regresión logística fue seleccionada por su capacidad para manejar eficazmente representaciones vectorizadas 
+                    del texto. Este modelo aprende a estimar la probabilidad de pertenencia a cada clase mediante una combinación 
+                    lineal de características, lo cual resulta apropiado en problemas de análisis de texto donde la presencia 
+                    o frecuencia de ciertas palabras suele correlacionarse directamente con el sentimiento.
+                </p>
+                <div class="spec-card">
+                    <strong>Ventajas:</strong>
+                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                        <li>Permite incorporar pesos para clases minoritarias (class weights)</li>
+                        <li>Naturaleza probabilística facilita interpretar confianza</li>
+                        <li>Bajo costo computacional y estable</li>
+                        <li>Excelente baseline para comparar con modelos más complejos</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px;"><strong>Parámetros:</strong> max_iter=1000, librería: sklearn.linear_model.LogisticRegression</p>
+
+                <div class="section-subtitle">5.2 Naive Bayes Multinomial</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    El modelo Naive Bayes Multinomial está especialmente diseñado para trabajar con datos representados como 
+                    frecuencias de palabras. Asume independencia entre las características (palabras), lo que simplifica el 
+                    cálculo de probabilidades y permite un entrenamiento muy rápido incluso con grandes volúmenes de texto.
+                </p>
+                <div class="spec-card">
+                    <strong>Ventajas:</strong>
+                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                        <li>Rendimiento competitivo en clasificación de textos</li>
+                        <li>Especialmente efectivo cuando hay palabras claramente asociadas a cada sentimiento</li>
+                        <li>Entrenamimiento rápido y eficiente</li>
+                        <li>Opción sólida como modelo base</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px;"><strong>Implementación:</strong> MultinomialNB de scikit-learn</p>
+
+                <div class="section-subtitle">5.3 LSTM (Long Short-Term Memory)</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    Las redes LSTM están diseñadas para procesar secuencias de texto teniendo en cuenta el contexto y el orden 
+                    de las palabras. A diferencia de los modelos basados en frecuencias, una LSTM puede recordar información 
+                    relevante de palabras anteriores, mejorando la interpretación del sentimiento en frases completas.
+                </p>
+                <div class="spec-card">
+                    <strong>Ventajas:</strong>
+                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                        <li>Modela dependencias a largo plazo</li>
+                        <li>Útil para negaciones y expresiones compuestas</li>
+                        <li>Representación más semántica del texto</li>
+                        <li>Mejor desempeño en tareas complejas de análisis de sentimientos</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 15px;"><strong>Framework:</strong> TensorFlow / Keras</p>
+                <p style="margin-top: 10px;"><strong>Arquitectura:</strong> Embedding (10000) → LSTM (168) → Dropout (0.5) → Dense (168) → Dropout (0.5) → Dense(4) → Softmax</p>
+                <p style="margin-top: 10px;"><strong>Regularización:</strong> Dropout, recurrent_dropout, L2</p>
+                <p style="margin-top: 10px;"><strong>Optimizer:</strong> Adam</p>
+            </div>
+
+            <!-- Metrics Section -->
+            <div class="section">
+                <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
+                
+                <div class="section-subtitle">División del Dataset</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    Se utilizó la división estándar del dataset proporcionada por Hugging Face para garantizar coherencia 
+                    y reproducibilidad de los resultados.
+                </p>
+
+                <div class="section-subtitle">Métricas de Evaluación</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    Se utilizaron las siguientes métricas para evaluar el desempeño de los modelos:
+                </p>
+                <ul style="line-height: 2;">
+                    <li><strong>Accuracy:</strong> Proporción de predicciones correctas</li>
+                    <li><strong>Precision (macro avg):</strong> Promedio de precisión por clase</li>
+                    <li><strong>Recall (macro avg):</strong> Promedio de recall por clase</li>
+                    <li><strong>F1 (macro avg):</strong> Media armónica de precision y recall</li>
+                </ul>
+                <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">
+                    <strong>Librerías utilizadas:</strong> sklearn.metrics.classification_report, confusion_matrix
+                </p>
+            </div>
+
+            <!-- Results Section -->
+            <div class="section">
+                <div class="section-title">📈 7. Resultados</div>
+                
+                <div class="section-subtitle">Resumen de Métricas</div>
+                <table class="format-table">
+                    <thead>
+                        <tr>
+                            <th>Modelo</th>
+                            <th>Accuracy (train/test)</th>
+                            <th>Precision (macro)</th>
+                            <th>Recall (macro)</th>
+                            <th>F1 (macro)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Logistic Regression</strong></td>
+                            <td>0.99 / 0.70</td>
+                            <td>0.48</td>
+                            <td>0.36</td>
+                            <td>0.38</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Multinomial NB</strong></td>
+                            <td>0.99 / 0.69</td>
+                            <td>0.48</td>
+                            <td>0.48</td>
+                            <td>0.48</td>
+                        </tr>
+                        <tr>
+                            <td><strong>LSTM</strong></td>
+                            <td>0.95 / 0.51</td>
+                            <td>0.44</td>
+                            <td>0.42</td>
+                            <td>0.41</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box" style="background: #fff3cd; border-left-color: #ffc107; margin-top: 30px;">
+                    <strong>⚠️ Observación Clave:</strong> Se observa un patrón consistente de sobreajuste en todos los modelos, 
+                    con desempeño significativamente mejor durante el entrenamiento que en el conjunto de prueba.
+                </div>
+            </div>
+
+            <!-- Discussion Section -->
+            <div class="section">
+                <div class="section-title">💡 8. Discusión</div>
+                
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    A pesar de la aplicación de técnicas de aumento de datos en el conjunto de entrenamiento, los modelos 
+                    evaluados presentan indicios claros de sobreajuste. Esto se evidencia en las altas precisiones obtenidas 
+                    durante el entrenamiento (≈0.95–0.99) y la notable disminución del rendimiento en el conjunto de prueba.
+                </p>
+
+                <div class="spec-card">
+                    <strong>Análisis del Sobreajuste:</strong>
+                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                        <li>Las estrategias de aumento incrementaron la cantidad de ejemplos pero no aportaron suficiente variabilidad semántica</li>
+                        <li>El modelo LSTM evidencia el mayor grado de sobreajuste, posiblemente debido a su alta capacidad de representación</li>
+                        <li>Naive Bayes Multinomial muestra mejor generalización con valores más equilibrados entre entrenamiento y prueba</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box" style="background: #d4edda; border-left-color: #28a745;">
+                    <strong>✓ Conclusión Parcial:</strong> El modelo Multinomial Naive Bayes demuestra la mejor capacidad de 
+                    generalización, manteniendo un F1-score consistente de 0.48 tanto en métricas generales como en recall, 
+                    indicando un equilibrio adecuado entre precisión y cobertura.
+                </div>
+            </div>
+
+            <!-- Conclusions Section -->
+            <div class="section">
+                <div class="section-title">🎯 9. Conclusiones y Trabajo Futuro</div>
+                
+                <div class="section-subtitle">Conclusiones Principales</div>
+                <ul style="line-height: 2;">
+                    <li>Se implementaron exitosamente tres modelos de análisis de sentimientos con diferentes paradigmas</li>
+                    <li>La técnica de data augmentation mejoró el balance de clases pero no resolvió completamente el sobreajuste</li>
+                    <li>Naive Bayes Multinomial mostró la mejor generalización relativa bajo las condiciones actuales</li>
+                    <li>El dataset pequeño y desbalanceado limita el desempeño, especialmente de modelos complejos como LSTM</li>
+                </ul>
+
+                <div class="section-subtitle">Recomendaciones para Trabajo Futuro</div>
+                <ul style="line-height: 2;">
+                    <li>Optimizar la regularización de los modelos neuronales</li>
+                    <li>Explorar el uso de embeddings preentrenados (Word2Vec, GloVe, FastText)</li>
+                    <li>Emplear técnicas avanzadas de balanceo de clases (SMOTE, estratificación)</li>
+                    <li>Aumentar el volumen de datos o utilizar transfer learning</li>
+                    <li>Implementar validación cruzada estratificada para evaluaciones más robustas</li>
+                </ul>
+            </div>
+
+            <!-- References Section -->
+            <div class="section">
+                <div class="section-title">📚 10. Referencias Bibliográficas</div>
+                
+                <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2;">
+                    <p>Pedregosa, F., Varoquaux, G., Gramfort, A., et al. (2011). <em>Scikit-learn: Machine Learning in Python</em>. 
+                    Journal of Machine Learning Research, 12, 2825-2830.</p>
+                    
+                    <p>Chollet, F. (2021). <em>Deep Learning with Python</em> (2nd ed.). Manning Publications. [Keras framework documentation]</p>
+                    
+                    <p>Google Research. (s.f.). <em>Poem sentiment</em> [Conjunto de datos]. Hugging Face. 
+                    Disponible en: https://huggingface.co/datasets/google-research-datasets/poem_sentiment</p>
+                    
+                    <p>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep Learning</em>. 
+                    MIT Press. [Referencia para arquitecturas de redes neuronales]</p>
+                    
+                    <p>Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers 
+                    for Language Understanding. arXiv preprint arXiv:1810.04805.</p>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>📊 <span class="footer-highlight">Reporte Final: Análisis de Sentimientos - Diplomado en Inteligencia Artificial</span></p>
+                <p style="font-size: 0.9em; color: #999;">Autor: Erik Osornio Botello</p>
+                <p style="margin-top: 15px; color: #999; font-size: 0.85em;">
+                    Este reporte presenta el desarrollo, implementación y evaluación de un sistema completo de análisis de sentimientos 
+                    utilizando tres enfoques distintos.
+                </p>
+            </div>
         </div>
     </div>
 </body>

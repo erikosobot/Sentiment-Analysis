@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Sentimientos - Centro de Investigación en Computación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --text: #333;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* GRID DE OPCIONES */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+            font-size: 0.95em;
+        }
+
+        .card .info {
+            font-size: 0.85em;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 600;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-top: 40px;
+        }
+
+        .footer h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .header {
+                padding: 40px 20px;
+            }
+        }
+
+        /* CATEGORÍAS */
+        .category {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: var(--white);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        .badge.new {
+            background: #ff6b6b;
+        }
+
+        .badge.html {
+            background: #e74c3c;
+        }
+
+        .badge.notebook {
+            background: #f39c12;
+        }
+
+        .badge.doc {
+            background: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Análisis de Sentimientos</h1>
+            <p>Proyecto de Diplomado en Inteligencia Artificial</p>
+            <p class="subtitle">Centro de Investigación en Computación (CIC) - UNAM</p>
+        </div>
+
+        <!-- REPORTE PRINCIPAL -->
+        <div class="category">
+            <div class="category-title">📄 Reporte Principal</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <h3>Reporte Completo</h3>
+                    <p>Documento académico completo con 10 secciones, análisis detallado de modelos, resultados y conclusiones.</p>
+                    <div class="info">
+                        <strong>40,999 bytes</strong> | <span class="badge html">HTML</span> <span class="badge new">COMPLETO</span>
+                    </div>
+                    <a href="reporte_final_estructura.html" class="btn">📖 Abrir Reporte</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📑</div>
+                    <h3>Tabla de Contenidos</h3>
+                    <p>Índice interactivo con enlaces directos a todas las secciones del reporte para navegación rápida.</p>
+                    <div class="info">
+                        <strong>7,526 bytes</strong> | <span class="badge html">HTML</span>
+                    </div>
+                    <a href="indice_reporte.html" class="btn">📍 Ver Índice</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🗂️</div>
+                    <h3>Guía de Archivos</h3>
+                    <p>Descripción visual de todos los archivos del proyecto, su contenido y cómo utilizarlos efectivamente.</p>
+                    <div class="info">
+                        <strong>15,199 bytes</strong> | <span class="badge html">HTML</span>
+                    </div>
+                    <a href="guia_archivos.html" class="btn">🔍 Ver Guía</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTEBOOKS -->
+        <div class="category">
+            <div class="category-title">📓 Notebooks Jupyter</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <h3>Análisis de Sentimientos</h3>
+                    <p>Notebook original con implementación de 3 modelos: Regresión Logística, Naive Bayes y LSTM con data augmentation.</p>
+                    <div class="info">
+                        <strong>798 KB</strong> | <span class="badge notebook">NOTEBOOK</span>
+                    </div>
+                    <a href="SentimentAnalysis.ipynb" class="btn">🚀 Ejecutar Notebook</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Análisis MPNet</h3>
+                    <p>Notebook especializado en embeddings con all-mpnet-base-v2: generación, visualización (PCA, t-SNE) y clustering.</p>
+                    <div class="info">
+                        <strong>525 KB</strong> | <span class="badge notebook">NOTEBOOK</span> <span class="badge new">ADVANCED</span>
+                    </div>
+                    <a href="MPNet_Embeddings_Analysis.ipynb" class="btn">💻 Embeddings MPNet</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DOCUMENTACIÓN -->
+        <div class="category">
+            <div class="category-title">📚 Documentación</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">📋</div>
+                    <h3>README del Reporte</h3>
+                    <p>Documentación del proyecto con descripción de estructura, contenido, estadísticas y resultados principales.</p>
+                    <div class="info">
+                        <strong>4,276 bytes</strong> | <span class="badge doc">MARKDOWN</span>
+                    </div>
+                    <a href="README_REPORTE.md" class="btn">📖 Leer Documentación</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🏗️</div>
+                    <h3>Estructura del Proyecto</h3>
+                    <p>Resumen detallado de la estructura del contenido, secciones, subsecciones y estadísticas del análisis.</p>
+                    <div class="info">
+                        <strong>6,789 bytes</strong> | <span class="badge doc">MARKDOWN</span>
+                    </div>
+                    <a href="ESTRUCTURA_PROYECTO.md" class="btn">🔧 Ver Estructura</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">✨</div>
+                    <h3>Resumen Final</h3>
+                    <p>Resumen ejecutivo con información de contacto, instrucciones finales y conclusiones principales del proyecto.</p>
+                    <div class="info">
+                        <strong>8,999 bytes</strong> | <span class="badge doc">TEXTO</span>
+                    </div>
+                    <a href="RESUMEN_FINAL.txt" class="btn">📝 Leer Resumen</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">✅</div>
+                    <h3>Confirmación de Entrega</h3>
+                    <p>Documento de verificación final con lista de archivos, requisitos cumplidos, hallazgos y recomendaciones.</p>
+                    <div class="info">
+                        <strong>12,939 bytes</strong> | <span class="badge doc">TEXTO</span> <span class="badge new">FINAL</span>
+                    </div>
+                    <a href="CONFIRMACION_ENTREGA.txt" class="btn">🎯 Confirmación</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATOS -->
+        <div class="category">
+            <div class="category-title">💾 Datos Generados</div>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🔐</div>
+                    <h3>Embeddings MPNet</h3>
+                    <p>Archivo serializado con 1,101 embeddings pre-generados del modelo all-mpnet-base-v2 (768 dimensiones).</p>
+                    <div class="info">
+                        <strong>3.4 MB</strong> | <span class="badge">PICKLE</span>
+                    </div>
+                    <button class="btn" disabled>📦 Archivo de Datos (no interactivo)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ESTADÍSTICAS -->
+        <div class="category">
+            <div class="category-title">📊 Estadísticas del Proyecto</div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">10</div>
+                    <div class="stat-label">Secciones del Reporte</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1,101</div>
+                    <div class="stat-label">Ejemplos de Dataset</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Modelos Evaluados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">0.48</div>
+                    <div class="stat-label">Mejor F1-Score</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">768</div>
+                    <div class="stat-label">Dimensiones Embeddings</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">7,830</div>
+                    <div class="stat-label">Ejemplos Post-Augmentation</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <h4>📌 Información General</h4>
+            <p><strong>Autor:</strong> Erik Osornio Botello</p>
+            <p><strong>Institución:</strong> Centro de Investigación en Computación (CIC) - UNAM</p>
+            <p><strong>Programa:</strong> Diplomado en Inteligencia Artificial</p>
+            <p><strong>Proyecto:</strong> Análisis de Sentimientos en Poesía</p>
+            <p><strong>Dataset:</strong> Poem Sentiment (Google Research)</p>
+            <p><strong>Fecha de Entrega:</strong> 16 de Octubre de 2025</p>
+            
+            <div class="footer-links">
+                <a href="reporte_final_estructura.html">📖 Reporte Principal</a>
+                <span>|</span>
+                <a href="indice_reporte.html">📑 Tabla de Contenidos</a>
+                <span>|</span>
+                <a href="guia_archivos.html">🗂️ Guía de Archivos</a>
+                <span>|</span>
+                <a href="README_REPORTE.md">📚 Documentación</a>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 0.85em; color: #999;">
+                ✨ Todos los archivos están listos para revisión, presentación y entrega final
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,305 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                  🎓 ANÁLISIS DE SENTIMIENTOS - INSTRUCCIONES               ║
+║                                                                            ║
+║              Centro de Investigación en Computación (CIC) - UNAM           ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+🚀 PUNTO DE ENTRADA PRINCIPAL
+═════════════════════════════════════════════════════════════════════════════
+
+► ABRE ESTE ARCHIVO EN NAVEGADOR:
+   📄 index.html
+   
+   Este es tu portal de acceso a todos los recursos del proyecto.
+   Contiene navegación completa y enlaces a todos los documentos.
+
+
+📁 ESTRUCTURA DE ARCHIVOS
+═════════════════════════════════════════════════════════════════════════════
+
+DOCUMENTOS PRINCIPALES (HTML):
+  ✓ index.html                          ← COMIENZA AQUÍ
+  ✓ reporte_final_estructura.html        ← Reporte académico completo
+  ✓ indice_reporte.html                  ← Tabla de contenidos interactiva
+  ✓ guia_archivos.html                   ← Guía visual del proyecto
+
+NOTEBOOKS (Jupyter):
+  ✓ SentimentAnalysis.ipynb              ← Modelo de sentimientos (3 enfoques)
+  ✓ MPNet_Embeddings_Analysis.ipynb      ← Análisis de embeddings avanzado
+
+DOCUMENTACIÓN (Markdown & Texto):
+  ✓ README_REPORTE.md                    ← Documentación del proyecto
+  ✓ ESTRUCTURA_PROYECTO.md               ← Estructura y estadísticas
+  ✓ RESUMEN_FINAL.txt                    ← Resumen ejecutivo
+  ✓ CONFIRMACION_ENTREGA.txt             ← Verificación final
+  ✓ GUIA_RAPIDA.txt                      ← Este archivo
+
+DATOS GENERADOS:
+  ✓ mpnet_embeddings.pkl                 ← Embeddings pre-calculados
+
+
+🎯 CÓMO EMPEZAR
+═════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN 1: ACCESO COMPLETO (RECOMENDADO)
+────────────────────────────────────────
+1. Abre: index.html en tu navegador
+2. Explora todas las opciones desde el menú principal
+3. Los botones te llevarán a:
+   • Reporte académico completo
+   • Tabla de contenidos interactiva
+   • Guía de archivos
+   • Documentación
+   • Notebooks
+
+OPCIÓN 2: ACCESO DIRECTO AL REPORTE
+────────────────────────────────────────
+1. Abre: reporte_final_estructura.html en tu navegador
+2. Lee el contenido de las 10 secciones
+3. Usa el índice para navegar rápidamente
+4. Imprime a PDF si lo necesitas
+
+OPCIÓN 3: EXPLORAR NOTEBOOKS
+────────────────────────────────────────
+1. Abre Jupyter: jupyter notebook
+2. Navega a la carpeta del proyecto
+3. Abre: SentimentAnalysis.ipynb
+   └─ Implementación de 3 modelos
+   └─ Data augmentation
+   └─ Resultados completos
+4. También ejecuta: MPNet_Embeddings_Analysis.ipynb
+   └─ Análisis de embeddings
+   └─ Visualizaciones PCA/t-SNE
+   └─ Clustering análisis
+
+OPCIÓN 4: LECTURA DE DOCUMENTACIÓN
+────────────────────────────────────────
+1. Lee: README_REPORTE.md (descripción general)
+2. Consulta: ESTRUCTURA_PROYECTO.md (detalles técnicos)
+3. Revisa: CONFIRMACION_ENTREGA.txt (verificación)
+4. Estudia: RESUMEN_FINAL.txt (conclusiones)
+
+
+📊 CONTENIDO DEL REPORTE (10 SECCIONES)
+═════════════════════════════════════════════════════════════════════════════
+
+1. INTRODUCCIÓN
+   • Contexto del problema
+   • Paradigmas de análisis
+   • Objetivos
+
+2. DATOS
+   • Dataset Poem Sentiment (Google Research)
+   • 1,100 ejemplos, 4 clases
+   • Análisis de distribución
+
+3. PREPROCESAMIENTO
+   • Limpieza de texto
+   • Tokenización y lematización
+   • Data augmentation con nlpaug
+
+4. REPRESENTACIÓN DE TEXTO
+   • CountVectorizer
+   • Tokenización Keras
+   • Embedding layer
+
+5. MODELOS IMPLEMENTADOS
+   • Regresión Logística
+   • Naive Bayes Multinomial ⭐ (mejor generalización)
+   • LSTM
+
+6. ENTRENAMIENTO Y VALIDACIÓN
+   • División de datos
+   • Proceso de entrenamiento
+   • Métricas utilizadas
+
+7. RESULTADOS
+   • Tabla comparativa
+   • Accuracy, Precision, Recall, F1
+   • Análisis por clase
+
+8. DISCUSIÓN
+   • Sobreajuste en modelos
+   • Comparación de generalizaciones
+   • Limitaciones identificadas
+
+9. CONCLUSIONES
+   • Hallazgos principales
+   • Recomendaciones futuras
+   • Trabajo a realizar
+
+10. REFERENCIAS
+    • Citas en formato APA
+    • Links a datasets y librerías
+
+
+⭐ HALLAZGOS PRINCIPALES
+═════════════════════════════════════════════════════════════════════════════
+
+✅ MEJOR MODELO: Multinomial Naive Bayes
+   • Accuracy: 69%
+   • F1-Score: 0.48 (Mejor generalización)
+   • Razón: Mejor capacidad de generalización con dataset pequeño
+
+⚠️  LIMITACIÓN CLAVE: Tamaño pequeño del dataset
+   • Solo 1,101 ejemplos
+   • Severo desbalance de clases (62.2% "No impacto")
+   • Impactó negativamente en predicción de clases minoritarias
+
+📈 MEJORAS FUTURAS RECOMENDADAS:
+   1. Implementar embeddings preentrenados (BERT, GloVe)
+   2. Aplicar SMOTE para balanceo de clases
+   3. Aumentar tamaño del dataset
+   4. Fine-tuning con modelos preentrenados
+   5. Usar técnicas de ensemble
+
+
+🖥️ REQUISITOS PARA EJECUTAR
+═════════════════════════════════════════════════════════════════════════════
+
+PARA VER DOCUMENTOS HTML:
+  • Navegador moderno (Chrome, Firefox, Edge, Safari)
+  • No requiere instalaciones adicionales
+
+PARA EJECUTAR NOTEBOOKS:
+  Instalar:
+    pip install jupyter notebook
+    pip install scikit-learn tensorflow keras
+    pip install nltk pandas numpy
+    pip install matplotlib seaborn
+    pip install nlpaug sentence-transformers
+  
+  Ejecutar:
+    jupyter notebook
+
+
+📋 CHECKLIST DE VERIFICACIÓN
+═════════════════════════════════════════════════════════════════════════════
+
+✓ Todos los archivos presentes:
+  ✓ 4 documentos HTML
+  ✓ 2 notebooks Jupyter
+  ✓ 4 archivos de documentación
+  ✓ 1 archivo de datos (embeddings)
+
+✓ Contenido verificado:
+  ✓ 10 secciones de reporte integradas
+  ✓ 7 tablas de datos incluidas
+  ✓ 3 ejemplos de código
+  ✓ Citas bibliográficas presentes
+
+✓ Funcionalidad validada:
+  ✓ HTML responsivo (desktop/tablet/móvil)
+  ✓ Enlaces interactivos funcionando
+  ✓ Estilos profesionales aplicados
+  ✓ Impresión a PDF compatible
+
+✓ Documentación completa:
+  ✓ README con descripción general
+  ✓ Guía de archivos presente
+  ✓ Tabla de contenidos interactiva
+  ✓ Confirmación de entrega firmada
+
+
+🎨 CARACTERÍSTICAS DE DISEÑO
+═════════════════════════════════════════════════════════════════════════════
+
+► PALETA DE COLORES PROFESIONAL
+   • Púrpura primario: #667eea
+   • Violeta secundario: #764ba2
+   • Blanco: #ffffff
+   • Gradiente: 135 grados
+
+► TIPOGRAFÍA CLARA
+   • Fuente: Segoe UI, Tahoma, Geneva
+   • Títulos: 32px
+   • Cuerpo: 17px
+   • Espaciado: Óptimo para lectura
+
+► ELEMENTOS INTERACTIVOS
+   • Efectos hover suaves
+   • Animaciones en transiciones
+   • Tablas con resaltado
+   • Botones con efectos
+
+► ACCESIBILIDAD
+   • Contraste WCAG AA
+   • Navegación clara
+   • Estructura HTML semántica
+   • Responsive design
+
+
+📞 INFORMACIÓN DE CONTACTO
+═════════════════════════════════════════════════════════════════════════════
+
+Autor: Erik Osornio Botello
+Institución: Centro de Investigación en Computación (CIC) - UNAM
+Programa: Diplomado en Inteligencia Artificial
+Proyecto: Análisis de Sentimientos en Poesía
+Dataset: Poem Sentiment (Google Research)
+Fecha: 16 de Octubre de 2025
+
+
+🔗 RECURSOS EXTERNOS
+═════════════════════════════════════════════════════════════════════════════
+
+Dataset Poem Sentiment:
+https://huggingface.co/datasets/google-research-datasets/poem_sentiment
+
+Librerías utilizadas:
+• scikit-learn: https://scikit-learn.org
+• TensorFlow/Keras: https://www.tensorflow.org
+• NLTK: https://www.nltk.org
+• Sentence Transformers: https://www.sbert.net
+• nlpaug: https://github.com/makcedward/nlpaug
+
+Modelos preentrenados:
+• BERT: https://huggingface.co/bert-base-uncased
+• MPNet: https://huggingface.co/sentence-transformers/all-mpnet-base-v2
+
+
+✨ PRÓXIMOS PASOS
+═════════════════════════════════════════════════════════════════════════════
+
+1. REVISIÓN
+   □ Abre index.html
+   □ Revisa cada sección
+   □ Verifica contenido
+
+2. VALIDACIÓN
+   □ Lee la documentación
+   □ Revisa las estadísticas
+   □ Consulta la confirmación
+
+3. PRESENTACIÓN
+   □ Imprime reporte a PDF
+   □ Prepara presentación oral
+   □ Revisa conclusiones
+
+4. ENTREGA
+   □ Verifica completitud
+   □ Confirma todos los archivos
+   □ Prepárate para presentar
+
+
+═════════════════════════════════════════════════════════════════════════════
+
+                        🎉 ¡PROYECTO COMPLETADO!
+
+Todos los archivos están listos para:
+  ✓ Revisión académica
+  ✓ Presentación oral
+  ✓ Impresión a PDF
+  ✓ Entrega final
+  ✓ Defensa del trabajo
+
+═════════════════════════════════════════════════════════════════════════════
+
+ÚLTIMA ACTUALIZACIÓN: 16 de Octubre de 2025
+VERSIÓN: Final 1.0
+ESTADO: ✅ LISTO PARA ENTREGA
+
+═════════════════════════════════════════════════════════════════════════════

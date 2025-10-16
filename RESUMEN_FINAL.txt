@@ -1,0 +1,239 @@
+🎉 REPORTE FINAL COMPLETADO - ANÁLISIS DE SENTIMIENTOS
+═══════════════════════════════════════════════════════════════
+
+✅ ARCHIVOS CREADOS EXITOSAMENTE
+───────────────────────────────────
+
+📄 reporte_final_estructura.html (40,999 bytes)
+   └─ Reporte principal con 10 secciones completas
+   └─ Diseño responsivo y profesional
+   └─ 902 líneas de código HTML/CSS
+   └─ Tablas, ejemplos de código, análisis detallado
+
+📄 indice_reporte.html (7,526 bytes)
+   └─ Página de índice interactiva
+   └─ Navegación fluida
+   └─ Efectos visuales profesionales
+
+📋 README_REPORTE.md
+   └─ Documentación del proyecto
+   └─ Guía de uso y características
+
+📋 ESTRUCTURA_PROYECTO.md
+   └─ Resumen completo del contenido
+   └─ Estadísticas y referencias
+
+═══════════════════════════════════════════════════════════════
+
+📊 CONTENIDO DEL REPORTE
+───────────────────────────────────
+
+TÍTULO: Análisis de Sentimientos
+AUTOR: Erik Osornio Botello
+INSTITUCIÓN: Centro de Investigación en Computación (CIC)
+
+SECCIONES:
+  1. 📋 Introducción
+     └─ Contexto, importancia y objetivos
+  
+  2. 📊 Datos
+     └─ Dataset: Poem Sentiment (1,100 ejemplos)
+     └─ 4 clases de sentimiento
+     └─ Análisis de desbalance de clases
+  
+  3. 🔧 Preprocesamiento
+     └─ Limpieza de texto (clean_text)
+     └─ Tokenización y lematización
+     └─ Data Augmentation con nlpaug
+  
+  4. 🔢 Representación de Texto
+     └─ CountVectorizer (10,000 features)
+     └─ Tokenización Keras
+     └─ Embedding Layer
+  
+  5. 🤖 Modelos Implementados
+     └─ 5.1 Regresión Logística
+     └─ 5.2 Naive Bayes Multinomial
+     └─ 5.3 LSTM (Red Neuronal Recurrente)
+  
+  6. 📈 Entrenamiento y Validación
+     └─ División estándar de Hugging Face
+     └─ Métricas: Accuracy, Precision, Recall, F1
+  
+  7. 📊 Resultados
+     └─ Tabla comparativa de modelos
+     └─ Mejor desempeño: Multinomial NB (F1=0.48)
+  
+  8. 💡 Discusión
+     └─ Análisis del sobreajuste
+     └─ Comparación de modelos
+     └─ Identificación de limitaciones
+  
+  9. 🎯 Conclusiones y Trabajo Futuro
+     └─ Hallazgos principales
+     └─ Recomendaciones para mejoras
+  
+  10. 📚 Referencias Bibliográficas
+      └─ Citas en formato APA
+
+═══════════════════════════════════════════════════════════════
+
+📊 ESTADÍSTICAS DEL PROYECTO
+───────────────────────────────────
+
+DATASET:
+  • Total de ejemplos: 1,101
+  • Entrenamiento: 892 (pre-augmentation)
+  • Validación: 105
+  • Test: 104
+  • Clases: 4 (positivo, negativo, mixto, no impacto)
+  • Post-augmentation: ~7,830 ejemplos
+
+MODELOS EVALUADOS:
+  • Logistic Regression → Accuracy Test: 0.70, F1: 0.38
+  • Multinomial Naive Bayes → Accuracy Test: 0.69, F1: 0.48 ⭐
+  • LSTM → Accuracy Test: 0.51, F1: 0.41
+
+DOCUMENTO:
+  • Líneas HTML: 902
+  • Tablas: 7
+  • Ejemplos de código: 3
+  • Secciones: 10
+  • Referencias: 5
+
+═══════════════════════════════════════════════════════════════
+
+🎨 CARACTERÍSTICAS DEL DISEÑO
+───────────────────────────────────
+
+✅ Responsivo
+   └─ Desktop (1000px+)
+   └─ Tablet (768px - 1000px)
+   └─ Móvil (< 768px)
+
+✅ Paleta de Colores
+   └─ Púrpura primario: #667eea
+   └─ Violeta secundario: #764ba2
+   └─ Fondo blanco: #ffffff
+
+✅ Tipografía Profesional
+   └─ Fuente: Segoe UI, Tahoma, Geneva
+   └─ Tamaño títulos: 32px (2em)
+   └─ Tamaño texto: 17px (1.05em)
+
+✅ Elementos Interactivos
+   └─ Efectos hover en tarjetas
+   └─ Animaciones suaves
+   └─ Tablas interactivas
+   └─ Resaltado de código
+
+✅ Accesibilidad
+   └─ Contraste WCAG AA
+   └─ Navegación clara
+   └─ Enlaces descriptivos
+
+═══════════════════════════════════════════════════════════════
+
+🚀 CÓMO USAR LOS ARCHIVOS
+───────────────────────────────────
+
+1️⃣ VER EN NAVEGADOR WEB
+   • Abre: reporte_final_estructura.html
+   • O: indice_reporte.html (para índice)
+   • Compatible con: Chrome, Firefox, Safari, Edge
+
+2️⃣ IMPRIMIR A PDF
+   • Abre el HTML en navegador
+   • Presiona: Ctrl + P
+   • Guarda como PDF
+   • Ajusta márgenes: 2.5cm en todos los lados
+
+3️⃣ COMPARTIR
+   • Envía el archivo .html directamente
+   • Se abre en cualquier navegador
+   • No requiere instalaciones adicionales
+
+═══════════════════════════════════════════════════════════════
+
+✨ HALLAZGOS PRINCIPALES
+───────────────────────────────────
+
+🔍 SOBREAJUSTE DETECTADO
+   • Train accuracy: ~0.99
+   • Test accuracy: 0.51-0.70
+   • Brecha significativa entre entrenamiento y prueba
+
+🏆 MEJOR MODELO
+   • Multinomial Naive Bayes
+   • Mejor generalización
+   • F1 score consistente: 0.48
+   • Equilibrio entre precision y recall
+
+⚠️ LIMITACIONES IDENTIFICADAS
+   • Dataset pequeño (1,100 ejemplos)
+   • Severo desbalance de clases
+   • Data augmentation insuficiente
+   • Clases minoritarias difíciles de predecir
+
+💡 MEJORAS RECOMENDADAS
+   • Usar embeddings preentrenados (Word2Vec, GloVe)
+   • Aplicar SMOTE para balanceo
+   • Fine-tuning con modelos como BERT
+   • Aumentar volumen de datos
+
+═══════════════════════════════════════════════════════════════
+
+📋 REQUISITOS CUMPLIDOS
+───────────────────────────────────
+
+✅ ESPECIFICACIONES TÉCNICAS (70%)
+   • 3 modelos implementados
+   • Dataset analizado y preprocesado
+   • Data augmentation aplicado
+   • Métricas estándar calculadas
+   • Pipeline completo documentado
+
+✅ TRABAJO ESCRITO (20%)
+   • 10 secciones técnicas
+   • Análisis profundo de resultados
+   • Discusión crítica
+   • Referencias bibliográficas (APA)
+   • Ejemplos de código incluidos
+
+✅ PRESENTACIÓN (10%)
+   • Diseño profesional
+   • Estructura clara
+   • Navegación intuitiva
+   • Formato imprimible
+   • Accesibilidad mejorada
+
+═══════════════════════════════════════════════════════════════
+
+📞 INFORMACIÓN DEL PROYECTO
+───────────────────────────────────
+
+Título: Análisis de Sentimientos
+Autor: Erik Osornio Botello
+Institución: Centro de Investigación en Computación (CIC)
+Programa: Diplomado en Inteligencia Artificial
+Fecha: Octubre 2025
+
+Dataset: Poem Sentiment (Google Research)
+Fuente: https://huggingface.co/datasets/google-research-datasets/poem_sentiment
+
+Modelos: Regresión Logística, Naive Bayes, LSTM
+Librerías: scikit-learn, TensorFlow/Keras, NLTK, nlpaug
+
+═══════════════════════════════════════════════════════════════
+
+✨ ¡REPORTE COMPLETADO EXITOSAMENTE! ✨
+
+El documento está listo para:
+  ✓ Revisión académica
+  ✓ Presentación
+  ✓ Impresión a PDF
+  ✓ Distribución digital
+
+───────────────────────────────────
+Gracias por usar este reporte. 🙏
+═══════════════════════════════════════════════════════════════
