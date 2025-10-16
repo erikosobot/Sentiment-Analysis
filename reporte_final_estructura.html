@@ -1009,6 +1009,22 @@ ${html}
                     <li><strong>label:</strong> Indica la categoría de sentimiento del verso</li>
                 </ul>
 
+                <div class="section-subtitle">Exploración Inicial</div>
+                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
+                    En la fase de exploración, no se encontraron valores nulos. El histograma de las longitudes por clase se encuentra representado en la Ilustración 2.
+                </p>
+                
+                <div style="text-align: center; margin: 30px 0;">
+                    <img src="verse_lengths_distribution.png" alt="Gráfico de Distribución de Longitudes de Versos por Clase" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Ilustración 2. Distribución de longitudes por clase</p>
+                </div>
+
+                <p style="text-align: justify; line-height: 1.5; margin-top: 20px;">
+                    La figura muestra la distribución de la longitud de los versos según su sentimiento. Se observa que la mayoría de los versos tienen entre 30 y 50 palabras, 
+                    con predominancia de la clase no impact. Las clases minoritarias (mixed, positivo, negativo) están menos representadas, lo que refuerza el desbalance del dataset. 
+                    Esta distribución sugiere que los modelos podrían aprender primero la clase mayoritaria y que los ejemplos muy largos son poco frecuentes y podrían considerarse outliers.
+                </p>
+
                 <div class="section-subtitle">División de Datos</div>
                 <table class="format-table">
                     <thead>
