@@ -11,9 +11,16 @@
             box-sizing: border-box;
         }
 
+        p {
+            text-align: justify;
+            line-height: 1.5;
+            font-size: 12pt;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-size: 12pt;
+            line-height: 1.5;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
@@ -27,6 +34,7 @@
             border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             overflow: hidden;
+            padding: 2.5cm;
         }
 
         /* Header */
@@ -55,7 +63,8 @@
 
         /* Main Content */
         .content {
-            padding: 50px 40px;
+            padding: 0;
+            text-align: justify;
         }
 
         .section {
@@ -63,7 +72,7 @@
         }
 
         .section-title {
-            font-size: 2em;
+            font-size: 14pt;
             color: #667eea;
             margin-bottom: 20px;
             padding-bottom: 10px;
@@ -72,11 +81,12 @@
         }
 
         .section-subtitle {
-            font-size: 1.4em;
+            font-size: 12pt;
             color: #764ba2;
             margin-top: 30px;
             margin-bottom: 15px;
             font-weight: bold;
+            font-style: italic;
             padding-left: 20px;
             border-left: 4px solid #667eea;
         }
@@ -87,8 +97,9 @@
             border-radius: 8px;
             border-left: 5px solid #667eea;
             margin-bottom: 30px;
-            line-height: 1.8;
-            font-size: 1.05em;
+            line-height: 1.5;
+            font-size: 12pt;
+            text-align: justify;
         }
 
         /* Specifications */
@@ -126,7 +137,8 @@
 
         li {
             margin-bottom: 12px;
-            line-height: 1.8;
+            line-height: 1.5;
+            text-align: justify;
         }
 
         li strong {
@@ -311,6 +323,7 @@
 
             .content {
                 padding: 30px 20px;
+                text-align: justify;
             }
 
             .section-title {
@@ -333,6 +346,12 @@
             .format-table th,
             .format-table td {
                 padding: 10px;
+            }
+
+            p, li, td {
+                font-size: 12pt;
+                line-height: 1.5;
+                text-align: justify;
             }
         }
 
@@ -360,16 +379,48 @@
         @media print {
             body {
                 background: white;
-                padding: 0;
+                padding: 2.5cm;
+                margin: 0;
+                font-size: 12pt;
+                line-height: 1.5;
+                counter-reset: page 1;
             }
 
             .container {
                 box-shadow: none;
                 border-radius: 0;
+                padding: 0;
+                max-width: 100%;
+                margin: 0;
             }
 
             .header {
                 page-break-after: avoid;
+                padding: 30px 0;
+            }
+
+            .content {
+                padding: 0;
+                text-align: justify;
+            }
+
+            p, li, td, th {
+                font-size: 12pt;
+                line-height: 1.5;
+                text-align: justify;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                margin: 2.5cm;
+                @bottom-center {
+                    content: counter(page);
+                    font-size: 12pt;
+                    font-family: Arial, sans-serif;
+                }
             }
         }
 
@@ -390,7 +441,36 @@
             display: block;
             overflow-x: auto;
         }
+
+        /* Footer con numeración de página */
+        .page-number {
+            text-align: center;
+            padding: 20px 0;
+            color: #999;
+            font-size: 11pt;
+            border-top: 1px solid #ddd;
+            margin-top: 40px;
+        }
+
+        @media print {
+            .page-number {
+                display: none;
+            }
+        }
     </style>
+    <script>
+        // Script para numeración de páginas
+        window.addEventListener('load', function() {
+            // En navegador, agregar numeración visible
+            const pageNumbers = document.querySelectorAll('.page-number');
+            if (pageNumbers.length > 0) {
+                let pageCount = 1;
+                pageNumbers.forEach((element, index) => {
+                    element.textContent = 'Página ' + (index + 1);
+                });
+            }
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -424,7 +504,7 @@
             <!-- Introduction Section -->
             <div class="section">
                 <div class="section-title">📋 1. Introducción</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                     El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa, neutral) a textos. 
                     En este proyecto se implementan tres enfoques que representan paradigmas distintos: modelos lineales probabilísticos 
                     (Regresión Logística), modelos de probabilidades condicionales con suposiciones de independencia (Naive Bayes Multinomial) 
@@ -444,7 +524,7 @@
                 <div class="section-title">📊 2. Datos</div>
                 
                 <div class="section-subtitle">Descripción del Dataset</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                     <strong>Fuente:</strong> Para este proyecto se utilizó el dataset <em>Poem Sentiment</em> del repositorio de Google Research, 
                     disponible en Hugging Face (hf://datasets/google-research-datasets/poem_sentiment). Este conjunto de datos consiste en versos 
                     de poemas extraídos de Project Gutenberg, etiquetados según el sentimiento que transmiten.
@@ -896,6 +976,8 @@
                     utilizando tres enfoques distintos.
                 </p>
             </div>
+
+            <div class="page-number"></div>
         </div>
     </div>
 </body>
