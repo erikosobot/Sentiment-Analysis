@@ -781,10 +781,10 @@
 <meta name=Generator content="Microsoft Word 16">
 <meta name=Originator content="Microsoft Word 16">
 <link rel=File-List href="filelist.xml">
-<title>Reporte Final - Análisis de Sentimientos</title>
+<title>Reporte Final - Análisis de sentimientos en versos</title>
 <o:DocumentProperties>
- <o:Author>Erik Osornio Botello</o:Author>
- <o:LastAuthor>Erik Osornio Botello</o:LastAuthor>
+ <o:Author>Erik I. Osornio Botello</o:Author>
+ <o:LastAuthor>Erik I. Osornio Botello</o:LastAuthor>
  <o:Created>2025-10-16T00:00:00Z</o:Created>
  <o:LastSaved>2025-10-16T00:00:00Z</o:LastSaved>
  <o:Pages>1</o:Pages>
@@ -867,13 +867,13 @@ ${html}
                 </div>
 
                 <div class="cover-main">
-                    <h1>Análisis de Sentimientos</h1>
+                    <h1>Análisis de sentimientos en versos</h1>
                     <p class="cover-subtitle">Implementación y Evaluación de Tres Enfoques de Clasificación</p>
                 </div>
 
                 <div class="cover-author">
                     <p><strong>Autor:</strong></p>
-                    <p>Erik Osornio Botello</p>
+                    <p>Erik I. Osornio Botello</p>
                 </div>
 
                 <div class="cover-date">
@@ -916,8 +916,8 @@ ${html}
             <!-- PAGE 1: Title and Author -->
             <div class="page-section">
                 <div class="section" style="text-align: center; margin-bottom: 60px;">
-                    <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de Sentimientos</h2>
-                    <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik Osornio Botello</p>
+                    <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de sentimientos en versos</h2>
+                    <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik I. Osornio Botello</p>
                     
                     <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
                         <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
@@ -985,9 +985,10 @@ ${html}
                 <div class="spec-card">
                     <strong>📈 Características principales:</strong>
                     <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                        <li><strong>Número total de ejemplos:</strong> aproximadamente 1,100 versos</li>
-                        <li><strong>Idioma:</strong> Textos en español o adaptados según traducción</li>
-                        <li><strong>Tamaño:</strong> Dataset pequeño, lo que puede afectar la generalización de modelos complejos</li>
+                        <li><strong>Número total de ejemplos:</strong> 1,101 versos</li>
+                        <li><strong>Idioma:</strong> Textos en inglés</li>
+                        <li><strong>Tamaño:</strong> Dataset pequeño, lo que puede afectar la generalización de modelos complejos como LSTM</li>
+                        <li><strong>Data Augmentation:</strong> Debido al desbalance inicial de clases, se aplicó data augmentation únicamente en el conjunto de entrenamiento para equilibrar la distribución de clases.</li>
                     </ul>
                 </div>
 
@@ -995,11 +996,14 @@ ${html}
                 <ul style="line-height: 2;">
                     <li><strong>Positivo:</strong> Versos con emociones positivas</li>
                     <li><strong>Negativo:</strong> Versos con emociones negativas</li>
-                    <li><strong>Mixed (Mixto):</strong> Versos que combinan emociones positivas y negativas</li>
+                    <li><strong>Mixto:</strong> Versos que combinan emociones positivas y negativas</li>
                     <li><strong>No impacto:</strong> Versos que no presentan un sentimiento claro</li>
                 </ul>
 
                 <div class="section-subtitle">Columnas del Dataset</div>
+                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
+                    Este conjunto de datos consta de versos de poemas extraídos de Project Gutenberg, etiquetados según el sentimiento que transmiten.
+                </p>
                 <ul style="line-height: 2;">
                     <li><strong>verse_text:</strong> Contiene el texto del verso del poema</li>
                     <li><strong>label:</strong> Indica la categoría de sentimiento del verso</li>
@@ -1430,8 +1434,8 @@ ${html}
 
             <!-- Footer -->
             <div class="footer">
-                <p>📊 <span class="footer-highlight">Reporte Final: Análisis de Sentimientos - Diplomado en Inteligencia Artificial</span></p>
-                <p style="font-size: 0.9em; color: #999;">Autor: Erik Osornio Botello</p>
+                <p>📊 <span class="footer-highlight">Reporte Final: Análisis de sentimientos en versos - Diplomado en Inteligencia Artificial</span></p>
+                <p style="font-size: 0.9em; color: #999;">Autor: Erik I. Osornio Botello</p>
                 <p style="margin-top: 15px; color: #999; font-size: 0.85em;">
                     Este reporte presenta el desarrollo, implementación y evaluación de un sistema completo de análisis de sentimientos 
                     utilizando tres enfoques distintos.
