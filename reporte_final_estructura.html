@@ -651,7 +651,48 @@
                 display: none;
             }
         }
+
+        /* Download Button */
+        .download-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(139, 21, 56, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 21, 56, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        @media print {
+            .download-container {
+                display: none;
+            }
+        }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/docx@8.12.6/build/index.js"></script>
     <script>
         // Script para numeración de páginas
         window.addEventListener('load', function() {
@@ -664,6 +705,96 @@
                 });
             }
         });
+
+        // Función para descargar como Word
+        function downloadAsWord() {
+            try {
+                const container = document.querySelector('.container');
+                if (!container) {
+                    alert('No se encontró el contenido para exportar');
+                    return;
+                }
+
+                // Obtener el HTML completo
+                const html = container.innerHTML;
+                
+                // Crear documento Word en formato OOXML
+                const docContent = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?mso-application progid="Word.Document"?>
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:w="urn:schemas-microsoft-com:office:word"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
+ xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 16">
+<meta name=Originator content="Microsoft Word 16">
+<link rel=File-List href="filelist.xml">
+<title>Reporte Final - Análisis de Sentimientos</title>
+<o:DocumentProperties>
+ <o:Author>Erik Osornio Botello</o:Author>
+ <o:LastAuthor>Erik Osornio Botello</o:LastAuthor>
+ <o:Created>2025-10-16T00:00:00Z</o:Created>
+ <o:LastSaved>2025-10-16T00:00:00Z</o:LastSaved>
+ <o:Pages>1</o:Pages>
+ <o:Words>1</o:Words>
+ <o:Characters>1</o:Characters>
+ <o:Lines>1</o:Lines>
+ <o:Paragraphs>1</o:Paragraphs>
+ <o:CharactersWithSpaces>1</o:CharactersWithSpaces>
+ <o:Version>16.00</o:Version>
+</o:DocumentProperties>
+</head>
+<body>
+${html}
+</body>
+</html>`;
+
+                // Crear Blob
+                const blob = new Blob([docContent], { type: 'application/vnd.ms-word' });
+                
+                // Descargar
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'Reporte_Analisis_Sentimientos.doc';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                alert('✓ Descargado: Reporte_Analisis_Sentimientos.doc');
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al generar el archivo. Por favor intente nuevamente.');
+            }
+        }
+
+        // Función alternativa: descargar como PDF
+        function downloadAsPDF() {
+            try {
+                const element = document.querySelector('.container');
+                const cloned = element.cloneNode(true);
+                cloned.querySelectorAll('.download-container, .page-number, .header').forEach(el => el.remove());
+                
+                const opt = {
+                    margin: 10,
+                    filename: 'Reporte_Analisis_Sentimientos.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+                };
+
+                html2pdf().set(opt).from(cloned).save();
+                alert('Descargando como PDF...');
+            } catch (err) {
+                console.error('Error al descargar:', err);
+                alert('Error al generar el archivo. Por favor intente nuevamente.');
+            }
+        }
     </script>
 </head>
 <body>
@@ -706,6 +837,11 @@
 
         <!-- PAGE BREAK -->
         <div style="page-break-after: always; margin-top: 50px;"></div>
+
+        <!-- Download Button -->
+        <div class="download-container">
+            <button class="download-btn" onclick="downloadAsWord()">📥 Descargar Word</button>
+        </div>
 
         <!-- Header -->
         <div class="header">
