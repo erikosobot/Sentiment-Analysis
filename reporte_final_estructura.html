@@ -433,6 +433,138 @@
             color: #d63384;
         }
 
+        /* COVER PAGE STYLES */
+        .cover-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+            page-break-after: always;
+        }
+
+        .cover-content {
+            max-width: 600px;
+            animation: fadeInCover 0.8s ease;
+        }
+
+        @keyframes fadeInCover {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cover-logos {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .cover-logo {
+            flex: 0 0 auto;
+        }
+
+        .cover-logo img {
+            max-width: 100px;
+            height: auto;
+            filter: brightness(1.2);
+            transition: transform 0.3s ease;
+        }
+
+        .cover-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .cover-institution {
+            margin-bottom: 40px;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.5);
+            padding-bottom: 20px;
+        }
+
+        .cover-institution h2 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .cover-institution p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .cover-course {
+            margin-bottom: 60px;
+            font-size: 1.2em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .cover-main {
+            margin-bottom: 80px;
+        }
+
+        .cover-main h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .cover-subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-style: italic;
+        }
+
+        .cover-author {
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .cover-author p:first-child {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .cover-author p:last-child {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .cover-date {
+            font-size: 1.1em;
+            margin-top: 60px;
+        }
+
+        .cover-date p:first-child {
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .cover-date p:last-child {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Print styles for cover */
+        @media print {
+            .cover-page {
+                page-break-after: always;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+            }
+        }
+
         code-block {
             background: #f8f9fa;
             padding: 15px;
@@ -474,6 +606,46 @@
 </head>
 <body>
     <div class="container">
+        <!-- COVER PAGE -->
+        <div class="cover-page">
+            <div class="cover-content">
+                <div class="cover-logos">
+                    <div class="cover-logo">
+                        <img src="logo_cic.jpg" alt="Logo CIC - Centro de Investigación en Computación">
+                    </div>
+                    <div class="cover-logo">
+                        <img src="logo_ipn.jpg" alt="Logo IPN - Instituto Politécnico Nacional">
+                    </div>
+                </div>
+                <div class="cover-institution">
+                    <h2>Centro de Investigación en Computación</h2>
+                    <p>CIC - UNAM</p>
+                </div>
+                
+                <div class="cover-course">
+                    <p>Diplomado en Inteligencia Artificial</p>
+                </div>
+
+                <div class="cover-main">
+                    <h1>Análisis de Sentimientos</h1>
+                    <p class="cover-subtitle">Implementación y Evaluación de Tres Enfoques de Clasificación</p>
+                </div>
+
+                <div class="cover-author">
+                    <p><strong>Autor:</strong></p>
+                    <p>Erik Osornio Botello</p>
+                </div>
+
+                <div class="cover-date">
+                    <p><strong>Fecha de Entrega:</strong></p>
+                    <p>16 de Octubre de 2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE BREAK -->
+        <div style="page-break-after: always; margin-top: 50px;"></div>
+
         <!-- Header -->
         <div class="header">
             <div class="header-logo">📚</div>
