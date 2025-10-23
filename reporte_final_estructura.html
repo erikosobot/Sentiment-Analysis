@@ -1016,7 +1016,7 @@ ${html}
                 
                 <div style="text-align: center; margin: 30px 0;">
                     <img src="verse_lengths_distribution.png" alt="Gráfico de Distribución de Longitudes de Versos por Clase" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Ilustración 2. Distribución de longitudes por clase</p>
+                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Ilustración 1. Distribución de longitudes por clase</p>
                 </div>
 
                 <p style="text-align: justify; line-height: 1.5; margin-top: 20px;">
@@ -1168,10 +1168,15 @@ ${html}
                 </p>
                 <ul style="line-height: 2;">
                     <li><strong>Tokenización:</strong> El texto se divide en palabras individuales</li>
-                    <li><strong>Eliminación de stopwords:</strong> Se eliminan palabras comunes sin contenido semántico relevante</li>
-                    <li><strong>Lematización:</strong> Cada palabra se reduce a su forma base (ej: "running" → "run")</li>
-                    <li><strong>Reconstrucción del texto:</strong> Los tokens resultantes se unen nuevamente en un string</li>
+                    <li><strong>Eliminación de stopwords:</strong> Se eliminan palabras comunes sin contenido semántico relevante (como “the”, “and”, “is”) utilizando la lista de NLTK</li>
+                    <li><strong>Lematización:</strong> Cada palabra se reduce a su forma base (por ejemplo, “running” → “run”, “cars” → “car”) usando WordNetLemmatizer.</li>
+                    <li><strong>Reconstrucción del texto:</strong> Los tokens resultantes se unen nuevamente en un string, listo para su análisis o entrada a un modelo</li>
                 </ul>
+
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    Este pipeline permite obtener un texto limpio, normalizado y representativo, adecuado para técnicas de NLP como modelos de LSTM, 
+                    Naive Bayes o TF-IDF, mejorando la calidad de las predicciones y reduciendo el ruido en los datos.
+                </p>
 
                 <div class="spec-card">
                     <strong>📝 Ejemplos de Preprocesamiento:</strong>
@@ -1184,16 +1189,35 @@ ${html}
                     </div>
                 </div>
 
+                <div style="height: 20px; clear: both;"></div>
+
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    Se puede observar que, tras aplicar procesamiento, se reduce la longitud de la oración original, se removió puntuación y stopwords.
+                </p>
+
                 <div class="section-subtitle">Data Augmentation</div>
                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                     Se implementó un pipeline de aumento de datos utilizando la librería <code>nlpaug</code> para balancear 
-                    las clases minoritarias. El proceso incluye:
+                    las clases minoritarias. El objetivo principal es balancear las clases minoritarias en el dataset y mejorar la capacidad del modelo para generalizar. 
+                    El proceso incluye:
                 </p>
                 <ul style="line-height: 2;">
-                    <li><strong>Selección de clases minoritarias:</strong> Identificación de clases con pocas muestras</li>
-                    <li><strong>Generación de nuevas muestras:</strong> Reemplazo de palabras por sinónimos usando WordNet</li>
-                    <li><strong>Proporción de aumentos:</strong> Clases mayoritarias: 5 aumentos | Clases minoritarias: 14 aumentos</li>
+                    <li><strong>Selección de clases minoritarias:</strong> Se identifican las clases que tienen pocas muestras (por ejemplo: “negative”, “positive” y “mixed”) 
+                        y se les aplica un mayor número de "augmentations" para equilibrar la distribución de clases.</li>
+                    <li><strong>Generación de nuevas muestras:</strong> Para cada texto en el dataset se generan varias versiones alternativas reemplazando palabras por sinónimos usando WordNet.</li>
+                    <li><strong>Proporción de aumentos:</strong> Las clases minoritarias reciben más aumentos que las clases mayoritarias, logrando un balance más uniforme.</li>
+                    <li><strong>Creación de dataset final:</strong> Los textos originales y los aumentados se combinan en un nuevo DataFrame.</li>
                 </ul>
+
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    Esto produce un dataset más grande y balanceado, que reduce el sesgo hacia clases mayoritarias y ayuda a mejorar el entrenamiento de modelos de NLP.
+                </p>
+
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    Este procedimiento es especialmente útil en problemas de clasificación de texto donde algunas categorías tienen muy pocas muestras, ya que incrementa la diversidad de los datos 
+                    sin necesidad de recolectar más ejemplos reales.
+
+                </p>
 
                 <div class="spec-card">
                     <strong>📝 Ejemplos de Data Augmentation:</strong>
@@ -1205,6 +1229,9 @@ ${html}
                         <p><strong>Aumento 4:</strong> "mightily wrong john"</p>
                     </div>
                 </div>
+
+                
+
             </div>
 
             <!-- PAGE 5: Text Representation -->
