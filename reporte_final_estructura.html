@@ -1554,19 +1554,72 @@ ${html}
                                     <li>Mejor desempeño en tareas complejas de análisis de sentimientos</li>
                                 </ul>
                             </div>
+                            
+
+                            <div style="text-align: center; margin: 30px 0;">
+                                <img src="lstm_1.png" alt="Definición de parámetros de una LSTM en keras"
+                                    style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                <p
+                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                    Ilustración 8. Definición de parámetros de una LSTM en keras</p>
+                            </div>
+
+                            <div class="section-subtitle">Arquitectura de la LSTM</div>
+                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                Para este estudio se utilizó la arquitectura de la Ilustración 9.
+                            </p>
+
+                            <div style="text-align: center; margin: 30px 0;">
+                                <img src="arq_lstm.png" alt="Arquitectura utilizada para la LSTM"
+                                    style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                <p
+                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                    Ilustración 9. Arquitectura utilizada para la LSTM</p>
+                            </div>
+
                             <p style="margin-top: 15px;"><strong>Framework:</strong> TensorFlow / Keras</p>
                             <p style="margin-top: 10px;"><strong>Arquitectura:</strong> Embedding (10000) → LSTM (168) →
                                 Dropout (0.5) → Dense (168) → Dropout (0.5) → Dense(4) → Softmax</p>
                             <p style="margin-top: 10px;"><strong>Regularización:</strong> Dropout, recurrent_dropout, L2
                             </p>
                             <p style="margin-top: 10px;"><strong>Optimizer:</strong> Adam</p>
+
                         </div>
 
                         <!-- PAGE 7: Metrics and Training -->
                         <div class="page-section">
                             <div class="section">
                                 <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
+                                <div class="section-subtitle">Carga del Dataset</div>
+                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                    El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los archivos están disponibles en formato Parquet
+                                    y se pueden cargar directamente usando la siguiente configuración:
+                                </p>
 
+                                <div style="background: #f8f9fa; padding: 20px; border-radius: 4px; margin: 20px 0; overflow-x: auto;">
+                                    <code style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block;">
+                                        import pandas as pd<br>
+                                        <br>
+                                        splits = {<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;'train': 'data/train-00000-of-00001.parquet',<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;'validation': 'data/validation-00000-of-00001.parquet',<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;'test': 'data/test-00000-of-00001.parquet'<br>
+                                        }<br>
+                                        <br>
+                                        df = pd.read_parquet(<br>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;"hf://datasets/google-research-datasets/poem_sentiment/" + splits["train"]<br>
+                                        )
+                                    </code>
+                                </div>
+
+                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                    <strong>URL del Dataset:</strong> <a href="https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer" target="_blank" style="color: #C41E3A; text-decoration: none;">https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer</a>
+                                </p>
+
+                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                    Este método permite cargar directamente los splits de entrenamiento, validación y prueba en DataFrames de pandas,
+                                    facilitando el preprocesamiento y manipulación de los datos para el análisis posterior.
+                                </p>
                                 <div class="section-subtitle">División del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                     Se utilizó la división estándar del dataset proporcionada por Hugging Face para
@@ -1588,6 +1641,15 @@ ${html}
                                     <strong>Librerías utilizadas:</strong> sklearn.metrics.classification_report,
                                     confusion_matrix
                                 </p>
+                                <code style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block; margin-top: 10px;">
+                                from sklearn.metrics import classification_report, confusion_matrix
+
+                                y_pred = clf.predict(X_test_counts)
+                                print(classification_report(y_test, y_pred))
+
+                                cm = confusion_matrix(y_test, y_pred)
+                                </code>
+
                             </div>
 
                             <!-- PAGE 8: Results -->
