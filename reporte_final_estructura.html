@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,7 +134,8 @@
         }
 
         /* Lists */
-        ul, ol {
+        ul,
+        ol {
             margin-left: 30px;
             margin-bottom: 20px;
         }
@@ -351,7 +353,9 @@
                 padding: 10px;
             }
 
-            p, li, td {
+            p,
+            li,
+            td {
                 font-size: 12pt;
                 line-height: 1.5;
                 text-align: justify;
@@ -364,6 +368,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -407,7 +412,10 @@
                 text-align: justify;
             }
 
-            p, li, td, th {
+            p,
+            li,
+            td,
+            th {
                 font-size: 12pt;
                 line-height: 1.5;
                 text-align: justify;
@@ -419,6 +427,7 @@
 
             @page {
                 margin: 2.5cm;
+
                 @bottom-center {
                     content: counter(page);
                     font-size: 12pt;
@@ -480,6 +489,7 @@
                 opacity: 0;
                 transform: translateY(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -723,7 +733,8 @@
             page-break-after: avoid;
         }
 
-        ul, ol {
+        ul,
+        ol {
             page-break-inside: avoid;
         }
 
@@ -743,7 +754,7 @@
     <script src="https://unpkg.com/docx@8.12.6/build/index.js"></script>
     <script>
         // Script para numeración de páginas
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             // En navegador, agregar numeración visible
             const pageNumbers = document.querySelectorAll('.page-number');
             if (pageNumbers.length > 0) {
@@ -765,7 +776,7 @@
 
                 // Obtener el HTML completo
                 const html = container.innerHTML;
-                
+
                 // Crear documento Word en formato OOXML
                 const docContent = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?mso-application progid="Word.Document"?>
@@ -803,7 +814,7 @@ ${html}
 
                 // Crear Blob
                 const blob = new Blob([docContent], { type: 'application/vnd.ms-word' });
-                
+
                 // Descargar
                 const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
@@ -813,7 +824,7 @@ ${html}
                 link.click();
                 document.body.removeChild(link);
                 URL.revokeObjectURL(url);
-                
+
                 alert('✓ Descargado: Reporte_Analisis_Sentimientos.doc');
             } catch (error) {
                 console.error('Error:', error);
@@ -827,7 +838,7 @@ ${html}
                 const element = document.querySelector('.container');
                 const cloned = element.cloneNode(true);
                 cloned.querySelectorAll('.download-container, .page-number, .header').forEach(el => el.remove());
-                
+
                 const opt = {
                     margin: 10,
                     filename: 'Reporte_Analisis_Sentimientos.pdf',
@@ -845,6 +856,7 @@ ${html}
         }
     </script>
 </head>
+
 <body>
     <div class="container">
         <!-- COVER PAGE -->
@@ -861,7 +873,7 @@ ${html}
                 <div class="cover-institution">
                     <h2>Centro de Investigación en Computación</h2>
                 </div>
-                
+
                 <div class="cover-course">
                     <p>Diplomado en Inteligencia Artificial</p>
                 </div>
@@ -885,7 +897,8 @@ ${html}
 
         <!-- TABLE OF CONTENTS -->
         <div style="page-break-after: always; padding: 40px 0;">
-            <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">Índice</h2>
+            <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">
+                Índice</h2>
             <ol style="font-size: 12pt; line-height: 2; margin-left: 30px; color: #333;">
                 <li>Introducción</li>
                 <li>Datos</li>
@@ -916,16 +929,23 @@ ${html}
             <!-- PAGE 1: Title and Author -->
             <div class="page-section">
                 <div class="section" style="text-align: center; margin-bottom: 60px;">
-                    <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de sentimientos en versos</h2>
-                    <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik I. Osornio Botello</p>
-                    
-                    <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
+                    <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de sentimientos en versos
+                    </h2>
+                    <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik I.
+                        Osornio Botello</p>
+
+                    <div class="highlight-box"
+                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
                         <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
                         <p style="text-align: justify; line-height: 1.8; color: #333;">
-                            Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis de sentimientos 
-                            sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión Logística</strong> (con CountVectorizer), 
-                            <strong>Naive Bayes Multinomial</strong> (con CountVectorizer) y una red neuronal <strong>LSTM</strong> (trabajando sobre secuencias tokenizadas). 
-                            El objetivo es describir el flujo completo: exploración y limpieza de datos, extracción de características, entrenamiento, 
+                            Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis
+                            de sentimientos
+                            sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión
+                                Logística</strong> (con CountVectorizer),
+                            <strong>Naive Bayes Multinomial</strong> (con CountVectorizer) y una red neuronal
+                            <strong>LSTM</strong> (trabajando sobre secuencias tokenizadas).
+                            El objetivo es describir el flujo completo: exploración y limpieza de datos, extracción de
+                            características, entrenamiento,
                             validación, evaluación cuantitativa y análisis crítico de resultados.
                         </p>
                     </div>
@@ -935,619 +955,807 @@ ${html}
             <!-- PAGE 2: Introduction Section -->
             <div class="page-section">
                 <div class="section">
-                <div class="section-title">📋 1. Introducción</div>
-                <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
-                    El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa, neutral) a textos. 
-                    En este proyecto se implementan tres enfoques que representan paradigmas distintos: modelos lineales probabilísticos 
-                    (Regresión Logística), modelos de probabilidades condicionales con suposiciones de independencia (Naive Bayes Multinomial) 
-                    y modelos secuenciales basados en redes neuronales (LSTM). Se discute su preparación, rendimiento y trade-offs.
-                </p>
-                
-                <div class="section-subtitle">Objetivos</div>
-                <ul style="line-height: 2;">
-                    <li>Construir y comparar tres modelos de análisis de sentimientos.</li>
-                    <li>Evaluar rendimiento con métricas estándar (accuracy, precision, recall, F1, AUC cuando aplique).</li>
-                    <li>Documentar decisiones de diseño y parámetros.</li>
-                </ul>
+                    <div class="section-title">📋 1. Introducción</div>
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
+                        El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa,
+                        neutral) a textos.
+                        En este proyecto se implementan tres enfoques que representan paradigmas distintos: modelos
+                        lineales probabilísticos
+                        (Regresión Logística), modelos de probabilidades condicionales con suposiciones de independencia
+                        (Naive Bayes Multinomial)
+                        y modelos secuenciales basados en redes neuronales (LSTM). Se discute su preparación,
+                        rendimiento y trade-offs.
+                    </p>
 
-                <div class="section-subtitle">Marco de Referencia</div>
-                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
-                    <p style="margin-bottom: 12px;">
-                        <strong>📋 Indicaciones del Proyecto:</strong> Este proyecto se fundamenta en las indicaciones 
-                        especificadas en el documento <em>Indicaciones Proyecto Poemas.pdf</em>, el cual establece que:
-                    </p>
-                    <p style="margin-bottom: 12px; padding-left: 15px; border-left: 3px solid #C41E3A; margin-left: 0;">
-                        <strong>"Este proyecto es un ejercicio de aprendizaje supervisado. La idea general consiste en 
-                        implementar tres clasificadores de texto para el problema de análisis de sentimientos en versos de poemas."</strong>
-                    </p>
-                    <p>
-                        <strong>Clases del Problema:</strong> El marco original define tres categorías de sentimiento (positivo, negativo 
-                        o neutral), aunque en la práctica el dataset utilizado incluye cuatro clases: Positivo, Negativo, Mixto y No impacto. 
-                        La estructura de tres clasificadores y el enfoque de aprendizaje supervisado se mantienen como eje central de 
-                        la implementación.
-                    </p>
-                </div>
+                    <div class="section-subtitle">Objetivos</div>
+                    <ul style="line-height: 2;">
+                        <li>Construir y comparar tres modelos de análisis de sentimientos.</li>
+                        <li>Evaluar rendimiento con métricas estándar (accuracy, precision, recall, F1, AUC cuando
+                            aplique).</li>
+                        <li>Documentar decisiones de diseño y parámetros.</li>
+                    </ul>
+
+                    <div class="section-subtitle">Marco de Referencia</div>
+                    <div class="highlight-box"
+                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
+                        <p style="margin-bottom: 12px;">
+                            <strong>📋 Indicaciones del Proyecto:</strong> Este proyecto se fundamenta en las
+                            indicaciones
+                            especificadas en el documento <em>Indicaciones Proyecto Poemas.pdf</em>, el cual establece
+                            que:
+                        </p>
+                        <p
+                            style="margin-bottom: 12px; padding-left: 15px; border-left: 3px solid #C41E3A; margin-left: 0;">
+                            <strong>"Este proyecto es un ejercicio de aprendizaje supervisado. La idea general consiste
+                                en
+                                implementar tres clasificadores de texto para el problema de análisis de sentimientos en
+                                versos de poemas."</strong>
+                        </p>
+                        <p>
+                            <strong>Clases del Problema:</strong> El marco original define tres categorías de
+                            sentimiento (positivo, negativo
+                            o neutral), aunque en la práctica el dataset utilizado incluye cuatro clases: Positivo,
+                            Negativo, Mixto y No impacto.
+                            La estructura de tres clasificadores y el enfoque de aprendizaje supervisado se mantienen
+                            como eje central de
+                            la implementación.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             <!-- PAGE 3: Data Section -->
             <div class="page-section">
                 <div class="section">
-                <div class="section-title">📊 2. Datos</div>
-                
-                <div class="section-subtitle">Descripción del Dataset</div>
-                <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
-                    <strong>Fuente:</strong> Para este proyecto se utilizó el dataset <em>Poem Sentiment</em> del repositorio de Google Research, 
-                    disponible en Hugging Face (hf://datasets/google-research-datasets/poem_sentiment). Este conjunto de datos consiste en versos 
-                    de poemas extraídos de Project Gutenberg, etiquetados según el sentimiento que transmiten.
-                </p>
-                
-                <div class="spec-card">
-                    <strong>📈 Características principales:</strong>
-                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                        <li><strong>Número total de ejemplos:</strong> 1,101 versos</li>
-                        <li><strong>Idioma:</strong> Textos en inglés</li>
-                        <li><strong>Tamaño:</strong> Dataset pequeño, lo que puede afectar la generalización de modelos complejos como LSTM</li>
-                        <li><strong>Data Augmentation:</strong> Debido al desbalance inicial de clases, se aplicó data augmentation únicamente en el conjunto de entrenamiento para equilibrar la distribución de clases.</li>
-                    </ul>
-                </div>
+                    <div class="section-title">📊 2. Datos</div>
 
-                <div class="section-subtitle">Clases de Sentimiento</div>
-                <ul style="line-height: 2;">
-                    <li><strong>Positivo:</strong> Versos con emociones positivas</li>
-                    <li><strong>Negativo:</strong> Versos con emociones negativas</li>
-                    <li><strong>Mixto:</strong> Versos que combinan emociones positivas y negativas</li>
-                    <li><strong>No impacto:</strong> Versos que no presentan un sentimiento claro</li>
-                </ul>
-
-                <div class="section-subtitle">Columnas del Dataset</div>
-                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
-                    Este conjunto de datos consta de versos de poemas extraídos de Project Gutenberg, etiquetados según el sentimiento que transmiten.
-                </p>
-                <ul style="line-height: 2;">
-                    <li><strong>verse_text:</strong> Contiene el texto del verso del poema</li>
-                    <li><strong>label:</strong> Indica la categoría de sentimiento del verso</li>
-                </ul>
-
-                <div class="section-subtitle">Exploración Inicial</div>
-                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
-                    En la fase de exploración, no se encontraron valores nulos. El histograma de las longitudes por clase se encuentra representado en la Ilustración 2.
-                </p>
-                
-                <div style="text-align: center; margin: 30px 0;">
-                    <img src="verse_lengths_distribution.png" alt="Gráfico de Distribución de Longitudes de Versos por Clase" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Ilustración 1. Distribución de longitudes por clase</p>
-                </div>
-
-                <p style="text-align: justify; line-height: 1.5; margin-top: 20px;">
-                    La figura muestra la distribución de la longitud de los versos según su sentimiento. Se observa que la mayoría de los versos tienen entre 30 y 50 palabras, 
-                    con predominancia de la clase no impact. Las clases minoritarias (mixed, positivo, negativo) están menos representadas, lo que refuerza el desbalance del dataset. 
-                    Esta distribución sugiere que los modelos podrían aprender primero la clase mayoritaria y que los ejemplos muy largos son poco frecuentes y podrían considerarse outliers.
-                </p>
-
-                <div class="section-subtitle">División de Datos</div>
-                <table class="format-table">
-                    <thead>
-                        <tr>
-                            <th>Conjunto</th>
-                            <th>Número de Ejemplos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Entrenamiento</strong></td>
-                            <td>892 ejemplos</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Validación</strong></td>
-                            <td>105 ejemplos</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Test</strong></td>
-                            <td>104 ejemplos</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Total</strong></td>
-                            <td>1,101 ejemplos</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="section-subtitle">Distribución de Clases (Entrenamiento Original)</div>
-                <table class="format-table">
-                    <thead>
-                        <tr>
-                            <th>Sentimiento</th>
-                            <th>Total</th>
-                            <th>Porcentaje</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>No impacto (No impact)</strong></td>
-                            <td>555</td>
-                            <td>62.2%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Negativo (Negative)</strong></td>
-                            <td>155</td>
-                            <td>17.4%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Positivo (Positive)</strong></td>
-                            <td>133</td>
-                            <td>14.9%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mixto (Mixed)</strong></td>
-                            <td>49</td>
-                            <td>5.5%</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div style="text-align: center; margin: 30px 0;">
-                    <img src="sentiment_distribution.png" alt="Gráfico de Distribución de Clases en Datos de Entrenamiento" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Figura 1: Distribución de Sentimientos en los Datos de Entrenamiento Original</p>
-                </div>
-
-                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
-                    <strong>⚠️ Problema de Desbalance:</strong> La mayoría de los versos pertenecen a la clase "No impacto", 
-                    mientras que la clase "Mixto" tiene muy pocos ejemplos. Este desbalance puede generar: 
-                    <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px; line-height: 1.8;">
-                        <li><strong>Bias hacia la clase mayoritaria:</strong> Los modelos tienden a predecir con mayor frecuencia la clase predominante (No impacto), lo que puede inflar el accuracy aparente, pero reducir la capacidad de identificar correctamente las clases minoritarias.</li>
-                        <li><strong>Problemas de generalización en LSTM y modelos complejos:</strong> Las redes neuronales pueden sobreajustar fácilmente a la clase mayoritaria, especialmente cuando el dataset es pequeño. En este caso, modelos como LSTM pueden aprender patrones sesgados en lugar de representaciones robustas de todas las clases.</li>
-                        <li><strong>Métricas poco confiables para clases minoritarias:</strong> Las métricas de rendimiento pueden ser engañosas si se interpretan sin considerar el desbalance.</li>
-                    </ul>
-                    <p style="margin-top: 12px; text-align: justify; line-height: 1.6; font-size: 11pt;">
-                        Dado el tamaño reducido y el desbalance, estos conjuntos pueden no ser representativos de la distribución real de clases. 
-                        Esto significa que las métricas de evaluación (accuracy, F1, recall, precision) pueden ser ruidosas y poco confiables, 
-                        especialmente para las clases minoritarias como Mixto y Positivo.
+                    <div class="section-subtitle">Descripción del Dataset</div>
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
+                        <strong>Fuente:</strong> Para este proyecto se utilizó el dataset <em>Poem Sentiment</em> del
+                        repositorio de Google Research,
+                        disponible en Hugging Face (hf://datasets/google-research-datasets/poem_sentiment). Este
+                        conjunto de datos consiste en versos
+                        de poemas extraídos de Project Gutenberg, etiquetados según el sentimiento que transmiten.
                     </p>
-                </div>
 
-                <div class="section-subtitle">Estrategias de Mitigación</div>
-                <ul style="line-height: 2;">
-                    <li><strong>Data Augmentation:</strong> Aplicada solo en el entrenamiento para balancear las clases</li>
-                    <li><strong>Class weights:</strong> Pesos por clase en LSTM para penalizar predicciones incorrectas de clases minoritarias</li>
-                </ul>
+                    <div class="spec-card">
+                        <strong>📈 Características principales:</strong>
+                        <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                            <li><strong>Número total de ejemplos:</strong> 1,101 versos</li>
+                            <li><strong>Idioma:</strong> Textos en inglés</li>
+                            <li><strong>Tamaño:</strong> Dataset pequeño, lo que puede afectar la generalización de
+                                modelos complejos como LSTM</li>
+                            <li><strong>Data Augmentation:</strong> Debido al desbalance inicial de clases, se aplicó
+                                data augmentation únicamente en el conjunto de entrenamiento para equilibrar la
+                                distribución de clases.</li>
+                        </ul>
+                    </div>
 
-                <div class="section-subtitle">Distribución de Clases (Post Data Augmentation)</div>
-                <table class="format-table">
-                    <thead>
-                        <tr>
-                            <th>Sentimiento</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>No impacto (No impact)</strong></td>
-                            <td>2,775</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Negativo (Negative)</strong></td>
-                            <td>2,325</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Positivo (Positive)</strong></td>
-                            <td>1,995</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mixto (Mixed)</strong></td>
-                            <td>735</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="section-subtitle">Clases de Sentimiento</div>
+                    <ul style="line-height: 2;">
+                        <li><strong>Positivo:</strong> Versos con emociones positivas</li>
+                        <li><strong>Negativo:</strong> Versos con emociones negativas</li>
+                        <li><strong>Mixto:</strong> Versos que combinan emociones positivas y negativas</li>
+                        <li><strong>No impacto:</strong> Versos que no presentan un sentimiento claro</li>
+                    </ul>
+
+                    <div class="section-subtitle">Columnas del Dataset</div>
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
+                        Este conjunto de datos consta de versos de poemas extraídos de Project Gutenberg, etiquetados
+                        según el sentimiento que transmiten.
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>verse_text:</strong> Contiene el texto del verso del poema</li>
+                        <li><strong>label:</strong> Indica la categoría de sentimiento del verso</li>
+                    </ul>
+
+                    <div class="section-subtitle">Exploración Inicial</div>
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
+                        En la fase de exploración, no se encontraron valores nulos. El histograma de las longitudes por
+                        clase se encuentra representado en la Ilustración 2.
+                    </p>
+
+                    <div style="text-align: center; margin: 30px 0;">
+                        <img src="verse_lengths_distribution.png"
+                            alt="Gráfico de Distribución de Longitudes de Versos por Clase"
+                            style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                        <p
+                            style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                            Ilustración 1. Distribución de longitudes por clase</p>
+                    </div>
+
+                    <p style="text-align: justify; line-height: 1.5; margin-top: 20px;">
+                        La figura muestra la distribución de la longitud de los versos según su sentimiento. Se observa
+                        que la mayoría de los versos tienen entre 30 y 50 palabras,
+                        con predominancia de la clase no impact. Las clases minoritarias (mixed, positivo, negativo)
+                        están menos representadas, lo que refuerza el desbalance del dataset.
+                        Esta distribución sugiere que los modelos podrían aprender primero la clase mayoritaria y que
+                        los ejemplos muy largos son poco frecuentes y podrían considerarse outliers.
+                    </p>
+
+                    <div class="section-subtitle">División de Datos</div>
+                    <table class="format-table">
+                        <thead>
+                            <tr>
+                                <th>Conjunto</th>
+                                <th>Número de Ejemplos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Entrenamiento</strong></td>
+                                <td>892 ejemplos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Validación</strong></td>
+                                <td>105 ejemplos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Test</strong></td>
+                                <td>104 ejemplos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td>1,101 ejemplos</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="section-subtitle">Distribución de Clases (Entrenamiento Original)</div>
+                    <table class="format-table">
+                        <thead>
+                            <tr>
+                                <th>Sentimiento</th>
+                                <th>Total</th>
+                                <th>Porcentaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>No impacto (No impact)</strong></td>
+                                <td>555</td>
+                                <td>62.2%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Negativo (Negative)</strong></td>
+                                <td>155</td>
+                                <td>17.4%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Positivo (Positive)</strong></td>
+                                <td>133</td>
+                                <td>14.9%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mixto (Mixed)</strong></td>
+                                <td>49</td>
+                                <td>5.5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="text-align: center; margin: 30px 0;">
+                        <img src="sentiment_distribution.png"
+                            alt="Gráfico de Distribución de Clases en Datos de Entrenamiento"
+                            style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                        <p
+                            style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                            Figura 1: Distribución de Sentimientos en los Datos de Entrenamiento Original</p>
+                    </div>
+
+                    <div class="highlight-box"
+                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
+                        <strong>⚠️ Problema de Desbalance:</strong> La mayoría de los versos pertenecen a la clase "No
+                        impacto",
+                        mientras que la clase "Mixto" tiene muy pocos ejemplos. Este desbalance puede generar:
+                        <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px; line-height: 1.8;">
+                            <li><strong>Bias hacia la clase mayoritaria:</strong> Los modelos tienden a predecir con
+                                mayor frecuencia la clase predominante (No impacto), lo que puede inflar el accuracy
+                                aparente, pero reducir la capacidad de identificar correctamente las clases
+                                minoritarias.</li>
+                            <li><strong>Problemas de generalización en LSTM y modelos complejos:</strong> Las redes
+                                neuronales pueden sobreajustar fácilmente a la clase mayoritaria, especialmente cuando
+                                el dataset es pequeño. En este caso, modelos como LSTM pueden aprender patrones sesgados
+                                en lugar de representaciones robustas de todas las clases.</li>
+                            <li><strong>Métricas poco confiables para clases minoritarias:</strong> Las métricas de
+                                rendimiento pueden ser engañosas si se interpretan sin considerar el desbalance.</li>
+                        </ul>
+                        <p style="margin-top: 12px; text-align: justify; line-height: 1.6; font-size: 11pt;">
+                            Dado el tamaño reducido y el desbalance, estos conjuntos pueden no ser representativos de la
+                            distribución real de clases.
+                            Esto significa que las métricas de evaluación (accuracy, F1, recall, precision) pueden ser
+                            ruidosas y poco confiables,
+                            especialmente para las clases minoritarias como Mixto y Positivo.
+                        </p>
+                    </div>
+
+                    <div class="section-subtitle">Estrategias de Mitigación</div>
+                    <ul style="line-height: 2;">
+                        <li><strong>Data Augmentation:</strong> Aplicada solo en el entrenamiento para balancear las
+                            clases</li>
+                        <li><strong>Class weights:</strong> Pesos por clase en LSTM para penalizar predicciones
+                            incorrectas de clases minoritarias</li>
+                    </ul>
+
+                    <div class="section-subtitle">Distribución de Clases (Post Data Augmentation)</div>
+                    <table class="format-table">
+                        <thead>
+                            <tr>
+                                <th>Sentimiento</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>No impacto (No impact)</strong></td>
+                                <td>2,775</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Negativo (Negative)</strong></td>
+                                <td>2,325</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Positivo (Positive)</strong></td>
+                                <td>1,995</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mixto (Mixed)</strong></td>
+                                <td>735</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <!-- PAGE 4: Preprocesamiento -->
             <div class="page-section">
                 <div class="section">
-                <div class="section-title">📝 3. Preprocesamiento</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                    El texto se sometió a un pipeline de preprocesamiento con dos funciones principales: <code>clean_text</code> y <code>preprocess_text</code>.
-                </p>
+                    <div class="section-title">📝 3. Preprocesamiento</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                        El texto se sometió a un pipeline de preprocesamiento con dos funciones principales:
+                        <code>clean_text</code> y <code>preprocess_text</code>.
+                    </p>
 
-                <div class="section-subtitle">Limpieza de Texto (clean_text)</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    Esta función realiza operaciones de limpieza básica para normalizar los datos textuales:
-                </p>
-                <ul style="line-height: 2;">
-                    <li>Conversión a minúsculas para uniformidad</li>
-                    <li>Eliminación de URLs y etiquetas HTML</li>
-                    <li>Remoción de menciones de usuarios (@usuario) y símbolos de hashtags (#)</li>
-                    <li>Eliminación de puntuación y números</li>
-                    <li>Reducción de espacios en blanco redundantes</li>
-                </ul>
+                    <div class="section-subtitle">Limpieza de Texto (clean_text)</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Esta función realiza operaciones de limpieza básica para normalizar los datos textuales:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li>Conversión a minúsculas para uniformidad</li>
+                        <li>Eliminación de URLs y etiquetas HTML</li>
+                        <li>Remoción de menciones de usuarios (@usuario) y símbolos de hashtags (#)</li>
+                        <li>Eliminación de puntuación y números</li>
+                        <li>Reducción de espacios en blanco redundantes</li>
+                    </ul>
 
-                <div class="section-subtitle">Preprocesamiento Completo (preprocess_text)</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    A continuación, el texto limpio se somete a un procesamiento adicional para preparar los datos para modelos de NLP:
-                </p>
-                <ul style="line-height: 2;">
-                    <li><strong>Tokenización:</strong> El texto se divide en palabras individuales</li>
-                    <li><strong>Eliminación de stopwords:</strong> Se eliminan palabras comunes sin contenido semántico relevante (como “the”, “and”, “is”) utilizando la lista de NLTK</li>
-                    <li><strong>Lematización:</strong> Cada palabra se reduce a su forma base (por ejemplo, “running” → “run”, “cars” → “car”) usando WordNetLemmatizer.</li>
-                    <li><strong>Reconstrucción del texto:</strong> Los tokens resultantes se unen nuevamente en un string, listo para su análisis o entrada a un modelo</li>
-                </ul>
+                    <div class="section-subtitle">Preprocesamiento Completo (preprocess_text)</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        A continuación, el texto limpio se somete a un procesamiento adicional para preparar los datos
+                        para modelos de NLP:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Tokenización:</strong> El texto se divide en palabras individuales</li>
+                        <li><strong>Eliminación de stopwords:</strong> Se eliminan palabras comunes sin contenido
+                            semántico relevante (como “the”, “and”, “is”) utilizando la lista de NLTK</li>
+                        <li><strong>Lematización:</strong> Cada palabra se reduce a su forma base (por ejemplo,
+                            “running” → “run”, “cars” → “car”) usando WordNetLemmatizer.</li>
+                        <li><strong>Reconstrucción del texto:</strong> Los tokens resultantes se unen nuevamente en un
+                            string, listo para su análisis o entrada a un modelo</li>
+                    </ul>
 
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                    Este pipeline permite obtener un texto limpio, normalizado y representativo, adecuado para técnicas de NLP como modelos de LSTM, 
-                    Naive Bayes o TF-IDF, mejorando la calidad de las predicciones y reduciendo el ruido en los datos.
-                </p>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                        Este pipeline permite obtener un texto limpio, normalizado y representativo, adecuado para
+                        técnicas de NLP como modelos de LSTM,
+                        Naive Bayes o TF-IDF, mejorando la calidad de las predicciones y reduciendo el ruido en los
+                        datos.
+                    </p>
 
-                <div class="spec-card">
-                    <strong>📝 Ejemplos de Preprocesamiento:</strong>
-                    <div style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                        <p><strong>Original:</strong> "with pale blue berries. in these peaceful shades"</p>
-                        <p><strong>Procesado:</strong> "pale blue berry peaceful shade"</p>
-                        <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
-                        <p><strong>Original:</strong> "it flows so long as falls the rain,"</p>
-                        <p><strong>Procesado:</strong> "flow long fall rain"</p>
+                    <div class="spec-card">
+                        <strong>📝 Ejemplos de Preprocesamiento:</strong>
+                        <div
+                            style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                            <p><strong>Original:</strong> "with pale blue berries. in these peaceful shades"</p>
+                            <p><strong>Procesado:</strong> "pale blue berry peaceful shade"</p>
+                            <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
+                            <p><strong>Original:</strong> "it flows so long as falls the rain,"</p>
+                            <p><strong>Procesado:</strong> "flow long fall rain"</p>
+                        </div>
                     </div>
-                </div>
 
-                <div style="height: 20px; clear: both;"></div>
+                    <div style="height: 20px; clear: both;"></div>
 
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                    Se puede observar que, tras aplicar procesamiento, se reduce la longitud de la oración original, se removió puntuación y stopwords.
-                </p>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                        Se puede observar que, tras aplicar procesamiento, se reduce la longitud de la oración original,
+                        se removió puntuación y stopwords.
+                    </p>
 
-                <div class="section-subtitle">Data Augmentation</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    Se implementó un pipeline de aumento de datos utilizando la librería <code>nlpaug</code> para balancear 
-                    las clases minoritarias. El objetivo principal es balancear las clases minoritarias en el dataset y mejorar la capacidad del modelo para generalizar. 
-                    El proceso incluye:
-                </p>
-                <ul style="line-height: 2;">
-                    <li><strong>Selección de clases minoritarias:</strong> Se identifican las clases que tienen pocas muestras (por ejemplo: “negative”, “positive” y “mixed”) 
-                        y se les aplica un mayor número de "augmentations" para equilibrar la distribución de clases.</li>
-                    <li><strong>Generación de nuevas muestras:</strong> Para cada texto en el dataset se generan varias versiones alternativas reemplazando palabras por sinónimos usando WordNet.</li>
-                    <li><strong>Proporción de aumentos:</strong> Las clases minoritarias reciben más aumentos que las clases mayoritarias, logrando un balance más uniforme.</li>
-                    <li><strong>Creación de dataset final:</strong> Los textos originales y los aumentados se combinan en un nuevo DataFrame.</li>
-                </ul>
+                    <div class="section-subtitle">Data Augmentation</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Se implementó un pipeline de aumento de datos utilizando la librería <code>nlpaug</code> para
+                        balancear
+                        las clases minoritarias. El objetivo principal es balancear las clases minoritarias en el
+                        dataset y mejorar la capacidad del modelo para generalizar.
+                        El proceso incluye:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Selección de clases minoritarias:</strong> Se identifican las clases que tienen
+                            pocas muestras (por ejemplo: “negative”, “positive” y “mixed”)
+                            y se les aplica un mayor número de "augmentations" para equilibrar la distribución de
+                            clases.</li>
+                        <li><strong>Generación de nuevas muestras:</strong> Para cada texto en el dataset se generan
+                            varias versiones alternativas reemplazando palabras por sinónimos usando WordNet.</li>
+                        <li><strong>Proporción de aumentos:</strong> Las clases minoritarias reciben más aumentos que
+                            las clases mayoritarias, logrando un balance más uniforme.</li>
+                        <li><strong>Creación de dataset final:</strong> Los textos originales y los aumentados se
+                            combinan en un nuevo DataFrame.</li>
+                    </ul>
 
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                    Esto produce un dataset más grande y balanceado, que reduce el sesgo hacia clases mayoritarias y ayuda a mejorar el entrenamiento de modelos de NLP.
-                </p>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                        Esto produce un dataset más grande y balanceado, que reduce el sesgo hacia clases mayoritarias y
+                        ayuda a mejorar el entrenamiento de modelos de NLP.
+                    </p>
 
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                    Este procedimiento es especialmente útil en problemas de clasificación de texto donde algunas categorías tienen muy pocas muestras, ya que incrementa la diversidad de los datos 
-                    sin necesidad de recolectar más ejemplos reales.
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                        Este procedimiento es especialmente útil en problemas de clasificación de texto donde algunas
+                        categorías tienen muy pocas muestras, ya que incrementa la diversidad de los datos
+                        sin necesidad de recolectar más ejemplos reales.
 
-                </p>
+                    </p>
 
-                <div class="spec-card">
-                    <strong>📝 Ejemplos de Data Augmentation:</strong>
-                    <div style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                        <p><strong>Original:</strong> "right wrong john"</p>
-                        <p><strong>Aumento 1:</strong> "right unseasonable john"</p>
-                        <p><strong>Aumento 2:</strong> "right ill timed john"</p>
-                        <p><strong>Aumento 3:</strong> "right wrong king john"</p>
-                        <p><strong>Aumento 4:</strong> "mightily wrong john"</p>
+                    <div class="spec-card">
+                        <strong>📝 Ejemplos de Data Augmentation:</strong>
+                        <div
+                            style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                            <p><strong>Original:</strong> "right wrong john"</p>
+                            <p><strong>Aumento 1:</strong> "right unseasonable john"</p>
+                            <p><strong>Aumento 2:</strong> "right ill timed john"</p>
+                            <p><strong>Aumento 3:</strong> "right wrong king john"</p>
+                            <p><strong>Aumento 4:</strong> "mightily wrong john"</p>
+                        </div>
                     </div>
+
+                    <p style="text-align: justify; line-height: 1.8; margin-top: 20px;">
+                        Tras aplicar aumentos, se puede observar que en cada aumento se cambia la palabra <em>wrong</em>
+                        (malo) por un sinónimo diferente:
+                        <em>unseasonable</em>, <em>ill timed</em>, <em>mightily wrong john</em>, haciendo el dataset más
+                        diverso. A la clase mayoritaria se le
+                        aplicaron 5 aumentos y a las minoritarias 14 por cada muestra. De esta manera, se genera una
+                        representación más rica de cada clase
+                        sin necesidad de recolectar datos nuevos.
+                    </p>
+
+                    <p style="text-align: justify; line-height: 1.8; margin-top: 20px;">
+                        La distribución resultante se puede observar en la Tabla 2:
+                    </p>
+
+                    <table class="format-table" style="margin-top: 15px;">
+                        <thead>
+                            <tr>
+                                <th>Sentimiento</th>
+                                <th>Total</th>
+                                <th>Porcentaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>No impacto (No impact)</strong></td>
+                                <td>2,775</td>
+                                <td>35.45%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Negativo (Negative)</strong></td>
+                                <td>2,325</td>
+                                <td>29.69%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Positivo (Positive)</strong></td>
+                                <td>1,995</td>
+                                <td>25.48%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mixto (Mixed)</strong></td>
+                                <td>735</td>
+                                <td>9.39%</td>
+                            </tr>
+                            <tr style="background: #f0f0f0; font-weight: bold;">
+                                <td><strong>Total</strong></td>
+                                <td>7,830</td>
+                                <td>100%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                        Tabla 2. Distribución de clases después de aplicar aumentos</p>
+
                 </div>
 
-                <p style="text-align: justify; line-height: 1.8; margin-top: 20px;">
-                    Tras aplicar aumentos, se puede observar que en cada aumento se cambia la palabra <em>wrong</em> (malo) por un sinónimo diferente: 
-                    <em>unseasonable</em>, <em>ill timed</em>, <em>mightily wrong john</em>, haciendo el dataset más diverso. A la clase mayoritaria se le 
-                    aplicaron 5 aumentos y a las minoritarias 14 por cada muestra. De esta manera, se genera una representación más rica de cada clase 
-                    sin necesidad de recolectar datos nuevos.
-                </p>
+                <!-- PAGE 5: Text Representation -->
+                <div class="page-section">
+                    <div class="section">
+                        <div class="section-title">🔢 4. Representación de Texto</div>
 
-                <p style="text-align: justify; line-height: 1.8; margin-top: 20px;">
-                    La distribución resultante se puede observar en la Tabla 2:
-                </p>
+                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                            Se utilizó CountVectorizer para los modelos clásicos y embeddings + secuencias para la LSTM.
+                        </p>
 
-                <table class="format-table" style="margin-top: 15px;">
-                    <thead>
-                        <tr>
-                            <th>Sentimiento</th>
-                            <th>Total</th>
-                            <th>Porcentaje</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>No impacto (No impact)</strong></td>
-                            <td>2,775</td>
-                            <td>35.45%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Negativo (Negative)</strong></td>
-                            <td>2,325</td>
-                            <td>29.69%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Positivo (Positive)</strong></td>
-                            <td>1,995</td>
-                            <td>25.48%</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Mixto (Mixed)</strong></td>
-                            <td>735</td>
-                            <td>9.39%</td>
-                        </tr>
-                        <tr style="background: #f0f0f0; font-weight: bold;">
-                            <td><strong>Total</strong></td>
-                            <td>7,830</td>
-                            <td>100%</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">Tabla 2. Distribución de clases después de aplicar aumentos</p>
+                        <div class="section-subtitle">Count Vectorizer</div>
+                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            El CountVectorizer se utiliza para convertir texto en una representación numérica que pueda
+                            ser procesada
+                            por modelos de machine learning. Transforma un conjunto de documentos en una matriz de
+                            conteo de palabras,
+                            donde cada fila representa un documento, cada columna representa una palabra del
+                            vocabulario, y el valor
+                            indica cuántas veces aparece esa palabra en el documento.
+                        </p>
 
-            </div>
+                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                            En <strong>scikit-learn</strong>, CountVectorizer se configura como un objeto que luego se
+                            ajusta (fit) y transforma (transform) sobre los textos. La Ilustración 4 muestra como
+                            ajustar sus parámetros.
+                        </p>
 
-            <!-- PAGE 5: Text Representation -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">🔢 4. Representación de Texto</div>
-                
-                <div class="section-subtitle">Count Vectorizer (Modelos Clásicos)</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    El CountVectorizer se utiliza para convertir texto en una representación numérica que pueda ser procesada 
-                    por modelos de machine learning. Transforma un conjunto de documentos en una matriz de conteo de palabras, 
-                    donde cada fila representa un documento, cada columna representa una palabra del vocabulario, y el valor 
-                    indica cuántas veces aparece esa palabra en el documento.
-                </p>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    <strong>Configuración:</strong> max_features=10000, unigramas y bigramas
-                </p>
-                <p style="text-align: justify; line-height: 1.8;">
-                    <strong>Matrices resultantes:</strong>
-                </p>
-                <ul style="line-height: 2;">
-                    <li>X_train: (7830, 10000)</li>
-                    <li>X_val: (105, 10000)</li>
-                    <li>X_test: (104, 10000)</li>
-                </ul>
+                        <div style="text-align: center; margin: 30px 0;">
+                            <img src="count_vectorizer.png" alt="Configuración de CountVectorizer"
+                                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                            <p
+                                style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                Ilustración 4. Ejemplo de configuración de CountVectorizer</p>
+                        </div>
 
-                <div class="section-subtitle">Tokenización para LSTM</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    Para entrenar una LSTM, cada documento se convirtió en una secuencia numérica de longitud fija mediante 
-                    la librería Keras Tokenizer:
-                </p>
-                <ul style="line-height: 2;">
-                    <li><strong>Tokenización:</strong> Asignación de identificador único a cada palabra del vocabulario</li>
-                    <li><strong>Padding:</strong> Relleno con ceros para garantizar longitud fija</li>
-                    <li><strong>Embedding:</strong> Transformación de enteros en vectores densos</li>
-                </ul>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    <strong>Configuración:</strong> num_words=10000, oov_token="&lt;OOV&gt;"
-                </p>
+                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            <strong>Configuración:</strong> max_features=10000, unigramas y bigramas
+                        </p>
+                        <p style="text-align: justify; line-height: 1.8;">
+                            <strong>Matrices resultantes:</strong>
+                        </p>
+                        <ul style="line-height: 2;">
+                            <li>X_train: (7830, 10000)</li>
+                            <li>X_val: (105, 10000)</li>
+                            <li>X_test: (104, 10000)</li>
+                        </ul>
 
-                <div class="spec-card">
-                    <strong>📝 Ejemplo de Tokenización:</strong>
-                    <div style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                        <p><strong>Texto:</strong> "i love nlp"</p>
-                        <p><strong>Tokenizado:</strong> [2, 3, 1]</p>
-                        <p><strong>Con Padding (longitud=5):</strong> [2, 3, 1, 0, 0]</p>
+                        <div class="section-subtitle">Tokenización para LSTM</div>
+                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            Para entrenar una LSTM, cada documento se convirtió en una secuencia numérica de longitud
+                            fija mediante
+                            la librería Keras Tokenizer:
+                        </p>
+                        <ul style="line-height: 2;">
+                            <li><strong>Tokenización:</strong> Asignación de identificador único a cada palabra del
+                                vocabulario</li>
+                            <li><strong>Padding:</strong> Relleno con ceros para garantizar longitud fija</li>
+                            <li><strong>Entrada al modelo:</strong> El conjunto completo se representa como una matriz
+                                de dimensión <code>(n_samples, max_sequence_length)</code>, donde <code>n_samples</code>
+                                es el número de documentos y <code>max_sequence_length</code> es la longitud máxima de
+                                las secuencias después del padding</li>
+                            <li><strong>Embedding:</strong> Transformación de enteros en vectores densos de tamaño fijo
+                                (embedding_dim), resultando en una entrada final con forma: <code>(batch_size,
+                                sequence_length, embedding_dim)</code></li>
+
+                        </ul>
+                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            <strong>Configuración de ejemplo:</strong> num_words=10000, oov_token="&lt;OOV&gt;"
+                        </p>
+
+                        <div class="spec-card">
+                            <strong>📝 Ejemplo de Tokenización:</strong>
+                            <div
+                                style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
+                                <p><strong>Texto:</strong> "i love nlp"</p>
+                                <p><strong>Tokenizado:</strong> [2, 3, 1]</p>
+                                <p><strong>Con Padding (longitud=5):</strong> [2, 3, 1, 0, 0]</p>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin: 30px 0;">
+                            <img src="tokenizacion_keras.png" alt="Tokenización en Keras"
+                                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                            <p
+                                style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                Ilustración 5. Tokenización en Keras</p>
+                        </div>
+
+
+
                     </div>
-                </div>
-            </div>
 
-            <!-- PAGE 6: Models -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">🤖 5. Modelos Implementados</div>
-                
-                <div class="section-subtitle">5.1 Regresión Logística</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    La regresión logística fue seleccionada por su capacidad para manejar eficazmente representaciones vectorizadas 
-                    del texto. Este modelo aprende a estimar la probabilidad de pertenencia a cada clase mediante una combinación 
-                    lineal de características, lo cual resulta apropiado en problemas de análisis de texto donde la presencia 
-                    o frecuencia de ciertas palabras suele correlacionarse directamente con el sentimiento.
-                </p>
-                <div class="spec-card">
-                    <strong>Ventajas:</strong>
-                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                        <li>Permite incorporar pesos para clases minoritarias (class weights)</li>
-                        <li>Naturaleza probabilística facilita interpretar confianza</li>
-                        <li>Bajo costo computacional y estable</li>
-                        <li>Excelente baseline para comparar con modelos más complejos</li>
-                    </ul>
-                </div>
-                <p style="margin-top: 15px;"><strong>Parámetros:</strong> max_iter=1000, librería: sklearn.linear_model.LogisticRegression</p>
+                    <!-- PAGE 6: Models -->
+                    <div class="page-section">
+                        <div class="section">
+                            <div class="section-title">🤖 5. Modelos Implementados</div>
 
-                <div class="section-subtitle">5.2 Naive Bayes Multinomial</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    El modelo Naive Bayes Multinomial está especialmente diseñado para trabajar con datos representados como 
-                    frecuencias de palabras. Asume independencia entre las características (palabras), lo que simplifica el 
-                    cálculo de probabilidades y permite un entrenamiento muy rápido incluso con grandes volúmenes de texto.
-                </p>
-                <div class="spec-card">
-                    <strong>Ventajas:</strong>
-                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                        <li>Rendimiento competitivo en clasificación de textos</li>
-                        <li>Especialmente efectivo cuando hay palabras claramente asociadas a cada sentimiento</li>
-                        <li>Entrenamimiento rápido y eficiente</li>
-                        <li>Opción sólida como modelo base</li>
-                    </ul>
-                </div>
-                <p style="margin-top: 15px;"><strong>Implementación:</strong> MultinomialNB de scikit-learn</p>
+                            <div class="section-subtitle">5.1 Regresión Logística</div>
+                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                La regresión logística fue seleccionada por su capacidad para manejar eficazmente
+                                representaciones vectorizadas
+                                del texto. Este modelo aprende a estimar la probabilidad de pertenencia a cada clase
+                                mediante una combinación
+                                lineal de características, lo cual resulta apropiado en problemas de análisis de texto
+                                donde la presencia
+                                o frecuencia de ciertas palabras suele correlacionarse directamente con el sentimiento.
+                            </p>
+                            <div class="spec-card">
+                                <strong>Ventajas:</strong>
+                                <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                                    <li>Permite incorporar pesos para clases minoritarias (class weights)</li>
+                                    <li>Naturaleza probabilística facilita interpretar confianza</li>
+                                    <li>Bajo costo computacional y estable</li>
+                                    <li>Excelente baseline para comparar con modelos más complejos</li>
+                                </ul>
+                            </div>
+                            <div style="height: 20px; clear: both;"></div>
+                            <p style="margin-top: 15px;"><strong>Librería:</strong>
+                                sklearn.linear_model.LogisticRegression</p>
+                            <p style="margin-top: 15px;"><strong>Parámetros:</strong> max_iter=1000</p>
 
-                <div class="section-subtitle">5.3 LSTM (Long Short-Term Memory)</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    Las redes LSTM están diseñadas para procesar secuencias de texto teniendo en cuenta el contexto y el orden 
-                    de las palabras. A diferencia de los modelos basados en frecuencias, una LSTM puede recordar información 
-                    relevante de palabras anteriores, mejorando la interpretación del sentimiento en frases completas.
-                </p>
-                <div class="spec-card">
-                    <strong>Ventajas:</strong>
-                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                        <li>Modela dependencias a largo plazo</li>
-                        <li>Útil para negaciones y expresiones compuestas</li>
-                        <li>Representación más semántica del texto</li>
-                        <li>Mejor desempeño en tareas complejas de análisis de sentimientos</li>
-                    </ul>
-                </div>
-                <p style="margin-top: 15px;"><strong>Framework:</strong> TensorFlow / Keras</p>
-                <p style="margin-top: 10px;"><strong>Arquitectura:</strong> Embedding (10000) → LSTM (168) → Dropout (0.5) → Dense (168) → Dropout (0.5) → Dense(4) → Softmax</p>
-                <p style="margin-top: 10px;"><strong>Regularización:</strong> Dropout, recurrent_dropout, L2</p>
-                <p style="margin-top: 10px;"><strong>Optimizer:</strong> Adam</p>
-            </div>
+                            <div style="text-align: center; margin: 30px 0;">
+                                <img src="logistic_regression.png" alt="Parámetros utilizados para regresión logística"
+                                    style="max-width: 70%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                <p
+                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                    Ilustración 6. Parámetros utilizados para regresión logística</p>
+                            </div>
 
-            <!-- PAGE 7: Metrics and Training -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
-                
-                <div class="section-subtitle">División del Dataset</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    Se utilizó la división estándar del dataset proporcionada por Hugging Face para garantizar coherencia 
-                    y reproducibilidad de los resultados.
-                </p>
+                            <div class="section-subtitle">5.2 Naive Bayes Multinomial</div>
+                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                El modelo Naive Bayes Multinomial está especialmente diseñado para trabajar con datos
+                                representados como
+                                frecuencias de palabras, como los obtenidos mediante técnicas de Bag-of-Words o TF-IDF.
+                                Asume independencia entre las características (palabras), lo
+                                que simplifica el
+                                cálculo de probabilidades y permite un entrenamiento muy rápido incluso con grandes
+                                volúmenes de texto.
+                            </p>
+                            <div class="spec-card">
+                                <strong>Ventajas:</strong>
+                                <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                                    <li>Rendimiento competitivo en clasificación de textos</li>
+                                    <li>Especialmente efectivo cuando hay palabras claramente asociadas a cada
+                                        sentimiento</li>
+                                    <li>Entrenamimiento rápido y eficiente</li>
+                                    <li>Opción sólida como modelo base</li>
+                                </ul>
+                            </div>
+                            <p style="margin-top: 15px;"><strong>Implementación:</strong> MultinomialNB de scikit-learn
+                            </p>
+                            <div style="text-align: center; margin: 30px 0;">
+                                <img src="multinomial_nb.png" alt="Parámetros utilizados para Naive Bayes Multinomial"
+                                    style="max-width: 40%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                <p
+                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                    Ilustración 7. Configuración de parámetros de Naive Bayes Multinomial</p>
+                            </div>
+                            <div class="section-subtitle">5.3 LSTM (Long Short-Term Memory)</div>
+                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                Las redes LSTM (Long Short-Term Memory) se utilizan en la clasificación de sentimientos
+                                porque están diseñadas para procesar secuencias de texto teniendo en cuenta el contexto
+                                y el orden de las palabras, algo que los modelos tradicionales como Bag-of-Words no
+                                pueden capturar. A diferencia de los modelos basados en frecuencias, que tratan cada
+                                palabra de forma independiente, una LSTM puede recordar información relevante de
+                                palabras anteriores y utilizarla para interpretar correctamente el sentimiento de una
+                                frase completa. Esto es especialmente útil en casos donde el significado depende de la
+                                estructura, como en negaciones (“no fue tan bueno”) o expresiones compuestas. Gracias a
+                                esta capacidad para modelar dependencias a largo plazo, las LSTM logran una
+                                representación más semántica del texto, mejorando el desempeño en tareas de análisis de
+                                sentimientos. Para su implementación se utilizó la librería de keras y los parámetros se
+                                definen de acuerdo a la Ilustración 8 donde: input_dim es el tamaño de vocabulario;
+                                output_dim, la dimensión del vector de embedding; input_length, la longitud máxima de
+                                las secuencias; LSTM (), el número de unidades de memoria en una LSTM; Dense es el
+                                número de clases de salida y activation es la función de activación para clasificación
+                                multiclase.
+                            </p>
+                            <div class="spec-card">
+                                <strong>Ventajas:</strong>
+                                <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                                    <li>Modela dependencias a largo plazo</li>
+                                    <li>Útil para negaciones y expresiones compuestas</li>
+                                    <li>Representación más semántica del texto</li>
+                                    <li>Mejor desempeño en tareas complejas de análisis de sentimientos</li>
+                                </ul>
+                            </div>
+                            <p style="margin-top: 15px;"><strong>Framework:</strong> TensorFlow / Keras</p>
+                            <p style="margin-top: 10px;"><strong>Arquitectura:</strong> Embedding (10000) → LSTM (168) →
+                                Dropout (0.5) → Dense (168) → Dropout (0.5) → Dense(4) → Softmax</p>
+                            <p style="margin-top: 10px;"><strong>Regularización:</strong> Dropout, recurrent_dropout, L2
+                            </p>
+                            <p style="margin-top: 10px;"><strong>Optimizer:</strong> Adam</p>
+                        </div>
 
-                <div class="section-subtitle">Métricas de Evaluación</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    Se utilizaron las siguientes métricas para evaluar el desempeño de los modelos:
-                </p>
-                <ul style="line-height: 2;">
-                    <li><strong>Accuracy:</strong> Proporción de predicciones correctas</li>
-                    <li><strong>Precision (macro avg):</strong> Promedio de precisión por clase</li>
-                    <li><strong>Recall (macro avg):</strong> Promedio de recall por clase</li>
-                    <li><strong>F1 (macro avg):</strong> Media armónica de precision y recall</li>
-                </ul>
-                <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">
-                    <strong>Librerías utilizadas:</strong> sklearn.metrics.classification_report, confusion_matrix
-                </p>
-            </div>
+                        <!-- PAGE 7: Metrics and Training -->
+                        <div class="page-section">
+                            <div class="section">
+                                <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
 
-            <!-- PAGE 8: Results -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">📈 7. Resultados</div>
-                
-                <div class="section-subtitle">Resumen de Métricas</div>
-                <table class="format-table">
-                    <thead>
-                        <tr>
-                            <th>Modelo</th>
-                            <th>Accuracy (train/test)</th>
-                            <th>Precision (macro)</th>
-                            <th>Recall (macro)</th>
-                            <th>F1 (macro)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Logistic Regression</strong></td>
-                            <td>0.99 / 0.70</td>
-                            <td>0.48</td>
-                            <td>0.36</td>
-                            <td>0.38</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Multinomial NB</strong></td>
-                            <td>0.99 / 0.69</td>
-                            <td>0.48</td>
-                            <td>0.48</td>
-                            <td>0.48</td>
-                        </tr>
-                        <tr>
-                            <td><strong>LSTM</strong></td>
-                            <td>0.95 / 0.51</td>
-                            <td>0.44</td>
-                            <td>0.42</td>
-                            <td>0.41</td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <div class="section-subtitle">División del Dataset</div>
+                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                    Se utilizó la división estándar del dataset proporcionada por Hugging Face para
+                                    garantizar coherencia
+                                    y reproducibilidad de los resultados.
+                                </p>
 
-                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
-                    <strong>⚠️ Observación Clave:</strong> Se observa un patrón consistente de sobreajuste en todos los modelos, 
-                    con desempeño significativamente mejor durante el entrenamiento que en el conjunto de prueba.
-                </div>
-            </div>
+                                <div class="section-subtitle">Métricas de Evaluación</div>
+                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                    Se utilizaron las siguientes métricas para evaluar el desempeño de los modelos:
+                                </p>
+                                <ul style="line-height: 2;">
+                                    <li><strong>Accuracy:</strong> Proporción de predicciones correctas</li>
+                                    <li><strong>Precision (macro avg):</strong> Promedio de precisión por clase</li>
+                                    <li><strong>Recall (macro avg):</strong> Promedio de recall por clase</li>
+                                    <li><strong>F1 (macro avg):</strong> Media armónica de precision y recall</li>
+                                </ul>
+                                <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">
+                                    <strong>Librerías utilizadas:</strong> sklearn.metrics.classification_report,
+                                    confusion_matrix
+                                </p>
+                            </div>
 
-            <!-- PAGE 9: Discussion -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">💡 8. Discusión</div>
-                
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                    A pesar de la aplicación de técnicas de aumento de datos en el conjunto de entrenamiento, los modelos 
-                    evaluados presentan indicios claros de sobreajuste. Esto se evidencia en las altas precisiones obtenidas 
-                    durante el entrenamiento (≈0.95–0.99) y la notable disminución del rendimiento en el conjunto de prueba.
-                </p>
+                            <!-- PAGE 8: Results -->
+                            <div class="page-section">
+                                <div class="section">
+                                    <div class="section-title">📈 7. Resultados</div>
 
-                <div class="spec-card">
-                    <strong>Análisis del Sobreajuste:</strong>
-                    <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                        <li>Las estrategias de aumento incrementaron la cantidad de ejemplos pero no aportaron suficiente variabilidad semántica</li>
-                        <li>El modelo LSTM evidencia el mayor grado de sobreajuste, posiblemente debido a su alta capacidad de representación</li>
-                        <li>Naive Bayes Multinomial muestra mejor generalización con valores más equilibrados entre entrenamiento y prueba</li>
-                    </ul>
-                </div>
+                                    <div class="section-subtitle">Resumen de Métricas</div>
+                                    <table class="format-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Modelo</th>
+                                                <th>Accuracy (train/test)</th>
+                                                <th>Precision (macro)</th>
+                                                <th>Recall (macro)</th>
+                                                <th>F1 (macro)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong>Logistic Regression</strong></td>
+                                                <td>0.99 / 0.70</td>
+                                                <td>0.48</td>
+                                                <td>0.36</td>
+                                                <td>0.38</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Multinomial NB</strong></td>
+                                                <td>0.99 / 0.69</td>
+                                                <td>0.48</td>
+                                                <td>0.48</td>
+                                                <td>0.48</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>LSTM</strong></td>
+                                                <td>0.95 / 0.51</td>
+                                                <td>0.44</td>
+                                                <td>0.42</td>
+                                                <td>0.41</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
-                <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
-                    <strong>✓ Conclusión Parcial:</strong> El modelo Multinomial Naive Bayes demuestra la mejor capacidad de 
-                    generalización, manteniendo un F1-score consistente de 0.48 tanto en métricas generales como en recall, 
-                    indicando un equilibrio adecuado entre precisión y cobertura.
-                </div>
-            </div>
+                                    <div class="highlight-box"
+                                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
+                                        <strong>⚠️ Observación Clave:</strong> Se observa un patrón consistente de
+                                        sobreajuste en todos los modelos,
+                                        con desempeño significativamente mejor durante el entrenamiento que en el
+                                        conjunto de prueba.
+                                    </div>
+                                </div>
 
-            <!-- PAGE 10: Conclusions -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">🎯 9. Conclusiones y Trabajo Futuro</div>
-                
-                <div class="section-subtitle">Conclusiones Principales</div>
-                <ul style="line-height: 2;">
-                    <li>Se implementaron exitosamente tres modelos de análisis de sentimientos con diferentes paradigmas</li>
-                    <li>La técnica de data augmentation mejoró el balance de clases pero no resolvió completamente el sobreajuste</li>
-                    <li>Naive Bayes Multinomial mostró la mejor generalización relativa bajo las condiciones actuales</li>
-                    <li>El dataset pequeño y desbalanceado limita el desempeño, especialmente de modelos complejos como LSTM</li>
-                </ul>
+                                <!-- PAGE 9: Discussion -->
+                                <div class="page-section">
+                                    <div class="section">
+                                        <div class="section-title">💡 8. Discusión</div>
 
-                <div class="section-subtitle">Recomendaciones para Trabajo Futuro</div>
-                <ul style="line-height: 2;">
-                    <li>Optimizar la regularización de los modelos neuronales</li>
-                    <li>Explorar el uso de embeddings preentrenados (Word2Vec, GloVe, FastText)</li>
-                    <li>Emplear técnicas avanzadas de balanceo de clases (SMOTE, estratificación)</li>
-                    <li>Aumentar el volumen de datos o utilizar transfer learning</li>
-                    <li>Implementar validación cruzada estratificada para evaluaciones más robustas</li>
-                </ul>
-            </div>
+                                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                                            A pesar de la aplicación de técnicas de aumento de datos en el conjunto de
+                                            entrenamiento, los modelos
+                                            evaluados presentan indicios claros de sobreajuste. Esto se evidencia en las
+                                            altas precisiones obtenidas
+                                            durante el entrenamiento (≈0.95–0.99) y la notable disminución del
+                                            rendimiento en el conjunto de prueba.
+                                        </p>
 
-            <!-- PAGE 11: References & Footer -->
-            <div class="page-section">
-                <div class="section">
-                <div class="section-title">📚 10. Referencias Bibliográficas</div>
-                
-                <div style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2;">
-                    <p>Pedregosa, F., Varoquaux, G., Gramfort, A., et al. (2011). <em>Scikit-learn: Machine Learning in Python</em>. 
-                    Journal of Machine Learning Research, 12, 2825-2830.</p>
-                    
-                    <p>Chollet, F. (2021). <em>Deep Learning with Python</em> (2nd ed.). Manning Publications. [Keras framework documentation]</p>
-                    
-                    <p>Google Research. (s.f.). <em>Poem sentiment</em> [Conjunto de datos]. Hugging Face. 
-                    Disponible en: https://huggingface.co/datasets/google-research-datasets/poem_sentiment</p>
-                    
-                    <p>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep Learning</em>. 
-                    MIT Press. [Referencia para arquitecturas de redes neuronales]</p>
-                    
-                    <p>Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of Deep Bidirectional Transformers 
-                    for Language Understanding. arXiv preprint arXiv:1810.04805.</p>
-                </div>
-            </div>
+                                        <div class="spec-card">
+                                            <strong>Análisis del Sobreajuste:</strong>
+                                            <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                                                <li>Las estrategias de aumento incrementaron la cantidad de ejemplos
+                                                    pero no aportaron suficiente variabilidad semántica</li>
+                                                <li>El modelo LSTM evidencia el mayor grado de sobreajuste, posiblemente
+                                                    debido a su alta capacidad de representación</li>
+                                                <li>Naive Bayes Multinomial muestra mejor generalización con valores más
+                                                    equilibrados entre entrenamiento y prueba</li>
+                                            </ul>
+                                        </div>
 
-            <!-- Footer -->
-            <div class="footer">
-                <p>📊 <span class="footer-highlight">Reporte Final: Análisis de sentimientos en versos - Diplomado en Inteligencia Artificial</span></p>
-                <p style="font-size: 0.9em; color: #999;">Autor: Erik I. Osornio Botello</p>
-                <p style="margin-top: 15px; color: #999; font-size: 0.85em;">
-                    Este reporte presenta el desarrollo, implementación y evaluación de un sistema completo de análisis de sentimientos 
-                    utilizando tres enfoques distintos.
-                </p>
-            </div>
+                                        <div class="highlight-box"
+                                            style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
+                                            <strong>✓ Conclusión Parcial:</strong> El modelo Multinomial Naive Bayes
+                                            demuestra la mejor capacidad de
+                                            generalización, manteniendo un F1-score consistente de 0.48 tanto en
+                                            métricas generales como en recall,
+                                            indicando un equilibrio adecuado entre precisión y cobertura.
+                                        </div>
+                                    </div>
 
-            <div class="page-number"></div>
-            </div>
-        </div>
-    </div>
+                                    <!-- PAGE 10: Conclusions -->
+                                    <div class="page-section">
+                                        <div class="section">
+                                            <div class="section-title">🎯 9. Conclusiones y Trabajo Futuro</div>
+
+                                            <div class="section-subtitle">Conclusiones Principales</div>
+                                            <ul style="line-height: 2;">
+                                                <li>Se implementaron exitosamente tres modelos de análisis de
+                                                    sentimientos con diferentes paradigmas</li>
+                                                <li>La técnica de data augmentation mejoró el balance de clases pero no
+                                                    resolvió completamente el sobreajuste</li>
+                                                <li>Naive Bayes Multinomial mostró la mejor generalización relativa bajo
+                                                    las condiciones actuales</li>
+                                                <li>El dataset pequeño y desbalanceado limita el desempeño,
+                                                    especialmente de modelos complejos como LSTM</li>
+                                            </ul>
+
+                                            <div class="section-subtitle">Recomendaciones para Trabajo Futuro</div>
+                                            <ul style="line-height: 2;">
+                                                <li>Optimizar la regularización de los modelos neuronales</li>
+                                                <li>Explorar el uso de embeddings preentrenados (Word2Vec, GloVe,
+                                                    FastText)</li>
+                                                <li>Emplear técnicas avanzadas de balanceo de clases (SMOTE,
+                                                    estratificación)</li>
+                                                <li>Aumentar el volumen de datos o utilizar transfer learning</li>
+                                                <li>Implementar validación cruzada estratificada para evaluaciones más
+                                                    robustas</li>
+                                            </ul>
+                                        </div>
+
+                                        <!-- PAGE 11: References & Footer -->
+                                        <div class="page-section">
+                                            <div class="section">
+                                                <div class="section-title">📚 10. Referencias Bibliográficas</div>
+
+                                                <div
+                                                    style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2;">
+                                                    <p>Pedregosa, F., Varoquaux, G., Gramfort, A., et al. (2011).
+                                                        <em>Scikit-learn: Machine Learning in Python</em>.
+                                                        Journal of Machine Learning Research, 12, 2825-2830.
+                                                    </p>
+
+                                                    <p>Chollet, F. (2021). <em>Deep Learning with Python</em> (2nd ed.).
+                                                        Manning Publications. [Keras framework documentation]</p>
+
+                                                    <p>Google Research. (s.f.). <em>Poem sentiment</em> [Conjunto de
+                                                        datos]. Hugging Face.
+                                                        Disponible en:
+                                                        https://huggingface.co/datasets/google-research-datasets/poem_sentiment
+                                                    </p>
+
+                                                    <p>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep
+                                                            Learning</em>.
+                                                        MIT Press. [Referencia para arquitecturas de redes neuronales]
+                                                    </p>
+
+                                                    <p>Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT:
+                                                        Pre-training of Deep Bidirectional Transformers
+                                                        for Language Understanding. arXiv preprint arXiv:1810.04805.</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Footer -->
+                                            <div class="footer">
+                                                <p>📊 <span class="footer-highlight">Reporte Final: Análisis de
+                                                        sentimientos en versos - Diplomado en Inteligencia
+                                                        Artificial</span></p>
+                                                <p style="font-size: 0.9em; color: #999;">Autor: Erik I. Osornio Botello
+                                                </p>
+                                                <p style="margin-top: 15px; color: #999; font-size: 0.85em;">
+                                                    Este reporte presenta el desarrollo, implementación y evaluación de
+                                                    un sistema completo de análisis de sentimientos
+                                                    utilizando tres enfoques distintos.
+                                                </p>
+                                            </div>
+
+                                            <div class="page-number"></div>
+                                        </div>
+                                    </div>
+                                </div>
 </body>
+
 </html>
