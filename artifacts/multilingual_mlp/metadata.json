@@ -1,0 +1,26 @@
+{
+  "embedder": "paraphrase-multilingual-MiniLM-L12-v2",
+  "device": "cpu",
+  "pca_applied": true,
+  "pca_variance": 0.9508549571037292,
+  "label_mapping_original_to_encoded": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+  },
+  "encoded_to_name": {
+    "0": "negative",
+    "1": "positive",
+    "2": "no_impact",
+    "3": "mixed"
+  },
+  "validation_metrics": {
+    "accuracy": 0.8380952380952381,
+    "f1_weighted": 0.8308134086266972
+  },
+  "test_metrics": {
+    "accuracy": 0.7692307692307693,
+    "f1_weighted": 0.771508715292915
+  }
+}
