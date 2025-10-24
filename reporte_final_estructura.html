@@ -895,12 +895,65 @@ ${html}
             </div>
         </div>
 
+        <!-- PAGE 2.1: Metodología -->
+        <div class="page-section">
+            <div class="section">
+                <div class="section-title">🧭 Metodología</div>
+
+                <div class="section-subtitle">Análisis de los datos y preprocesamiento</div>
+                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    El dataset <em>Poem Sentiment</em> presenta textos breves, con fuerte desbalance hacia la clase
+                    <code>no_impact</code> y matices poéticos/arcaicos. Se implementaron dos estrategias de
+                    preprocesamiento diferentes, de acuerdo con el tipo de modelo:
+                </p>
+                <ul style="line-height: 2;">
+                    <li><strong>Baselines clásicos (MultinomialNB, Regresión Logística):</strong> preprocesamiento
+                        optimizado para poesía inglesa antigua (expansión de contracciones arcaicas, normalización de
+                        signos, limpieza suave). Tras tokenizar, se aplicó <code>CountVectorizer(max_features=10000)</code>
+                        y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo <code>mixed</code>).
+                        Esta decisión busca maximizar señal léxica útil para modelos basados en bolsa de palabras.</li>
+                    <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no destructivo</em>
+                        (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando los
+                        matices poéticos para que el tokenizador subword capture semántica contextual. Se excluye la clase
+                        <code>mixed</code> en todos los splits.</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>Justificación de la elección:</strong> en enfoques clásicos conviene estandarizar la forma
+                    superficial de las palabras para que la frecuencia sea informativa; en transformadores, el
+                    tokenizador y el contexto atenúan la necesidad de limpiar agresivamente, y remover stopwords puede
+                    incluso eliminar matices útiles en poesía.
+                </div>
+
+                <div class="section-subtitle">Modelos de IA empleados</div>
+                <ul style="line-height: 2;">
+                    <li><strong>Multinomial Naive Bayes:</strong> probabilístico, rápido y efectivo con conteos de
+                        tokens; se ajustó y luego se <em>tuneó</em> el hiperparámetro <code>alpha</code> vía
+                        <code>GridSearchCV</code>.</li>
+                    <li><strong>Regresión Logística:</strong> baseline lineal con <code>class_weight='balanced'</code>
+                        para mitigar desbalance sin sobremuestreo.</li>
+                    <li><strong>DeBERTa‑v3‑base:</strong> transformador preentrenado ajustado finamente con técnicas de
+                        regularización (Focal Loss, label smoothing, early stopping) y optimizado por F1‑macro.</li>
+                </ul>
+
+                <div class="section-subtitle">Herramientas y tecnologías</div>
+                <div class="specifications">
+                    <div class="spec-card"><strong>Frameworks</strong> PyTorch, Hugging Face Transformers</div>
+                    <div class="spec-card"><strong>ML clásico</strong> scikit‑learn, imbalanced‑learn</div>
+                    <div class="spec-card"><strong>Gestión de datos</strong> pandas, numpy, datasets (HF)</div>
+                    <div class="spec-card"><strong>Gráficos</strong> matplotlib, seaborn</div>
+                    <div class="spec-card"><strong>NLP utilitario</strong> NLTK</div>
+                    <div class="spec-card"><strong>I/O</strong> fastparquet/pyarrow (URIs hf://)</div>
+                </div>
+            </div>
+        </div>
+
         <!-- TABLE OF CONTENTS -->
         <div style="page-break-after: always; padding: 40px 0;">
             <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">
                 Índice</h2>
             <ol style="font-size: 12pt; line-height: 2; margin-left: 30px; color: #333;">
                 <li>Introducción</li>
+                <li>Metodología</li>
                 <li>Datos</li>
                 <li>Preprocesamiento</li>
                 <li>Representación de texto</li>
@@ -908,7 +961,7 @@ ${html}
                     <ol style="margin-top: 10px; margin-left: 20px;">
                         <li>Regresión Logística</li>
                         <li>Naive Bayes Multinomial</li>
-                        <li>LSTM</li>
+                        <li>DeBERTa‑v3‑base (fine‑tuning)</li>
                     </ol>
                 </li>
                 <li>Entrenamiento y validación</li>
@@ -939,14 +992,11 @@ ${html}
                         <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
                         <p style="text-align: justify; line-height: 1.8; color: #333;">
                             Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis
-                            de sentimientos
-                            sobre un corpus en español. Se comparan tres enfoques principales: <strong>Regresión
-                                Logística</strong> (con CountVectorizer),
-                            <strong>Naive Bayes Multinomial</strong> (con CountVectorizer) y una red neuronal
-                            <strong>LSTM</strong> (trabajando sobre secuencias tokenizadas).
-                            El objetivo es describir el flujo completo: exploración y limpieza de datos, extracción de
-                            características, entrenamiento,
-                            validación, evaluación cuantitativa y análisis crítico de resultados.
+                            de sentimientos sobre versos del dataset Poem Sentiment. Se comparan <strong>baselines clásicos</strong>
+                            (Regresión Logística y Naive Bayes Multinomial con CountVectorizer+SMOTE) frente a un
+                            <strong>modelo preentrenado DeBERTa‑v3‑base</strong> ajustado finamente. Se detalla el flujo
+                            completo: exploración y limpieza de datos, diferencias de preprocesamiento por enfoque,
+                            entrenamiento, optimización de hiperparámetros, evaluación y discusión de resultados.
                         </p>
                     </div>
                 </div>
@@ -1415,28 +1465,20 @@ ${html}
                             <li>X_test: (104, 10000)</li>
                         </ul>
 
-                        <div class="section-subtitle">Tokenización para LSTM</div>
+                        <div class="section-subtitle">Tokenización subword para Transformers (DeBERTa)</div>
                         <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                            Para entrenar una LSTM, cada documento se convirtió en una secuencia numérica de longitud
-                            fija mediante
-                            la librería Keras Tokenizer:
+                            En <strong>DeBERTa‑v3‑base</strong> se usa un tokenizador subword (SentencePiece/BPE) que
+                            descompone palabras en unidades subléxicas y genera ids y máscaras de atención:
                         </p>
                         <ul style="line-height: 2;">
-                            <li><strong>Tokenización:</strong> Asignación de identificador único a cada palabra del
-                                vocabulario</li>
-                            <li><strong>Padding:</strong> Relleno con ceros para garantizar longitud fija</li>
-                            <li><strong>Entrada al modelo:</strong> El conjunto completo se representa como una matriz
-                                de dimensión <code>(n_samples, max_sequence_length)</code>, donde <code>n_samples</code>
-                                es el número de documentos y <code>max_sequence_length</code> es la longitud máxima de
-                                las secuencias después del padding</li>
-                            <li><strong>Embedding:</strong> Transformación de enteros en vectores densos de tamaño fijo
-                                (embedding_dim), resultando en una entrada final con forma: <code>(batch_size,
-                                sequence_length, embedding_dim)</code></li>
-
+                            <li><strong>Tokenización:</strong> <code>AutoTokenizer.from_pretrained(...)</code> produce
+                                <code>input_ids</code> y <code>attention_mask</code>, con truncado/padding a
+                                <strong>max_len=128</strong>.</li>
+                            <li><strong>Entrada al modelo:</strong> tensores con forma <code>(batch, seq_len)</code>.
+                                El mecanismo de atención capta dependencias largas y contexto.</li>
+                            <li><strong>Optimización:</strong> el <em>fine‑tuning</em> ajusta todas las capas del
+                                modelo al dominio de poesía, preservando matices estilísticos.</li>
                         </ul>
-                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                            <strong>Configuración de ejemplo:</strong> num_words=10000, oov_token="&lt;OOV&gt;"
-                        </p>
 
                         <div class="spec-card">
                             <strong>📝 Ejemplo de Tokenización:</strong>
@@ -1458,6 +1500,96 @@ ${html}
 
 
 
+                    </div>
+
+                    <!-- PAGE 5.1: Implementación -->
+                    <div class="page-section">
+                        <div class="section">
+                            <div class="section-title">🛠️ Implementación</div>
+
+                            <div class="section-subtitle">Pipeline de desarrollo</div>
+                            <div class="structure-list">
+                                <div class="structure-item">
+                                    <h4>Baselines clásicos (NB / Reg. Logística)</h4>
+                                    <div class="structure-description">
+                                        <ol>
+                                            <li>Exploración y división de datos (train/val/test) desde Hugging Face</li>
+                                            <li>Preprocesamiento optimizado para poesía (expansión de contracciones, limpieza suave)</li>
+                                            <li>Vectorización con <code>CountVectorizer(max_features=10000)</code></li>
+                                            <li>Exclusión de clase <code>mixed</code> y balanceo con <code>SMOTE</code> (solo train)</li>
+                                            <li>Entrenamiento de <code>MultinomialNB</code> y <code>LogisticRegression</code></li>
+                                            <li>Ajuste de <code>alpha</code> (NB) con <code>GridSearchCV</code></li>
+                                            <li>Evaluación macro‑F1 (sin clase <code>mixed</code>) y matrices de confusión</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                                <div class="structure-item">
+                                    <h4>DeBERTa‑v3‑base (fine‑tuning)</h4>
+                                    <div class="structure-description">
+                                        <ol>
+                                            <li>Preprocesamiento ligero (normalizar comillas/guiones, deduplicar)</li>
+                                            <li>Exclusión de clase <code>mixed</code> en todos los splits</li>
+                                            <li>Tokenización subword (max_len=128) y creación de datasets de HF</li>
+                                            <li>Hiperparámetros: lr=2e‑5, batch=16, epochs=6, warmup=0.05</li>
+                                            <li>Regularización: Focal Loss (γ=1.5) + class weights, label smoothing=0.1</li>
+                                            <li>Entrenamiento con Trainer optimizando F1‑macro + early stopping</li>
+                                            <li>Evaluación en validación y test; análisis por clase y matriz de confusión</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="section-subtitle">Ejemplos de aplicación</div>
+                            <div class="spec-card">
+                                <strong>Inferencia con DeBERTa‑v3‑base (conceptual)</strong>
+                                <div style="margin-top: 10px;
+                                            font-family: 'Courier New', monospace;
+                                            background: #f8f9fa; padding: 15px; border-radius: 4px;">
+<code>texto = "Sunshine fills my heart with joy."
+# 1) tokenizar → input_ids, attention_mask (max_len=128)
+# 2) pasar por el modelo → logits
+# 3) pred = argmax(logits) → {0: negative, 1: positive, 2: no_impact}</code>
+                                </div>
+                            </div>
+
+                            <div class="spec-card" style="margin-top: 15px;">
+                                <strong>Uso de pipeline clásico</strong>
+                                <div style="margin-top: 10px;
+                                            font-family: 'Courier New', monospace;
+                                            background: #f8f9fa; padding: 15px; border-radius: 4px;">
+<code># (resumen)
+tokens = preprocess_poetry_text(verso)
+vec = CountVectorizer(max_features=10000)
+X = vec.transform([" ".join(tokens)])
+pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
+                                </div>
+                            </div>
+
+                            <div class="section-subtitle" style="margin-top: 25px;">Optimización y ajustes (hiperparámetros)</div>
+                            <div class="specifications">
+                                <div class="spec-card">
+                                    <strong>MultinomialNB</strong>
+                                    <ul style="margin-top: 8px; padding-left: 20px;">
+                                        <li><code>GridSearchCV</code> sobre <code>alpha ∈ {0.01, 0.1, 0.5, 1.0, 5.0, 10.0}</code></li>
+                                        <li><em>Scoring</em>: F1‑macro, CV=5</li>
+                                    </ul>
+                                </div>
+                                <div class="spec-card">
+                                    <strong>Regresión Logística</strong>
+                                    <ul style="margin-top: 8px; padding-left: 20px;">
+                                        <li><code>class_weight='balanced'</code>, <code>max_iter=2000</code>, <code>solver='liblinear'</code></li>
+                                    </ul>
+                                </div>
+                                <div class="spec-card">
+                                    <strong>DeBERTa‑v3‑base</strong>
+                                    <ul style="margin-top: 8px; padding-left: 20px;">
+                                        <li>Focal Loss (γ=1.5) + <em>class weights</em>, <em>label smoothing</em>=0.1</li>
+                                        <li>lr=2e‑5, batch=16, epochs=6, warmup_ratio=0.05, early stopping (patience=3)</li>
+                                        <li>Métrica objetivo: F1‑macro</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- PAGE 6: Models -->
@@ -1526,63 +1658,38 @@ ${html}
                                     style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
                                     Ilustración 7. Configuración de parámetros de Naive Bayes Multinomial</p>
                             </div>
-                            <div class="section-subtitle">5.3 LSTM (Long Short-Term Memory)</div>
+                            <div class="section-subtitle">5.3 DeBERTa‑v3‑base (fine‑tuning)</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                Las redes LSTM (Long Short-Term Memory) se utilizan en la clasificación de sentimientos
-                                porque están diseñadas para procesar secuencias de texto teniendo en cuenta el contexto
-                                y el orden de las palabras, algo que los modelos tradicionales como Bag-of-Words no
-                                pueden capturar. A diferencia de los modelos basados en frecuencias, que tratan cada
-                                palabra de forma independiente, una LSTM puede recordar información relevante de
-                                palabras anteriores y utilizarla para interpretar correctamente el sentimiento de una
-                                frase completa. Esto es especialmente útil en casos donde el significado depende de la
-                                estructura, como en negaciones (“no fue tan bueno”) o expresiones compuestas. Gracias a
-                                esta capacidad para modelar dependencias a largo plazo, las LSTM logran una
-                                representación más semántica del texto, mejorando el desempeño en tareas de análisis de
-                                sentimientos. Para su implementación se utilizó la librería de keras y los parámetros se
-                                definen de acuerdo a la Ilustración 8 donde: input_dim es el tamaño de vocabulario;
-                                output_dim, la dimensión del vector de embedding; input_length, la longitud máxima de
-                                las secuencias; LSTM (), el número de unidades de memoria en una LSTM; Dense es el
-                                número de clases de salida y activation es la función de activación para clasificación
-                                multiclase.
+                                Los transformadores preentrenados como <strong>DeBERTa‑v3‑base</strong> capturan
+                                relaciones contextuales y semántica a nivel sub‑palabra mediante auto‑atención.
+                                En este trabajo se realizó <em>fine‑tuning</em> completo para el dataset Poem
+                                Sentiment (excluyendo la clase <code>mixed</code>), optimizando la métrica
+                                <strong>F1‑macro</strong> y usando técnicas de regularización para manejar el
+                                desbalance y evitar sobreajuste.
                             </p>
                             <div class="spec-card">
-                                <strong>Ventajas:</strong>
+                                <strong>Técnicas aplicadas</strong>
                                 <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                                    <li>Modela dependencias a largo plazo</li>
-                                    <li>Útil para negaciones y expresiones compuestas</li>
-                                    <li>Representación más semántica del texto</li>
-                                    <li>Mejor desempeño en tareas complejas de análisis de sentimientos</li>
+                                    <li>Tokenización subword (max_len=128)</li>
+                                    <li>Focal Loss (γ = 1.5) + <em>class weights</em></li>
+                                    <li><em>Label smoothing</em> = 0.1</li>
+                                    <li><em>Early stopping</em> (patience = 3)</li>
+                                    <li>Optimización con Hugging Face Trainer por F1‑macro</li>
                                 </ul>
                             </div>
-                            
 
-                            <div style="text-align: center; margin: 30px 0;">
-                                <img src="lstm_1.png" alt="Definición de parámetros de una LSTM en keras"
-                                    style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                <p
-                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                                    Ilustración 8. Definición de parámetros de una LSTM en keras</p>
+                            <div class="spec-card" style="margin-top: 15px;">
+                                <strong>Ventajas</strong>
+                                <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
+                                    <li>Captura dependencias largas y matices poéticos</li>
+                                    <li>Robusto ante variaciones léxicas y de estilo</li>
+                                    <li>Rendimiento superior en dominios de texto fino</li>
+                                </ul>
                             </div>
 
-                            <div class="section-subtitle">Arquitectura de la LSTM</div>
-                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                Para este estudio se utilizó la arquitectura de la Ilustración 9.
-                            </p>
-
-                            <div style="text-align: center; margin: 30px 0;">
-                                <img src="arq_lstm.png" alt="Arquitectura utilizada para la LSTM"
-                                    style="max-width: 80%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                <p
-                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                                    Ilustración 9. Arquitectura utilizada para la LSTM</p>
-                            </div>
-
-                            <p style="margin-top: 15px;"><strong>Framework:</strong> TensorFlow / Keras</p>
-                            <p style="margin-top: 10px;"><strong>Arquitectura:</strong> Embedding (10000) → LSTM (168) →
-                                Dropout (0.5) → Dense (168) → Dropout (0.5) → Dense(4) → Softmax</p>
-                            <p style="margin-top: 10px;"><strong>Regularización:</strong> Dropout, recurrent_dropout, L2
-                            </p>
-                            <p style="margin-top: 10px;"><strong>Optimizer:</strong> Adam</p>
+                            <p style="margin-top: 15px;"><strong>Framework:</strong> PyTorch + Hugging Face Transformers</p>
+                            <p style="margin-top: 10px;"><strong>Hiperparámetros clave:</strong> lr=2e‑5, batch_size=16, epochs=6,
+                                weight_decay=0.01, warmup_ratio=0.05, max_len=128</p>
 
                         </div>
 
@@ -1657,56 +1764,41 @@ ${html}
                                 <div class="section">
                                     <div class="section-title">📈 7. Resultados</div>
 
-                                    <div class="section-subtitle">Resumen de Métricas</div>
+                                    <div class="section-subtitle">Resultados principales (DeBERTa‑v3‑base)</div>
                                     <table class="format-table">
                                         <thead>
                                             <tr>
-                                                <th>Modelo</th>
-                                                <th>Accuracy (train/test)</th>
-                                                <th>Precision (macro)</th>
-                                                <th>Recall (macro)</th>
-                                                <th>F1 (macro)</th>
+                                                <th>Conjunto</th>
+                                                <th>Accuracy</th>
+                                                <th>F1‑Macro</th>
+                                                <th>F1‑Weighted</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><strong>Multinomial NB</strong></td>
-                                                <td>0.99 / 0.5962</td>
-                                                <td>0.52</td>
-                                                <td>0.48</td>
-                                                <td><strong>0.48</strong> ⭐</td>
+                                                <td><strong>Validación</strong></td>
+                                                <td>0.9143</td>
+                                                <td><strong>0.8903</strong></td>
+                                                <td>0.9132</td>
                                             </tr>
                                             <tr>
-                                                <td><strong>Logistic Regression</strong></td>
-                                                <td>0.99 / 0.5769</td>
-                                                <td>0.56</td>
-                                                <td>0.50</td>
-                                                <td>0.50</td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>LSTM (con Early Stopping)</strong></td>
-                                                <td>0.8388 / 0.4327</td>
-                                                <td>0.28</td>
-                                                <td>0.24</td>
-                                                <td>0.25</td>
+                                                <td><strong>Test</strong></td>
+                                                <td>0.9135</td>
+                                                <td><strong>0.8909</strong></td>
+                                                <td>0.9136</td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    
-                                    <div class="highlight-box"
-                                        style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
-                                        <strong>✓ Mejora de LSTM:</strong> Se implementó Early Stopping y regularización L1/L2 para reducir el overfitting. 
-                                        El modelo LSTM original sin regularización presentaba accuracy de entrenamiento de 0.95 y test de 0.51. 
-                                        Con las mejoras aplicadas, se logró una distribución más equilibrada (train: 0.84, test: 0.43) con mejor generalización.
-                                        Aunque el accuracy de test se redujo, la clase 1 (Positive) ahora es predicha correctamente (Precision: 0.12, Recall: 0.19).
+
+                                    <div class="highlight-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
+                                        <strong>✓ Objetivo cumplido:</strong> Se alcanzó <strong>F1‑macro ≥ 0.85</strong> en Validación y Test con
+                                        DeBERTa‑v3‑base, cumpliendo el objetivo del proyecto con margen.
                                     </div>
 
-                                    <div class="highlight-box"
-                                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
-                                        <strong>⚠️ Observación Clave:</strong> Se observa un patrón consistente de
-                                        sobreajuste en todos los modelos,
-                                        con desempeño significativamente mejor durante el entrenamiento que en el
-                                        conjunto de prueba.
+                                    <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
+                                        <strong>Comparativa con baselines clásicos:</strong> Los enfoques con CountVectorizer (MultinomialNB / Regresión Logística)
+                                        se usaron como líneas base sólidas, pero <em>no alcanzaron</em> el desempeño del transformador en F1‑macro. La elección de
+                                        DeBERTa se justifica por su capacidad para capturar matices semánticos y de estilo propios de la poesía.
                                     </div>
                                 </div>
 
@@ -1715,31 +1807,36 @@ ${html}
                                     <div class="section">
                                         <div class="section-title">💡 8. Discusión</div>
 
-                                        <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                                            A pesar de la aplicación de técnicas de aumento de datos en el conjunto de
-                                            entrenamiento, los modelos iniciales presentaban indicios claros de sobreajuste. 
-                                            Sin embargo, tras implementar regulación L1/L2, Early Stopping y reducción de arquitectura en el modelo LSTM, 
-                                            se logró mejorar significativamente la generalización. El modelo Multinomial Naive Bayes continúa demostrando 
-                                            ser el más robusto con un F1-score de 0.48 y un accuracy de test del 59.62%.
+                                        <div class="section-subtitle">¿Qué se observa en los resultados?</div>
+                                        <ul style="line-height: 2;">
+                                            <li><strong>DeBERTa‑v3‑base</strong> alcanza F1‑macro ≈ 0.891 en Test, superando ampliamente a los baselines clásicos.</li>
+                                            <li>Por clase (Test): <em>negative</em> logra <strong>recall ≈ 1.00</strong> (marcadores afectivos más explícitos);
+                                                <em>positive</em> es la más desafiante (<strong>precision/recall ≈ 0.81</strong>), con confusiones hacia
+                                                <code>no_impact</code> cuando el verso es más descriptivo que valorativo; <em>no_impact</em> mantiene
+                                                precisión alta (≈ 0.95) y recall ≈ 0.91.</li>
+                                            <li>La combinación de <em>class weights</em> + Focal Loss + label smoothing favorece el balance entre clases bajo desbalance.</li>
+                                        </ul>
+
+                                        <div class="section-subtitle">¿Fue exitoso el entrenamiento?</div>
+                                        <p style="text-align: justify; line-height: 1.8;">
+                                            Sí. La métrica objetivo (<strong>F1‑macro ≥ 0.85</strong>) se cumplió con margen. Las curvas por época
+                                            (con early stopping) y el uso de regularización indican un proceso estable y reproducible.
                                         </p>
 
-                                        <div class="spec-card">
-                                            <strong>Análisis Comparativo de Enfoques:</strong>
-                                            <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                                                <li><strong>Modelos Clásicos (Naive Bayes, Logistic Regression):</strong> Demuestran excelente generalización con alto accuracy en test (~57-59%), sin requerir regularización agresiva.</li>
-                                                <li><strong>LSTM Original:</strong> Presentaba sobreajuste extremo (train: 0.95, test: 0.51) con incapacidad para predecir la clase Positive (F1=0.00).</li>
-                                                <li><strong>LSTM Optimizado (con Early Stopping):</strong> Mediante L1/L2 regularización y Early Stopping, se redujo la brecha train-test (train: 0.84, test: 0.43). La clase Positive ahora tiene F1=0.14, mostrando mejor distribución de predicciones: 3 correctas de 16 ejemplos.</li>
-                                                <li><strong>Data Augmentation:</strong> El aumento de 14x a 30x en minorías mejoró la representación pero requirió regularización para evitar memorización.</li>
-                                            </ul>
-                                        </div>
+                                        <div class="section-subtitle">Escenarios de uso</div>
+                                        <ul style="line-height: 2;">
+                                            <li>Curaduría y analítica de colecciones poéticas (tendencias afectivas por autor/época).</li>
+                                            <li>Herramientas de apoyo editorial, talleres de escritura y análisis literario asistido.</li>
+                                            <li>Estudios de marcadores afectivos y estilísticos en humanidades digitales.</li>
+                                        </ul>
 
-                                        <div class="highlight-box"
-                                            style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
-                                            <strong>✓ Conclusión Final:</strong> El modelo Multinomial Naive Bayes mantiene el mejor desempeño general 
-                                            (F1=0.48, Accuracy=0.5962). Sin embargo, el modelo LSTM mejorado demuestra progreso técnico significativo 
-                                            en la mitigación del overfitting y ahora predice correctamente la clase minoritaria Positive, 
-                                            lo que resulta en un sistema más equilibrado para aplicaciones que requieran sensibilidad a todas las clases.
-                                        </div>
+                                        <div class="section-subtitle">Limitaciones y mejoras</div>
+                                        <ul style="line-height: 2;">
+                                            <li><strong>Clase positive:</strong> aún mejorable con <em>augmentations</em> suaves o calibración de umbrales.</li>
+                                            <li><strong>Generalización:</strong> ampliar datos o realizar <em>fine‑tuning</em> por dominio/autor.</li>
+                                            <li><strong>Mixta (<code>mixed</code>):</strong> reincorporarla demandará rediseñar pérdidas/umbral o recolectar más muestras.</li>
+                                            <li><strong>Recursos:</strong> modelos mayores (DeBERTa‑large, RoBERTa‑large) y <em>ensembles</em> podrían subir el techo de desempeño con mayor costo computacional.</li>
+                                        </ul>
                                     </div>
 
                                     <!-- PAGE 10: Conclusions -->
@@ -1749,25 +1846,18 @@ ${html}
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
-                                                <li>Se implementaron exitosamente tres modelos de análisis de
-                                                    sentimientos con diferentes paradigmas</li>
-                                                <li>La técnica de data augmentation (30x para minorías) mejoró significativamente el balance de clases, permitiendo que la clase Positive fuera predicha correctamente</li>
-                                                <li>Naive Bayes Multinomial mostró la mejor generalización con F1-score de 0.48 y accuracy de test de 59.62%</li>
-                                                <li>El modelo LSTM fue optimizado mediante Early Stopping y regularización L1/L2, reduciendo el overfitting de 44 puntos porcentuales a 40 puntos porcentuales</li>
-                                                <li>El dataset pequeño (1,101 ejemplos) y desbalanceado presenta desafíos para modelos complejos como LSTM, pero se mitigó exitosamente con regularización</li>
-                                                <li>La clase Positive (minoridad con 155 ejemplos) pasó de F1=0.00 a F1=0.14 tras las mejoras implementadas</li>
+                                                <li><strong>Objetivo cumplido:</strong> se alcanzó F1‑macro ≥ 0.85 con DeBERTa‑v3‑base (F1‑macro Test ≈ 0.8909).</li>
+                                                <li>La <strong>elección de preprocesamiento</strong> diferenciado fue clave: limpieza ligera para el transformador y normalización léxica + CountVectorizer para baselines.</li>
+                                                <li>Los <strong>baselines clásicos</strong> sirvieron como referencia y análisis de sensibilidad, pero el transformador capturó mejor los matices poéticos.</li>
+                                                <li><strong>Impacto profesional:</strong> este proyecto consolida el manejo de pipelines de NLP modernos (Transformers) y comparativos clásicos, útil para prototipado rápido y despliegue en analítica textual.</li>
                                             </ul>
 
-                                            <div class="section-subtitle">Recomendaciones para Trabajo Futuro</div>
+                                            <div class="section-subtitle">Trabajo futuro</div>
                                             <ul style="line-height: 2;">
-                                                <li>Optimizar la regularización de los modelos neuronales</li>
-                                                <li>Explorar el uso de embeddings preentrenados (Word2Vec, GloVe,
-                                                    FastText)</li>
-                                                <li>Emplear técnicas avanzadas de balanceo de clases (SMOTE,
-                                                    estratificación)</li>
-                                                <li>Aumentar el volumen de datos o utilizar transfer learning</li>
-                                                <li>Implementar validación cruzada estratificada para evaluaciones más
-                                                    robustas</li>
+                                                <li>Explorar <em>ensembles</em> de checkpoints/seeds y modelos mayores (DeBERTa‑large, RoBERTa).</li>
+                                                <li>Mejorar la clase <em>positive</em> con <em>augmentations</em> suaves y calibración de umbrales.</li>
+                                                <li>Reincorporar la clase <code>mixed</code> con estrategias de pérdida (p. ej., <em>asymmetric loss</em>) o más datos.</li>
+                                                <li>Preparar un demo de inferencia (Gradio/FastAPI) y monitoreo en producción.</li>
                                             </ul>
                                         </div>
 
