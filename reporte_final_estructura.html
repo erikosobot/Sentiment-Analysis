@@ -909,13 +909,18 @@ ${html}
                 <ul style="line-height: 2;">
                     <li><strong>Baselines clásicos (MultinomialNB, Regresión Logística):</strong> preprocesamiento
                         optimizado para poesía inglesa antigua (expansión de contracciones arcaicas, normalización de
-                        signos, limpieza suave). Tras tokenizar, se aplicó <code>CountVectorizer(max_features=10000)</code>
-                        y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo <code>mixed</code>).
+                        signos, limpieza suave). Tras tokenizar, se aplicó
+                        <code>CountVectorizer(max_features=10000)</code>
+                        y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo
+                        <code>mixed</code>).
                         Esta decisión busca maximizar señal léxica útil para modelos basados en bolsa de palabras.</li>
-                    <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no destructivo</em>
+                    <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no
+                            destructivo</em>
                         (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando los
-                        matices poéticos para que el tokenizador subword capture semántica contextual. Se excluye la clase
-                        <code>mixed</code> en todos los splits.</li>
+                        matices poéticos para que el tokenizador subword capture semántica contextual. Se excluye la
+                        clase
+                        <code>mixed</code> en todos los splits.
+                    </li>
                 </ul>
                 <div class="highlight-box">
                     <strong>Justificación de la elección:</strong> en enfoques clásicos conviene estandarizar la forma
@@ -928,7 +933,8 @@ ${html}
                 <ul style="line-height: 2;">
                     <li><strong>Multinomial Naive Bayes:</strong> probabilístico, rápido y efectivo con conteos de
                         tokens; se ajustó y luego se <em>tuneó</em> el hiperparámetro <code>alpha</code> vía
-                        <code>GridSearchCV</code>.</li>
+                        <code>GridSearchCV</code>.
+                    </li>
                     <li><strong>Regresión Logística:</strong> baseline lineal con <code>class_weight='balanced'</code>
                         para mitigar desbalance sin sobremuestreo.</li>
                     <li><strong>DeBERTa‑v3‑base:</strong> transformador preentrenado ajustado finamente con técnicas de
@@ -992,7 +998,8 @@ ${html}
                         <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
                         <p style="text-align: justify; line-height: 1.8; color: #333;">
                             Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis
-                            de sentimientos sobre versos del dataset Poem Sentiment. Se comparan <strong>baselines clásicos</strong>
+                            de sentimientos sobre versos del dataset Poem Sentiment. Se comparan <strong>baselines
+                                clásicos</strong>
                             (Regresión Logística y Naive Bayes Multinomial con CountVectorizer+SMOTE) frente a un
                             <strong>modelo preentrenado DeBERTa‑v3‑base</strong> ajustado finamente. Se detalla el flujo
                             completo: exploración y limpieza de datos, diferencias de preprocesamiento por enfoque,
@@ -1013,7 +1020,7 @@ ${html}
                         lineales probabilísticos
                         (Regresión Logística), modelos de probabilidades condicionales con suposiciones de independencia
                         (Naive Bayes Multinomial)
-                        y modelos secuenciales basados en redes neuronales (LSTM). Se discute su preparación,
+                        y un transformador preentrenado (DeBERTa‑v3‑base). Se discute su preparación,
                         rendimiento y trade-offs.
                     </p>
 
@@ -1073,8 +1080,10 @@ ${html}
                         <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
                             <li><strong>Número total de ejemplos:</strong> 1,101 versos</li>
                             <li><strong>Idioma:</strong> Textos en inglés</li>
-                            <li><strong>Tamaño:</strong> Dataset pequeño, lo que puede afectar la generalización de
-                                modelos complejos como LSTM</li>
+                            <li><strong>Tamaño:</strong> Dataset pequeño, puede dificultar la generalización al entrenar
+                                modelos complejos desde cero. No obstante, con transformadores preentrenados y técnicas
+                                de regularización (early stopping, class weights/Focal Loss, label smoothing) es posible
+                                lograr buen desempeño.</li>
                             <li><strong>Data Augmentation:</strong> Debido al desbalance inicial de clases, se aplicó
                                 data augmentation únicamente en el conjunto de entrenamiento para equilibrar la
                                 distribución de clases.</li>
@@ -1203,9 +1212,9 @@ ${html}
                                 mayor frecuencia la clase predominante (No impacto), lo que puede inflar el accuracy
                                 aparente, pero reducir la capacidad de identificar correctamente las clases
                                 minoritarias.</li>
-                            <li><strong>Problemas de generalización en LSTM y modelos complejos:</strong> Las redes
+                            <li><strong>Problemas de generalización en modelos complejos:</strong> Las redes
                                 neuronales pueden sobreajustar fácilmente a la clase mayoritaria, especialmente cuando
-                                el dataset es pequeño. En este caso, modelos como LSTM pueden aprender patrones sesgados
+                                el dataset es pequeño. En este caso, modelos complejos pueden aprender patrones sesgados
                                 en lugar de representaciones robustas de todas las clases.</li>
                             <li><strong>Métricas poco confiables para clases minoritarias:</strong> Las métricas de
                                 rendimiento pueden ser engañosas si se interpretan sin considerar el desbalance.</li>
@@ -1223,7 +1232,8 @@ ${html}
                     <ul style="line-height: 2;">
                         <li><strong>Data Augmentation:</strong> Aplicada solo en el entrenamiento para balancear las
                             clases</li>
-                        <li><strong>Class weights:</strong> Pesos por clase en LSTM para penalizar predicciones
+                        <li><strong>Class weights:</strong> Pesos por clase en el transformador (DeBERTa) mediante Focal
+                            Loss + class weights para penalizar predicciones
                             incorrectas de clases minoritarias</li>
                     </ul>
 
@@ -1295,7 +1305,7 @@ ${html}
 
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
                         Este pipeline permite obtener un texto limpio, normalizado y representativo, adecuado para
-                        técnicas de NLP como modelos de LSTM,
+                        técnicas de NLP como modelos clásicos y transformadores,
                         Naive Bayes o TF-IDF, mejorando la calidad de las predicciones y reduciendo el ruido en los
                         datos.
                     </p>
@@ -1425,7 +1435,7 @@ ${html}
                         <div class="section-title">🔢 4. Representación de Texto</div>
 
                         <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                            Se utilizó CountVectorizer para los modelos clásicos y embeddings + secuencias para la LSTM.
+                            Se utilizó CountVectorizer para los modelos clásicos y tokenización subword para DeBERTa.
                         </p>
 
                         <div class="section-subtitle">Count Vectorizer</div>
@@ -1473,7 +1483,8 @@ ${html}
                         <ul style="line-height: 2;">
                             <li><strong>Tokenización:</strong> <code>AutoTokenizer.from_pretrained(...)</code> produce
                                 <code>input_ids</code> y <code>attention_mask</code>, con truncado/padding a
-                                <strong>max_len=128</strong>.</li>
+                                <strong>max_len=128</strong>.
+                            </li>
                             <li><strong>Entrada al modelo:</strong> tensores con forma <code>(batch, seq_len)</code>.
                                 El mecanismo de atención capta dependencias largas y contexto.</li>
                             <li><strong>Optimización:</strong> el <em>fine‑tuning</em> ajusta todas las capas del
@@ -1490,13 +1501,7 @@ ${html}
                             </div>
                         </div>
 
-                        <div style="text-align: center; margin: 30px 0;">
-                            <img src="tokenizacion_keras.png" alt="Tokenización en Keras"
-                                style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                            <p
-                                style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                                Ilustración 5. Tokenización en Keras</p>
-                        </div>
+
 
 
 
@@ -1514,12 +1519,16 @@ ${html}
                                     <div class="structure-description">
                                         <ol>
                                             <li>Exploración y división de datos (train/val/test) desde Hugging Face</li>
-                                            <li>Preprocesamiento optimizado para poesía (expansión de contracciones, limpieza suave)</li>
+                                            <li>Preprocesamiento optimizado para poesía (expansión de contracciones,
+                                                limpieza suave)</li>
                                             <li>Vectorización con <code>CountVectorizer(max_features=10000)</code></li>
-                                            <li>Exclusión de clase <code>mixed</code> y balanceo con <code>SMOTE</code> (solo train)</li>
-                                            <li>Entrenamiento de <code>MultinomialNB</code> y <code>LogisticRegression</code></li>
+                                            <li>Exclusión de clase <code>mixed</code> y balanceo con <code>SMOTE</code>
+                                                (solo train)</li>
+                                            <li>Entrenamiento de <code>MultinomialNB</code> y
+                                                <code>LogisticRegression</code></li>
                                             <li>Ajuste de <code>alpha</code> (NB) con <code>GridSearchCV</code></li>
-                                            <li>Evaluación macro‑F1 (sin clase <code>mixed</code>) y matrices de confusión</li>
+                                            <li>Evaluación macro‑F1 (sin clase <code>mixed</code>) y matrices de
+                                                confusión</li>
                                         </ol>
                                     </div>
                                 </div>
@@ -1531,9 +1540,11 @@ ${html}
                                             <li>Exclusión de clase <code>mixed</code> en todos los splits</li>
                                             <li>Tokenización subword (max_len=128) y creación de datasets de HF</li>
                                             <li>Hiperparámetros: lr=2e‑5, batch=16, epochs=6, warmup=0.05</li>
-                                            <li>Regularización: Focal Loss (γ=1.5) + class weights, label smoothing=0.1</li>
+                                            <li>Regularización: Focal Loss (γ=1.5) + class weights, label smoothing=0.1
+                                            </li>
                                             <li>Entrenamiento con Trainer optimizando F1‑macro + early stopping</li>
-                                            <li>Evaluación en validación y test; análisis por clase y matriz de confusión</li>
+                                            <li>Evaluación en validación y test; análisis por clase y matriz de
+                                                confusión</li>
                                         </ol>
                                     </div>
                                 </div>
@@ -1545,7 +1556,7 @@ ${html}
                                 <div style="margin-top: 10px;
                                             font-family: 'Courier New', monospace;
                                             background: #f8f9fa; padding: 15px; border-radius: 4px;">
-<code>texto = "Sunshine fills my heart with joy."
+                                    <code>texto = "Sunshine fills my heart with joy."
 # 1) tokenizar → input_ids, attention_mask (max_len=128)
 # 2) pasar por el modelo → logits
 # 3) pred = argmax(logits) → {0: negative, 1: positive, 2: no_impact}</code>
@@ -1557,7 +1568,7 @@ ${html}
                                 <div style="margin-top: 10px;
                                             font-family: 'Courier New', monospace;
                                             background: #f8f9fa; padding: 15px; border-radius: 4px;">
-<code># (resumen)
+                                    <code># (resumen)
 tokens = preprocess_poetry_text(verso)
 vec = CountVectorizer(max_features=10000)
 X = vec.transform([" ".join(tokens)])
@@ -1565,26 +1576,31 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                 </div>
                             </div>
 
-                            <div class="section-subtitle" style="margin-top: 25px;">Optimización y ajustes (hiperparámetros)</div>
+                            <div class="section-subtitle" style="margin-top: 25px;">Optimización y ajustes
+                                (hiperparámetros)</div>
                             <div class="specifications">
                                 <div class="spec-card">
                                     <strong>MultinomialNB</strong>
                                     <ul style="margin-top: 8px; padding-left: 20px;">
-                                        <li><code>GridSearchCV</code> sobre <code>alpha ∈ {0.01, 0.1, 0.5, 1.0, 5.0, 10.0}</code></li>
+                                        <li><code>GridSearchCV</code> sobre
+                                            <code>alpha ∈ {0.01, 0.1, 0.5, 1.0, 5.0, 10.0}</code></li>
                                         <li><em>Scoring</em>: F1‑macro, CV=5</li>
                                     </ul>
                                 </div>
                                 <div class="spec-card">
                                     <strong>Regresión Logística</strong>
                                     <ul style="margin-top: 8px; padding-left: 20px;">
-                                        <li><code>class_weight='balanced'</code>, <code>max_iter=2000</code>, <code>solver='liblinear'</code></li>
+                                        <li><code>class_weight='balanced'</code>, <code>max_iter=2000</code>,
+                                            <code>solver='liblinear'</code></li>
                                     </ul>
                                 </div>
                                 <div class="spec-card">
                                     <strong>DeBERTa‑v3‑base</strong>
                                     <ul style="margin-top: 8px; padding-left: 20px;">
-                                        <li>Focal Loss (γ=1.5) + <em>class weights</em>, <em>label smoothing</em>=0.1</li>
-                                        <li>lr=2e‑5, batch=16, epochs=6, warmup_ratio=0.05, early stopping (patience=3)</li>
+                                        <li>Focal Loss (γ=1.5) + <em>class weights</em>, <em>label smoothing</em>=0.1
+                                        </li>
+                                        <li>lr=2e‑5, batch=16, epochs=6, warmup_ratio=0.05, early stopping (patience=3)
+                                        </li>
                                         <li>Métrica objetivo: F1‑macro</li>
                                     </ul>
                                 </div>
@@ -1687,8 +1703,10 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                 </ul>
                             </div>
 
-                            <p style="margin-top: 15px;"><strong>Framework:</strong> PyTorch + Hugging Face Transformers</p>
-                            <p style="margin-top: 10px;"><strong>Hiperparámetros clave:</strong> lr=2e‑5, batch_size=16, epochs=6,
+                            <p style="margin-top: 15px;"><strong>Framework:</strong> PyTorch + Hugging Face Transformers
+                            </p>
+                            <p style="margin-top: 10px;"><strong>Hiperparámetros clave:</strong> lr=2e‑5, batch_size=16,
+                                epochs=6,
                                 weight_decay=0.01, warmup_ratio=0.05, max_len=128</p>
 
                         </div>
@@ -1699,12 +1717,15 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                 <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
                                 <div class="section-subtitle">Carga del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                    El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los archivos están disponibles en formato Parquet
+                                    El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los
+                                    archivos están disponibles en formato Parquet
                                     y se pueden cargar directamente usando la siguiente configuración:
                                 </p>
 
-                                <div style="background: #f8f9fa; padding: 20px; border-radius: 4px; margin: 20px 0; overflow-x: auto;">
-                                    <code style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block;">
+                                <div
+                                    style="background: #f8f9fa; padding: 20px; border-radius: 4px; margin: 20px 0; overflow-x: auto;">
+                                    <code
+                                        style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block;">
                                         import pandas as pd<br>
                                         <br>
                                         splits = {<br>
@@ -1720,12 +1741,17 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                 </div>
 
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                    <strong>URL del Dataset:</strong> <a href="https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer" target="_blank" style="color: #C41E3A; text-decoration: none;">https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer</a>
+                                    <strong>URL del Dataset:</strong> <a
+                                        href="https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer"
+                                        target="_blank"
+                                        style="color: #C41E3A; text-decoration: none;">https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer</a>
                                 </p>
 
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                    Este método permite cargar directamente los splits de entrenamiento, validación y prueba en DataFrames de pandas,
-                                    facilitando el preprocesamiento y manipulación de los datos para el análisis posterior.
+                                    Este método permite cargar directamente los splits de entrenamiento, validación y
+                                    prueba en DataFrames de pandas,
+                                    facilitando el preprocesamiento y manipulación de los datos para el análisis
+                                    posterior.
                                 </p>
                                 <div class="section-subtitle">División del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
@@ -1748,7 +1774,8 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                     <strong>Librerías utilizadas:</strong> sklearn.metrics.classification_report,
                                     confusion_matrix
                                 </p>
-                                <code style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block; margin-top: 10px;">
+                                <code
+                                    style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block; margin-top: 10px;">
                                 from sklearn.metrics import classification_report, confusion_matrix
 
                                 y_pred = clf.predict(X_test_counts)
@@ -1790,15 +1817,21 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                         </tbody>
                                     </table>
 
-                                    <div class="highlight-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
-                                        <strong>✓ Objetivo cumplido:</strong> Se alcanzó <strong>F1‑macro ≥ 0.85</strong> en Validación y Test con
+                                    <div class="highlight-box"
+                                        style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
+                                        <strong>✓ Objetivo cumplido:</strong> Se alcanzó <strong>F1‑macro ≥
+                                            0.85</strong> en Validación y Test con
                                         DeBERTa‑v3‑base, cumpliendo el objetivo del proyecto con margen.
                                     </div>
 
-                                    <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
-                                        <strong>Comparativa con baselines clásicos:</strong> Los enfoques con CountVectorizer (MultinomialNB / Regresión Logística)
-                                        se usaron como líneas base sólidas, pero <em>no alcanzaron</em> el desempeño del transformador en F1‑macro. La elección de
-                                        DeBERTa se justifica por su capacidad para capturar matices semánticos y de estilo propios de la poesía.
+                                    <div class="highlight-box"
+                                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; margin-top: 30px;">
+                                        <strong>Comparativa con baselines clásicos:</strong> Los enfoques con
+                                        CountVectorizer (MultinomialNB / Regresión Logística)
+                                        se usaron como líneas base sólidas, pero <em>no alcanzaron</em> el desempeño del
+                                        transformador en F1‑macro. La elección de
+                                        DeBERTa se justifica por su capacidad para capturar matices semánticos y de
+                                        estilo propios de la poesía.
                                     </div>
                                 </div>
 
@@ -1809,33 +1842,49 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
 
                                         <div class="section-subtitle">¿Qué se observa en los resultados?</div>
                                         <ul style="line-height: 2;">
-                                            <li><strong>DeBERTa‑v3‑base</strong> alcanza F1‑macro ≈ 0.891 en Test, superando ampliamente a los baselines clásicos.</li>
-                                            <li>Por clase (Test): <em>negative</em> logra <strong>recall ≈ 1.00</strong> (marcadores afectivos más explícitos);
-                                                <em>positive</em> es la más desafiante (<strong>precision/recall ≈ 0.81</strong>), con confusiones hacia
-                                                <code>no_impact</code> cuando el verso es más descriptivo que valorativo; <em>no_impact</em> mantiene
-                                                precisión alta (≈ 0.95) y recall ≈ 0.91.</li>
-                                            <li>La combinación de <em>class weights</em> + Focal Loss + label smoothing favorece el balance entre clases bajo desbalance.</li>
+                                            <li><strong>DeBERTa‑v3‑base</strong> alcanza F1‑macro ≈ 0.891 en Test,
+                                                superando ampliamente a los baselines clásicos.</li>
+                                            <li>Por clase (Test): <em>negative</em> logra <strong>recall ≈ 1.00</strong>
+                                                (marcadores afectivos más explícitos);
+                                                <em>positive</em> es la más desafiante (<strong>precision/recall ≈
+                                                    0.81</strong>), con confusiones hacia
+                                                <code>no_impact</code> cuando el verso es más descriptivo que
+                                                valorativo; <em>no_impact</em> mantiene
+                                                precisión alta (≈ 0.95) y recall ≈ 0.91.
+                                            </li>
+                                            <li>La combinación de <em>class weights</em> + Focal Loss + label smoothing
+                                                favorece el balance entre clases bajo desbalance.</li>
                                         </ul>
 
                                         <div class="section-subtitle">¿Fue exitoso el entrenamiento?</div>
                                         <p style="text-align: justify; line-height: 1.8;">
-                                            Sí. La métrica objetivo (<strong>F1‑macro ≥ 0.85</strong>) se cumplió con margen. Las curvas por época
-                                            (con early stopping) y el uso de regularización indican un proceso estable y reproducible.
+                                            Sí. La métrica objetivo (<strong>F1‑macro ≥ 0.85</strong>) se cumplió con
+                                            margen. Las curvas por época
+                                            (con early stopping) y el uso de regularización indican un proceso estable y
+                                            reproducible.
                                         </p>
 
                                         <div class="section-subtitle">Escenarios de uso</div>
                                         <ul style="line-height: 2;">
-                                            <li>Curaduría y analítica de colecciones poéticas (tendencias afectivas por autor/época).</li>
-                                            <li>Herramientas de apoyo editorial, talleres de escritura y análisis literario asistido.</li>
-                                            <li>Estudios de marcadores afectivos y estilísticos en humanidades digitales.</li>
+                                            <li>Curaduría y analítica de colecciones poéticas (tendencias afectivas por
+                                                autor/época).</li>
+                                            <li>Herramientas de apoyo editorial, talleres de escritura y análisis
+                                                literario asistido.</li>
+                                            <li>Estudios de marcadores afectivos y estilísticos en humanidades
+                                                digitales.</li>
                                         </ul>
 
                                         <div class="section-subtitle">Limitaciones y mejoras</div>
                                         <ul style="line-height: 2;">
-                                            <li><strong>Clase positive:</strong> aún mejorable con <em>augmentations</em> suaves o calibración de umbrales.</li>
-                                            <li><strong>Generalización:</strong> ampliar datos o realizar <em>fine‑tuning</em> por dominio/autor.</li>
-                                            <li><strong>Mixta (<code>mixed</code>):</strong> reincorporarla demandará rediseñar pérdidas/umbral o recolectar más muestras.</li>
-                                            <li><strong>Recursos:</strong> modelos mayores (DeBERTa‑large, RoBERTa‑large) y <em>ensembles</em> podrían subir el techo de desempeño con mayor costo computacional.</li>
+                                            <li><strong>Clase positive:</strong> aún mejorable con
+                                                <em>augmentations</em> suaves o calibración de umbrales.</li>
+                                            <li><strong>Generalización:</strong> ampliar datos o realizar
+                                                <em>fine‑tuning</em> por dominio/autor.</li>
+                                            <li><strong>Mixta (<code>mixed</code>):</strong> reincorporarla demandará
+                                                rediseñar pérdidas/umbral o recolectar más muestras.</li>
+                                            <li><strong>Recursos:</strong> modelos mayores (DeBERTa‑large,
+                                                RoBERTa‑large) y <em>ensembles</em> podrían subir el techo de desempeño
+                                                con mayor costo computacional.</li>
                                         </ul>
                                     </div>
 
@@ -1846,18 +1895,30 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
-                                                <li><strong>Objetivo cumplido:</strong> se alcanzó F1‑macro ≥ 0.85 con DeBERTa‑v3‑base (F1‑macro Test ≈ 0.8909).</li>
-                                                <li>La <strong>elección de preprocesamiento</strong> diferenciado fue clave: limpieza ligera para el transformador y normalización léxica + CountVectorizer para baselines.</li>
-                                                <li>Los <strong>baselines clásicos</strong> sirvieron como referencia y análisis de sensibilidad, pero el transformador capturó mejor los matices poéticos.</li>
-                                                <li><strong>Impacto profesional:</strong> este proyecto consolida el manejo de pipelines de NLP modernos (Transformers) y comparativos clásicos, útil para prototipado rápido y despliegue en analítica textual.</li>
+                                                <li><strong>Objetivo cumplido:</strong> se alcanzó F1‑macro ≥ 0.85 con
+                                                    DeBERTa‑v3‑base (F1‑macro Test ≈ 0.8909).</li>
+                                                <li>La <strong>elección de preprocesamiento</strong> diferenciado fue
+                                                    clave: limpieza ligera para el transformador y normalización léxica
+                                                    + CountVectorizer para baselines.</li>
+                                                <li>Los <strong>baselines clásicos</strong> sirvieron como referencia y
+                                                    análisis de sensibilidad, pero el transformador capturó mejor los
+                                                    matices poéticos.</li>
+                                                <li><strong>Impacto profesional:</strong> este proyecto consolida el
+                                                    manejo de pipelines de NLP modernos (Transformers) y comparativos
+                                                    clásicos, útil para prototipado rápido y despliegue en analítica
+                                                    textual.</li>
                                             </ul>
 
                                             <div class="section-subtitle">Trabajo futuro</div>
                                             <ul style="line-height: 2;">
-                                                <li>Explorar <em>ensembles</em> de checkpoints/seeds y modelos mayores (DeBERTa‑large, RoBERTa).</li>
-                                                <li>Mejorar la clase <em>positive</em> con <em>augmentations</em> suaves y calibración de umbrales.</li>
-                                                <li>Reincorporar la clase <code>mixed</code> con estrategias de pérdida (p. ej., <em>asymmetric loss</em>) o más datos.</li>
-                                                <li>Preparar un demo de inferencia (Gradio/FastAPI) y monitoreo en producción.</li>
+                                                <li>Explorar <em>ensembles</em> de checkpoints/seeds y modelos mayores
+                                                    (DeBERTa‑large, RoBERTa).</li>
+                                                <li>Mejorar la clase <em>positive</em> con <em>augmentations</em> suaves
+                                                    y calibración de umbrales.</li>
+                                                <li>Reincorporar la clase <code>mixed</code> con estrategias de pérdida
+                                                    (p. ej., <em>asymmetric loss</em>) o más datos.</li>
+                                                <li>Preparar un demo de inferencia (Gradio/FastAPI) y monitoreo en
+                                                    producción.</li>
                                             </ul>
                                         </div>
 
@@ -1873,8 +1934,7 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                                         Journal of Machine Learning Research, 12, 2825-2830.
                                                     </p>
 
-                                                    <p>Chollet, F. (2021). <em>Deep Learning with Python</em> (2nd ed.).
-                                                        Manning Publications. [Keras framework documentation]</p>
+
 
                                                     <p>Google Research. (s.f.). <em>Poem sentiment</em> [Conjunto de
                                                         datos]. Hugging Face.
