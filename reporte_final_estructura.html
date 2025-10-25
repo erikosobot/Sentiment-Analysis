@@ -1648,7 +1648,7 @@ TrainingArguments(
                         <!-- PAGE 7: Metrics and Training -->
                         <div class="page-section">
                             <div class="section">
-                                <div class="section-title">📊 6. Entrenamiento, Validación y Métricas</div>
+                                <div class="section-title">📊 6. Validación y Métricas</div>
                                 <div class="section-subtitle">Carga del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                     El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los
@@ -1704,19 +1704,7 @@ TrainingArguments(
                                     <li><strong>Recall (macro avg):</strong> Promedio de recall por clase</li>
                                     <li><strong>F1 (macro avg):</strong> Media armónica de precision y recall</li>
                                 </ul>
-                                <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">
-                                    <strong>Librerías utilizadas:</strong> sklearn.metrics.classification_report,
-                                    confusion_matrix
-                                </p>
-                                <code
-                                    style="background: #f0f0f0; padding: 15px; border-radius: 4px; font-family: 'Courier New', monospace; display: block; margin-top: 10px;">
-                                from sklearn.metrics import classification_report, confusion_matrix
-
-                                y_pred = clf.predict(X_test_counts)
-                                print(classification_report(y_test, y_pred))
-
-                                cm = confusion_matrix(y_test, y_pred)
-                                </code>
+                               
 
                             </div>
 
@@ -1724,6 +1712,36 @@ TrainingArguments(
                             <div class="page-section">
                                 <div class="section">
                                     <div class="section-title">📈 7. Resultados</div>
+
+                                    <div class="section-subtitle">Resultados de Baselines Clásicos</div>
+
+                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
+                                        <strong>Regresión Logística</strong> con class_weight='balanced'
+                                    </p>
+                                    
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto; border-left: 4px solid #C41E3A;">
+                                        <div style="margin-bottom: 10px;"><strong>Validación - Classification Report:</strong></div>
+                                        <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
+
+    negativo       0.50      0.21      0.30        19
+    positivo       0.50      0.12      0.19        17
+ sin_impacto       0.69      0.93      0.79        69
+
+    accuracy                           0.67       105
+   macro avg       0.56      0.42      0.43       105
+weighted avg       0.62      0.67      0.60       105</div>
+                                        
+                                        <div style="margin-top: 15px; margin-bottom: 10px;"><strong>Test - Classification Report:</strong></div>
+                                        <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
+
+    negative       0.44      0.21      0.29        19
+    positive       0.75      0.19      0.30        16
+   no_impact       0.71      0.94      0.81        69
+
+    accuracy                           0.69       104
+   macro avg       0.64      0.45      0.47       104
+weighted avg       0.67      0.69      0.64       104</div>
+                                    </div>
 
                                     <div class="section-subtitle">Resultados principales (DeBERTa‑v3‑base)</div>
                                     <table class="format-table">
