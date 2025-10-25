@@ -888,8 +888,10 @@ ${html}
                     <div class="cover-logo">
                         <img src="logo_cic.jpg" alt="Logo CIC - Centro de Investigación en Computación">
                     </div>
-                    <div class="cover-institution" style="text-align: center; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                        <h2 style="margin: 0; padding: 0 20px; font-size: 1.3em;">Centro de Investigación en Computación</h2>
+                    <div class="cover-institution"
+                        style="text-align: center; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <h2 style="margin: 0; padding: 0 20px; font-size: 1.3em;">Centro de Investigación en Computación
+                        </h2>
                         <p style="margin: 10px 0 0 0; font-size: 1em;">Diplomado en Inteligencia Artificial</p>
                     </div>
                     <div class="cover-logo">
@@ -992,11 +994,16 @@ ${html}
 
                     <div class="section-subtitle">Contexto del Problema</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
-                        El análisis de sentimientos en textos poéticos presenta un desafío particular comparado con textos
-                        cotidianos o técnicos. La poesía, especialmente la de épocas antiguas, emplea un lenguaje altamente
-                        metafórico, ambiguo y cargado de subjetividad. Los poetas frecuentemente expresan emociones de manera
-                        indirecta, mediante descripciones de la naturaleza, objetos abstractos o figuras literarias, lo que
-                        dificulta la detección automática del sentimiento. Este proyecto aborda la clasificación de versos
+                        El análisis de sentimientos en textos poéticos presenta un desafío particular comparado con
+                        textos
+                        cotidianos o técnicos. La poesía, especialmente la de épocas antiguas, emplea un lenguaje
+                        altamente
+                        metafórico, ambiguo y cargado de subjetividad. Los poetas frecuentemente expresan emociones de
+                        manera
+                        indirecta, mediante descripciones de la naturaleza, objetos abstractos o figuras literarias, lo
+                        que
+                        dificulta la detección automática del sentimiento. Este proyecto aborda la clasificación de
+                        versos
                         de poemas ingleses antiguos en categorías de sentimiento (positivo, negativo, sin impacto),
                         utilizando un dataset curado de 1,101 ejemplos disponible en Hugging Face.
                     </p>
@@ -1006,60 +1013,79 @@ ${html}
                         Este proyecto es relevante en múltiples contextos:
                     </p>
                     <ul style="line-height: 2;">
-                        <li><strong>Académico:</strong> Consolida conocimientos de aprendizaje supervisado, procesamiento de
-                            lenguaje natural (NLP), y comparación de paradigmas clásicos vs. modernos (Transformers). Proporciona
-                            experiencia práctica en gestión de datos desbalanceados, regularización y evaluación de modelos.</li>
-                        <li><strong>Industrial/Aplicado:</strong> Las técnicas son transferibles a análisis de sentimientos en
-                            reseñas de libros, críticas literarias, análisis de opiniones en redes sociales, y herramientas de
-                            asistencia editorial. La metodología de comparación entre baselines y transformadores es aplicable
+                        <li><strong>Académico:</strong> Consolida conocimientos de aprendizaje supervisado,
+                            procesamiento de
+                            lenguaje natural (NLP), y comparación de paradigmas clásicos vs. modernos (Transformers).
+                            Proporciona
+                            experiencia práctica en gestión de datos desbalanceados, regularización y evaluación de
+                            modelos.</li>
+                        <li><strong>Industrial/Aplicado:</strong> Las técnicas son transferibles a análisis de
+                            sentimientos en
+                            reseñas de libros, críticas literarias, análisis de opiniones en redes sociales, y
+                            herramientas de
+                            asistencia editorial. La metodología de comparación entre baselines y transformadores es
+                            aplicable
                             a cualquier tarea de clasificación de texto con recursos limitados.</li>
                     </ul>
 
                     <div class="section-subtitle">Alcance y Limitaciones</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
-                        <strong>Alcance:</strong> Este proyecto implementa tres modelos completos (Regresión Logística, Naive Bayes
-                        Multinomial, DeBERTa-v3-base), documenta el pipeline de preprocesamiento, reporta métricas de desempeño
+                        <strong>Alcance:</strong> Este proyecto implementa tres modelos completos (Regresión Logística,
+                        Naive Bayes
+                        Multinomial, DeBERTa-v3-base), documenta el pipeline de preprocesamiento, reporta métricas de
+                        desempeño
                         (F1-macro, accuracy, precision, recall) y analiza resultados con énfasis en la clase positiva.
                     </p>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         <strong>Limitaciones:</strong>
                     </p>
                     <ul style="line-height: 2;">
-                        <li><strong>Tamaño del dataset:</strong> Con 1,101 ejemplos y desbalance hacia la clase "sin impacto",
-                            los modelos pueden tener capacidad de generalización limitada fuera de poesía antigua en inglés.</li>
-                        <li><strong>Clase "mixta" excluida:</strong> La clase "mixed" se excluyó por baja frecuencia (5.5%) y
+                        <li><strong>Tamaño del dataset:</strong> Con 1,101 ejemplos y desbalance hacia la clase "sin
+                            impacto",
+                            los modelos pueden tener capacidad de generalización limitada fuera de poesía antigua en
+                            inglés.</li>
+                        <li><strong>Clase "mixta" excluida:</strong> La clase "mixed" se excluyó por baja frecuencia
+                            (5.5%) y
                             ambigüedad conceptual, limitando la completitud del análisis.</li>
-                        <li><strong>Dominio específico:</strong> Los modelos se entrenan en poesía inglesa de Project Gutenberg,
+                        <li><strong>Dominio específico:</strong> Los modelos se entrenan en poesía inglesa de Project
+                            Gutenberg,
                             por lo que su desempeño en otros idiomas, épocas o géneros no se garantiza.</li>
-                        <li><strong>Recursos computacionales:</strong> No se exploraron modelos más grandes (DeBERTa-large,
-                            RoBERTa-large) ni ensembles por limitaciones de tiempo/recursos, dejando margen para mejora.</li>
+                        <li><strong>Recursos computacionales:</strong> No se exploraron modelos más grandes
+                            (DeBERTa-large,
+                            RoBERTa-large) ni ensembles por limitaciones de tiempo/recursos, dejando margen para mejora.
+                        </li>
                     </ul>
 
                     <div class="section-subtitle">Objetivos</div>
                     <ul style="line-height: 2;">
-                        <li><strong>Objetivo General:</strong> Implementar y comparar tres enfoques de clasificación (dos clásicos y uno moderno basado en Transformers) para análisis de sentimientos en poesía, demostrando la viabilidad de ambos paradigmas con énfasis en técnicas de regularización para datasets pequeños.</li>
+                        <li><strong>Objetivo General:</strong> Implementar y comparar tres enfoques de clasificación
+                            (dos clásicos y uno moderno basado en Transformers) para análisis de sentimientos en poesía,
+                            demostrando la viabilidad de ambos paradigmas con énfasis en técnicas de regularización para
+                            datasets pequeños.</li>
                         <li><strong>Objetivos Específicos:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.5;">
-                                <li>Alcanzar F1-macro ≥ 0.85 en el conjunto de prueba mediante fine-tuning de DeBERTa-v3-base con Focal Loss y class weights.</li>
-                                <li>Comparar baselines clásicos (Regresión Logística, Naive Bayes Multinomial) con transformadores, evaluando trade-offs de complejidad vs. desempeño.</li>
-                                <li>Documentar estrategias de preprocesamiento diferenciadas según el tipo de modelo, preservando matices poéticos en transformadores.</li>
-                                
-                                <li>Proporcionar recomendaciones reproducibles para análisis de sentimientos en dominios especializados (poesía, literatura, textos arcaicos).</li>
+                                <li>Alcanzar F1-macro ≥ 0.85 en el conjunto de prueba mediante fine-tuning de
+                                    DeBERTa-v3-base con Focal Loss y class weights.</li>
+                                <li>Comparar baselines clásicos (Regresión Logística, Naive Bayes Multinomial) con
+                                    transformadores, evaluando trade-offs de complejidad vs. desempeño.</li>
+                                <li>Documentar estrategias de preprocesamiento diferenciadas según el tipo de modelo,
+                                    preservando matices poéticos en transformadores.</li>
+
+                                <li>Proporcionar recomendaciones reproducibles para análisis de sentimientos en dominios
+                                    especializados (poesía, literatura, textos arcaicos).</li>
                             </ul>
                         </li>
                     </ul>
 
                     <div class="section-subtitle">Marco de Referencia</div>
-                    <div class="highlight-box"
-                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);">
+                    <div class="highlight-box" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);">
                         <p style="margin-bottom: 12px;">
                             <strong>Indicaciones del Proyecto:</strong> Este proyecto se fundamenta en las
                             indicaciones
                             especificadas en el documento <em>Indicaciones Proyecto Poemas.pdf</em>, el cual establece
                             que:
                         </p>
-                        <p
-                            style="margin-bottom: 12px; padding-left: 15px;">
+                        <p style="margin-bottom: 12px; padding-left: 15px;">
                             <strong>"Este proyecto es un ejercicio de aprendizaje supervisado. La idea general consiste
                                 en
                                 implementar tres clasificadores de texto para el problema de análisis de sentimientos en
@@ -1085,9 +1111,12 @@ ${html}
 
                     <div class="section-subtitle">Análisis de Sentimientos (Sentiment Analysis)</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
-                        El análisis de sentimientos es una tarea fundamental en el procesamiento de lenguaje natural (NLP) que busca 
-                        determinar la orientación emocional (positiva, negativa o neutra) de un texto. Formalmente, es un problema 
-                        de clasificación multiclase donde se asigna una etiqueta de sentimiento a cada documento basándose en su 
+                        El análisis de sentimientos es una tarea fundamental en el procesamiento de lenguaje natural
+                        (NLP) que busca
+                        determinar la orientación emocional (positiva, negativa o neutra) de un texto. Formalmente, es
+                        un problema
+                        de clasificación multiclase donde se asigna una etiqueta de sentimiento a cada documento
+                        basándose en su
                         contenido lingüístico.
                     </p>
 
@@ -1096,12 +1125,17 @@ ${html}
                         Existen dos paradigmas principales para esta tarea:
                     </p>
                     <ul style="line-height: 2;">
-                        <li><strong>Enfoques Clásicos (Bolsa de Palabras):</strong> Modelos como Naive Bayes y Regresión Logística 
-                        trabajan con representaciones de frecuencia (TF-IDF, CountVectorizer). Son rápidos, interpretables y eficientes 
-                        con datos pequeños, pero no capturan relaciones contextuales o semánticas complejas.</li>
-                        <li><strong>Transformadores (Contextuales):</strong> Modelos como BERT, DeBERTa utilizan mecanismos de 
-                        auto-atención para capturar dependencias de largo alcance y contexto. Requieren más datos y recursos, pero 
-                        son superiores en capturar matices lingüísticos, especialmente en dominios especializados como la poesía.</li>
+                        <li><strong>Enfoques Clásicos (Bolsa de Palabras):</strong> Modelos como Naive Bayes y Regresión
+                            Logística
+                            trabajan con representaciones de frecuencia (TF-IDF, CountVectorizer). Son rápidos,
+                            interpretables y eficientes
+                            con datos pequeños, pero no capturan relaciones contextuales o semánticas complejas.</li>
+                        <li><strong>Transformadores (Contextuales):</strong> Modelos como BERT, DeBERTa utilizan
+                            mecanismos de
+                            auto-atención para capturar dependencias de largo alcance y contexto. Requieren más datos y
+                            recursos, pero
+                            son superiores en capturar matices lingüísticos, especialmente en dominios especializados
+                            como la poesía.</li>
                     </ul>
 
                     <div class="section-subtitle">Desafíos en Análisis de Sentimientos de Poesía</div>
@@ -1109,29 +1143,41 @@ ${html}
                         El lenguaje poético presenta características únicas que lo hacen más desafiante:
                     </p>
                     <ul style="line-height: 2;">
-                        <li><strong>Ambigüedad Semántica:</strong> Los poemas emplean metáforas, simbolismo y dobles sentidos que 
-                        dificultan la extracción automática de sentimientos.</li>
-                        <li><strong>Expresión Indirecta:</strong> Las emociones se comunican implícitamente a través de descripciones 
-                        de objetos, naturaleza o estados abstractos, no mediante palabras emocionales explícitas.</li>
-                        <li><strong>Escasez de Datos Etiquetados:</strong> Hay pocos datasets de sentimientos en poesía comparado con 
-                        reseñas de productos o redes sociales, lo que requiere técnicas de regularización robustas.</li>
-                        <li><strong>Vocabulario Arcaico:</strong> La poesía antigua contiene palabras y estructuras lingüísticas 
-                        obsoletas que requieren preprocesamiento especializado.</li>
+                        <li><strong>Ambigüedad Semántica:</strong> Los poemas emplean metáforas, simbolismo y dobles
+                            sentidos que
+                            dificultan la extracción automática de sentimientos.</li>
+                        <li><strong>Expresión Indirecta:</strong> Las emociones se comunican implícitamente a través de
+                            descripciones
+                            de objetos, naturaleza o estados abstractos, no mediante palabras emocionales explícitas.
+                        </li>
+                        <li><strong>Escasez de Datos Etiquetados:</strong> Hay pocos datasets de sentimientos en poesía
+                            comparado con
+                            reseñas de productos o redes sociales, lo que requiere técnicas de regularización robustas.
+                        </li>
+                        <li><strong>Vocabulario Arcaico:</strong> La poesía antigua contiene palabras y estructuras
+                            lingüísticas
+                            obsoletas que requieren preprocesamiento especializado.</li>
                     </ul>
 
                     <div class="section-subtitle">Técnicas de Regularización para Datasets Pequeños</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
-                        Con 1,101 ejemplos (pequeño para deep learning), se aplican técnicas para mejorar generalización:
+                        Con 1,101 ejemplos (pequeño para deep learning), se aplican técnicas para mejorar
+                        generalización:
                     </p>
                     <ul style="line-height: 2;">
-                        <li><strong>SMOTE:</strong> Sobremuestreo sintético de clases minoritarias para balanceo en modelos clásicos.</li>
-                        <li><strong>Focal Loss:</strong> Función de pérdida que penaliza más ejemplos mal clasificados de clases 
-                        minoritarias, evitando que el modelo ignore clases raras.</li>
-                        <li><strong>Class Weights:</strong> Asignación de pesos inversamente proporcionales a la frecuencia de clase.</li>
-                        <li><strong>Label Smoothing:</strong> Técnica que suaviza etiquetas one-hot (0.1 en clases incorrectas) para 
-                        evitar sobrefitting.</li>
-                        <li><strong>Early Stopping:</strong> Detención del entrenamiento cuando la métrica de validación no mejora, 
-                        evitando sobreajuste.</li>
+                        <li><strong>SMOTE:</strong> Sobremuestreo sintético de clases minoritarias para balanceo en
+                            modelos clásicos.</li>
+                        <li><strong>Focal Loss:</strong> Función de pérdida que penaliza más ejemplos mal clasificados
+                            de clases
+                            minoritarias, evitando que el modelo ignore clases raras.</li>
+                        <li><strong>Class Weights:</strong> Asignación de pesos inversamente proporcionales a la
+                            frecuencia de clase.</li>
+                        <li><strong>Label Smoothing:</strong> Técnica que suaviza etiquetas one-hot (0.1 en clases
+                            incorrectas) para
+                            evitar sobrefitting.</li>
+                        <li><strong>Early Stopping:</strong> Detención del entrenamiento cuando la métrica de validación
+                            no mejora,
+                            evitando sobreajuste.</li>
                     </ul>
                 </div>
             </div>
@@ -1149,7 +1195,8 @@ ${html}
                     </p>
                     <ul style="line-height: 2;">
                         <li><strong>Baselines clásicos (MultinomialNB, Regresión Logística):</strong> preprocesamiento
-                            optimizado para poesía inglesa antigua (expansión de contracciones arcaicas, normalización de
+                            optimizado para poesía inglesa antigua (expansión de contracciones arcaicas, normalización
+                            de
                             signos, limpieza suave). Tras tokenizar, se aplicó
                             <code>CountVectorizer(max_features=10000)</code>
                             y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo
@@ -1158,16 +1205,19 @@ ${html}
                         </li>
                         <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no
                                 destructivo</em>
-                            (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando los
+                            (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando
+                            los
                             matices poéticos para que el tokenizador subword capture semántica contextual. Se excluye la
                             clase
                             <code>mixed</code> en todos los splits.
                         </li>
                     </ul>
                     <div class="highlight-box">
-                        <strong>Justificación de la elección:</strong> en enfoques clásicos conviene estandarizar la forma
+                        <strong>Justificación de la elección:</strong> en enfoques clásicos conviene estandarizar la
+                        forma
                         superficial de las palabras para que la frecuencia sea informativa; en transformadores, el
-                        tokenizador y el contexto atenúan la necesidad de limpiar agresivamente, y remover stopwords puede
+                        tokenizador y el contexto atenúan la necesidad de limpiar agresivamente, y remover stopwords
+                        puede
                         incluso eliminar matices útiles en poesía.
                     </div>
 
@@ -1177,9 +1227,11 @@ ${html}
                             tokens; se ajustó y luego se <em>tuneó</em> el hiperparámetro <code>alpha</code> vía
                             <code>GridSearchCV</code>.
                         </li>
-                        <li><strong>Regresión Logística:</strong> baseline lineal con <code>class_weight='balanced'</code>
+                        <li><strong>Regresión Logística:</strong> baseline lineal con
+                            <code>class_weight='balanced'</code>
                             para mitigar desbalance sin sobremuestreo.</li>
-                        <li><strong>DeBERTa‑v3‑base:</strong> transformador preentrenado ajustado finamente con técnicas de
+                        <li><strong>DeBERTa‑v3‑base:</strong> transformador preentrenado ajustado finamente con técnicas
+                            de
                             regularización (Focal Loss, label smoothing, early stopping) y optimizado por F1‑macro.</li>
                     </ul>
 
@@ -1643,10 +1695,11 @@ ${html}
                         </div>
                     </div>
 
-                        <!-- PAGE 6: Models -->
+                    <!-- PAGE 6: Models -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">Modelos Implementados</div>                            <div class="section-subtitle">6.1 Regresión Logística</div>
+                            <div class="section-title">Modelos</div>
+                            <div class="section-subtitle">6.1 Regresión Logística</div>
                             <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                 La regresión logística fue seleccionada por su capacidad para manejar eficazmente
                                 representaciones vectorizadas
@@ -1736,7 +1789,8 @@ ${html}
                                 </ul>
                             </div>
                             <div style="height: 20px; clear: both;"></div>
-                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración: TrainingArguments</div>
+                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración:
+                                TrainingArguments</div>
                             <pre class="code-block"><code>
 TrainingArguments(
     output_dir=f"{config.OUTPUT_DIR}/fold_{fold}",
@@ -1758,10 +1812,12 @@ TrainingArguments(
     report_to="none"
 )</code></pre>
                             <p style="text-align: justify; line-height: 1.5; margin-top: 15px;">
-                                Los argumentos de entrenamiento configuran el proceso de fine-tuning de DeBERTa. Se utiliza un scheduler coseno con warmup del 5%, early stopping basado en F1-macro, y se guardan solo los 2 mejores checkpoints para optimizar memoria.
+                                Los argumentos de entrenamiento configuran el proceso de fine-tuning de DeBERTa. Se
+                                utiliza un scheduler coseno con warmup del 5%, early stopping basado en F1-macro, y se
+                                guardan solo los 2 mejores checkpoints para optimizar memoria.
                             </p>
 
-                            
+
 
                         </div>
 
@@ -1824,7 +1880,7 @@ TrainingArguments(
                                     <li><strong>Recall (macro avg):</strong> Promedio de recall por clase</li>
                                     <li><strong>F1 (macro avg):</strong> Media armónica de precision y recall</li>
                                 </ul>
-                               
+
 
                             </div>
 
@@ -1835,74 +1891,89 @@ TrainingArguments(
 
                                     <div class="section-subtitle">Resultados de Baselines Clásicos</div>
 
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
                                         <strong>Regresión Logística</strong> con class_weight='balanced'
                                     </p>
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
                                         Validación: F1‑macro = 0.4310
                                     </p>
-                                    
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
-                                        <div style="margin-bottom: 10px;"><strong>Validación - Classification Report:</strong></div>
-                                        <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
 
-    negativo       0.50      0.21      0.30        19
-    positivo       0.50      0.12      0.19        17
- sin_impacto       0.69      0.93      0.79        69
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="margin-bottom: 10px;"><strong>Validación - Classification
+                                                Report:</strong></div>
+                                        <div style="white-space: pre; text-align: left;"> precision recall f1-score
+                                            support
 
-    accuracy                           0.67       105
-   macro avg       0.56      0.42      0.43       105
-weighted avg       0.62      0.67      0.60       105</div>
-                                        
-                                        <div style="margin-top: 15px; margin-bottom: 10px;"><strong>Test - Classification Report:</strong></div>
-                                        <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
+                                            negativo 0.50 0.21 0.30 19
+                                            positivo 0.50 0.12 0.19 17
+                                            sin_impacto 0.69 0.93 0.79 69
 
-    negative       0.44      0.21      0.29        19
-    positive       0.75      0.19      0.30        16
-   no_impact       0.71      0.94      0.81        69
+                                            accuracy 0.67 105
+                                            macro avg 0.56 0.42 0.43 105
+                                            weighted avg 0.62 0.67 0.60 105</div>
 
-    accuracy                           0.69       104
-   macro avg       0.64      0.45      0.47       104
-weighted avg       0.67      0.69      0.64       104</div>
+                                        <div style="margin-top: 15px; margin-bottom: 10px;"><strong>Test -
+                                                Classification Report:</strong></div>
+                                        <div style="white-space: pre; text-align: left;"> precision recall f1-score
+                                            support
+
+                                            negative 0.44 0.21 0.29 19
+                                            positive 0.75 0.19 0.30 16
+                                            no_impact 0.71 0.94 0.81 69
+
+                                            accuracy 0.69 104
+                                            macro avg 0.64 0.45 0.47 104
+                                            weighted avg 0.67 0.69 0.64 104</div>
                                     </div>
                                     <div style="height: 20px; clear: both;"></div>
                                     <div style="text-align: center; margin: 30px 0;">
                                         <img src="mc_rl.png" alt="Matriz de Confusión - Regresión Logística"
                                             style="max-width: 55%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                        <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
+                                        <p
+                                            style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                                             Ilustración. Matriz de Confusión - Regresión Logística</p>
                                     </div>
                                     <div style="height: 20px; clear: both;"></div>
 
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt; margin-top: 30px;">
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt; margin-top: 30px;">
                                         <strong>Multinomial Naive Bayes</strong> optimizado con GridSearchCV
                                     </p>
-                                    
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
+
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
                                         Test: F1‑macro = 0.5625
                                     </p>
-                                    
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
-                                        <div style="margin-bottom: 10px;"><strong>Test - Classification Report (Ajustado):</strong></div>
-                                        <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
 
-    negativo       0.46      0.58      0.51        19
-    positivo       0.50      0.31      0.38        16
- sin_impacto       0.79      0.80      0.79        69
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="margin-bottom: 10px;"><strong>Test - Classification Report
+                                                (Ajustado):</strong></div>
+                                        <div style="white-space: pre; text-align: left;"> precision recall f1-score
+                                            support
 
-    accuracy                           0.68       104
-   macro avg       0.58      0.56      0.56       104
-weighted avg       0.68      0.68      0.68       104</div>
+                                            negativo 0.46 0.58 0.51 19
+                                            positivo 0.50 0.31 0.38 16
+                                            sin_impacto 0.79 0.80 0.79 69
+
+                                            accuracy 0.68 104
+                                            macro avg 0.58 0.56 0.56 104
+                                            weighted avg 0.68 0.68 0.68 104</div>
                                     </div>
 
                                     <div style="text-align: center; margin: 30px 0;">
-                                        <img src="nb_m.png" alt="Matriz de Confusión - Multinomial Naive Bayes Optimizado"
+                                        <img src="nb_m.png"
+                                            alt="Matriz de Confusión - Multinomial Naive Bayes Optimizado"
                                             style="max-width: 55%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                        <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
+                                        <p
+                                            style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                                             Ilustración. Matriz de Confusión - Multinomial Naive Bayes Optimizado</p>
                                     </div>
 
-                                    
+
 
                                     <div class="section-subtitle">Resultados principales (DeBERTa‑v3‑base)</div>
 
@@ -1933,89 +2004,105 @@ weighted avg       0.68      0.68      0.68       104</div>
 
 
 
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px; font-size: 12pt; margin-top: 20px; color: #444;">
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 20px; font-size: 12pt; margin-top: 20px; color: #444;">
                                         <strong>ANALIZANDO DESBALANCE Y CALCULANDO CLASS WEIGHTS...</strong>
                                     </p>
-                                    
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
-                                        <div style="white-space: pre; text-align: left;">Class weights (for Trainer): [1.8129033 2.112782  0.5063063]
-  • Negative (0): 1.813
-  • Positive (1): 2.113
-  • No_impact (2): 0.506</div>
+
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">Class weights (for Trainer):
+                                            [1.8129033 2.112782 0.5063063]
+                                            • Negative (0): 1.813
+                                            • Positive (1): 2.113
+                                            • No_impact (2): 0.506</div>
                                     </div>
 
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px; font-size: 12pt; margin-top: 25px; color: #444;">
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 20px; font-size: 12pt; margin-top: 25px; color: #444;">
                                         <strong>Progresión de entrenamiento (6 épocas):</strong>
                                     </p>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 9pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 9pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="white-space: pre; text-align: left;">[318/318 06:05, Epoch 6/6]
 
-Epoch	Training Loss	Validation Loss	Accuracy	F1 Macro	F1 Weighted
-1	0.687600	0.627334	0.219048	0.219373	0.112739
-2	0.415900	0.277040	0.695238	0.677715	0.704948
-3	0.168000	0.238712	0.904762	0.879654	0.905809
-4	0.057400	0.295952	0.885714	0.855089	0.889655
-5	0.033500	0.272913	0.904762	0.878603	0.903656
-6	0.014500	0.268912	0.914286	0.890276	0.913175</div>
+                                            Epoch Training Loss Validation Loss Accuracy F1 Macro F1 Weighted
+                                            1 0.687600 0.627334 0.219048 0.219373 0.112739
+                                            2 0.415900 0.277040 0.695238 0.677715 0.704948
+                                            3 0.168000 0.238712 0.904762 0.879654 0.905809
+                                            4 0.057400 0.295952 0.885714 0.855089 0.889655
+                                            5 0.033500 0.272913 0.904762 0.878603 0.903656
+                                            6 0.014500 0.268912 0.914286 0.890276 0.913175</div>
                                     </div>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
-                                        <div style="white-space: pre; text-align: left;">RESULTADOS FINALES EN VALIDATION SET:
-  Accuracy:    0.9143
-  F1-Macro:    0.8903
-  F1-Weighted: 0.9132
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">RESULTADOS FINALES EN
+                                            VALIDATION SET:
+                                            Accuracy: 0.9143
+                                            F1-Macro: 0.8903
+                                            F1-Weighted: 0.9132
 
-RESULTADOS FINALES EN TEST SET:
-  Accuracy:    0.9135
-  F1-Macro:    0.8909
-  F1-Weighted: 0.9136</div>
+                                            RESULTADOS FINALES EN TEST SET:
+                                            Accuracy: 0.9135
+                                            F1-Macro: 0.8909
+                                            F1-Weighted: 0.9136</div>
                                     </div>
 
 
-                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt; margin-top: 25px; color: #444;">
+                                    <p
+                                        style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt; margin-top: 25px; color: #444;">
                                         <strong>Reporte detallado de clasificación (Test Set):</strong>
                                     </p>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
-                                        <div style="white-space: pre; text-align: left;">CLASSIFICATION REPORT (Test Set):
-              precision    recall  f1-score   support
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">CLASSIFICATION REPORT (Test
+                                            Set):
+                                            precision recall f1-score support
 
-    negative       0.86      1.00      0.93        19
-    positive       0.81      0.81      0.81        16
-   no_impact       0.95      0.91      0.93        69
+                                            negative 0.86 1.00 0.93 19
+                                            positive 0.81 0.81 0.81 16
+                                            no_impact 0.95 0.91 0.93 69
 
-    accuracy                           0.91       104
-   macro avg       0.88      0.91      0.89       104
-weighted avg       0.92      0.91      0.91       104</div>
+                                            accuracy 0.91 104
+                                            macro avg 0.88 0.91 0.89 104
+                                            weighted avg 0.92 0.91 0.91 104</div>
                                     </div>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
-                                        <div style="white-space: pre; text-align: left;">FINE-TUNING DEBERTA-V3-BASE COMPLETADO:
+                                    <div
+                                        style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">FINE-TUNING DEBERTA-V3-BASE
+                                            COMPLETADO:
 
- TÉCNICAS APLICADAS:
-   • Modelo: DeBERTa-v3-base (Fine-tuned)
-   • Preprocesamiento: Eliminación duplicados, normalización comillas/guiones, 
-     exclusión clase 'mixed'
-   • Tokenización: max_len=128
-   • Pérdida: Focal Loss (γ=1.5) con class weights
-   • Regularización: Label smoothing 0.1
-   • Entrenamiento: Hugging Face Trainer, optimizado por F1-macro
-   • Validación: Early stopping (patience=3)</div>
+                                            TÉCNICAS APLICADAS:
+                                            • Modelo: DeBERTa-v3-base (Fine-tuned)
+                                            • Preprocesamiento: Eliminación duplicados, normalización comillas/guiones,
+                                            exclusión clase 'mixed'
+                                            • Tokenización: max_len=128
+                                            • Pérdida: Focal Loss (γ=1.5) con class weights
+                                            • Regularización: Label smoothing 0.1
+                                            • Entrenamiento: Hugging Face Trainer, optimizado por F1-macro
+                                            • Validación: Early stopping (patience=3)</div>
                                     </div>
 
                                     <div style="text-align: center; margin: 30px 0;">
                                         <img src="deberta.png" alt="Matriz de Confusión - DeBERTa-v3-base"
                                             style="max-width: 60%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                        <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
+                                        <p
+                                            style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                                             Ilustración. Matriz de Confusión - DeBERTa-v3-base (Conjunto de Test)</p>
                                     </div>
 
                                     <div class="highlight-box"
                                         style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
-                                        <strong>Objetivo cumplido (ALCANZADO):</strong> Se alcanzó <strong>F1‑macro = 0.8909</strong> en el conjunto de Test, 
-                                        superando la meta de <strong>F1‑macro ≥ 0.85</strong>. DeBERTa‑v3‑base demostró ser significativamente superior 
-                                        a los baselines clásicos (Regresión Logística: 0.4661 | Multinomial NB optimizado: 0.5625), justificando 
+                                        <strong>Objetivo cumplido (ALCANZADO):</strong> Se alcanzó <strong>F1‑macro =
+                                            0.8909</strong> en el conjunto de Test,
+                                        superando la meta de <strong>F1‑macro ≥ 0.85</strong>. DeBERTa‑v3‑base demostró
+                                        ser significativamente superior
+                                        a los baselines clásicos (Regresión Logística: 0.4661 | Multinomial NB
+                                        optimizado: 0.5625), justificando
                                         el uso de transformadores para la tarea de análisis de sentimiento en poesía.
                                     </div>
 
@@ -2040,12 +2127,18 @@ weighted avg       0.92      0.91      0.91       104</div>
                                             <li><strong>DeBERTa‑v3‑base</strong> alcanza F1‑macro ≈ 0.891 en Test,
                                                 superando ampliamente a los baselines clásicos.</li>
                                             <li>Por clase (Test): <em>negative</em> logra <strong>recall ≈ 1.00</strong>
-                                                (marcadores explícitos); <em>positive</em> es desafiante (F1 ≈ 0.81) porque el 
-                                                sentimiento positivo en poesía es sutil y metafórico, frecuentemente confundido con 
-                                                <code>no_impact</code> cuando el poeta describe la belleza sin expresar explícitamente 
-                                                alegría. Ejemplo: un verso como <em>"The golden light upon the hills"</em> expresa belleza 
-                                                (sentimiento positivo), pero el modelo puede clasificarlo como neutro por la ausencia de 
-                                                palabras emocionales directas; <em>no_impact</em> es fácil de detectar (precisión ≈ 0.95, recall ≈ 0.91).
+                                                (marcadores explícitos); <em>positive</em> es desafiante (F1 ≈ 0.81)
+                                                porque el
+                                                sentimiento positivo en poesía es sutil y metafórico, frecuentemente
+                                                confundido con
+                                                <code>no_impact</code> cuando el poeta describe la belleza sin expresar
+                                                explícitamente
+                                                alegría. Ejemplo: un verso como <em>"The golden light upon the
+                                                    hills"</em> expresa belleza
+                                                (sentimiento positivo), pero el modelo puede clasificarlo como neutro
+                                                por la ausencia de
+                                                palabras emocionales directas; <em>no_impact</em> es fácil de detectar
+                                                (precisión ≈ 0.95, recall ≈ 0.91).
                                             </li>
                                             <li>La combinación de <em>class weights</em> + Focal Loss + label smoothing
                                                 favorece el balance entre clases bajo desbalance.</li>
@@ -2065,7 +2158,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                                 autor/época).</li>
                                             <li>Herramientas de apoyo editorial, talleres de escritura y análisis
                                                 literario asistido.</li>
-                                            
+
                                         </ul>
 
                                         <div class="section-subtitle">Limitaciones y mejoras</div>
@@ -2076,11 +2169,24 @@ weighted avg       0.92      0.91      0.91       104</div>
                                             <li><strong>Generalización:</strong> ampliar datos o realizar
                                                 <em>fine‑tuning</em> por dominio/autor:
                                                 <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.5;">
-                                                    <li><strong>Por dominio:</strong> Poesía medieval vs. moderna vs. romántica (cada estilo tiene características diferentes). Un modelo entrenado específicamente en poesía romántica (con énfasis en descripciones líricas de la naturaleza y emociones) podría capturar mejor los matices del sentimiento positivo en ese contexto, comparado con un modelo general entrenado en múltiples épocas simultáneamente.</li>
-                                                    <li><strong>Por autor:</strong> Ajustar el modelo específicamente para William Shakespeare, Emily Dickinson, etc. (cada poeta tiene su propio estilo y forma de expresar sentimientos). Shakespeare tiende a usar lenguaje elaborado y formal; Dickinson emplea puntuación experimental y abstracciones. Un modelo fine-tuned por autor sería más preciso en detectar sentimientos bajo el estilo específico de ese poeta.</li>
+                                                    <li><strong>Por dominio:</strong> Poesía medieval vs. moderna vs.
+                                                        romántica (cada estilo tiene características diferentes). Un
+                                                        modelo entrenado específicamente en poesía romántica (con
+                                                        énfasis en descripciones líricas de la naturaleza y emociones)
+                                                        podría capturar mejor los matices del sentimiento positivo en
+                                                        ese contexto, comparado con un modelo general entrenado en
+                                                        múltiples épocas simultáneamente.</li>
+                                                    <li><strong>Por autor:</strong> Ajustar el modelo específicamente
+                                                        para William Shakespeare, Emily Dickinson, etc. (cada poeta
+                                                        tiene su propio estilo y forma de expresar sentimientos).
+                                                        Shakespeare tiende a usar lenguaje elaborado y formal; Dickinson
+                                                        emplea puntuación experimental y abstracciones. Un modelo
+                                                        fine-tuned por autor sería más preciso en detectar sentimientos
+                                                        bajo el estilo específico de ese poeta.</li>
                                                 </ul>
                                             </li>
-                                            <li><strong>Clase mixta (<code>mixed</code>):</strong> reincorporarla demandará
+                                            <li><strong>Clase mixta (<code>mixed</code>):</strong> reincorporarla
+                                                demandará
                                                 rediseñar pérdidas/umbral o recolectar más muestras.</li>
                                             <li><strong>Recursos:</strong> modelos mayores (DeBERTa‑large,
                                                 RoBERTa‑large) y <em>ensembles</em> podrían subir el techo de desempeño
@@ -2091,7 +2197,8 @@ weighted avg       0.92      0.91      0.91       104</div>
                                     <!-- PAGE 10: Conclusions -->
                                     <div class="page-section">
                                         <div class="section">
-                                            <div class="section-title" id="sec10">10. Conclusiones y Trabajo Futuro</div>
+                                            <div class="section-title" id="sec10">10. Conclusiones y Trabajo Futuro
+                                            </div>
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
@@ -2125,42 +2232,61 @@ weighted avg       0.92      0.91      0.91       104</div>
                                         <!-- PAGE 11: References & Footer -->
                                         <div class="page-section">
                                             <div class="section">
-                                                <div class="section-title" id="sec11">11. Referencias Bibliográficas</div>
+                                                <div class="section-title" id="sec11">11. Referencias Bibliográficas
+                                                </div>
 
                                                 <div
                                                     style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2.2; font-size: 12pt;">
-                                                    
+
                                                     <p style="margin-bottom: 15px;">
-                                                        Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. <em>arXiv</em>. https://arxiv.org/abs/1810.04805
+                                                        Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT:
+                                                        Pre-training of deep bidirectional transformers for language
+                                                        understanding. <em>arXiv</em>. https://arxiv.org/abs/1810.04805
                                                     </p>
 
                                                     <p style="margin-bottom: 15px;">
-                                                        Google Research Datasets. (s.f.). <em>Poem sentiment dataset</em>. Hugging Face. https://huggingface.co/datasets/google-research-datasets/poem_sentiment
+                                                        Google Research Datasets. (s.f.). <em>Poem sentiment
+                                                            dataset</em>. Hugging Face.
+                                                        https://huggingface.co/datasets/google-research-datasets/poem_sentiment
                                                     </p>
 
                                                     <p style="margin-bottom: 15px;">
-                                                        He, P., Liu, X., Gao, J., & Chen, W. (2021). DeBERTa: Decoding-enhanced BERT with disentangled attention. <em>arXiv</em>. https://arxiv.org/abs/2006.03654
+                                                        He, P., Liu, X., Gao, J., & Chen, W. (2021). DeBERTa:
+                                                        Decoding-enhanced BERT with disentangled attention.
+                                                        <em>arXiv</em>. https://arxiv.org/abs/2006.03654
                                                     </p>
 
                                                     <p style="margin-bottom: 15px;">
-                                                        Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research</em>, <em>12</em>, 2825–2830. https://jmlr.org/papers/v12/pedregosa11a.html
+                                                        Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion,
+                                                        B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn:
+                                                        Machine learning in Python. <em>Journal of Machine Learning
+                                                            Research</em>, <em>12</em>, 2825–2830.
+                                                        https://jmlr.org/papers/v12/pedregosa11a.html
                                                     </p>
 
                                                     <p style="margin-bottom: 15px;">
-                                                        Wolf, T., Debut, L., Sanh, V., Chaumond, J., Delangue, C., Moi, A., ... & Rush, A. M. (2020). Transformers: State-of-the-art natural language processing. <em>arXiv</em>. https://arxiv.org/abs/1910.03771
+                                                        Wolf, T., Debut, L., Sanh, V., Chaumond, J., Delangue, C., Moi,
+                                                        A., ... & Rush, A. M. (2020). Transformers: State-of-the-art
+                                                        natural language processing. <em>arXiv</em>.
+                                                        https://arxiv.org/abs/1910.03771
                                                     </p>
 
                                                     <p style="margin-bottom: 15px;">
-                                                        Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). SMOTE: Synthetic minority over-sampling technique. <em>Journal of Artificial Intelligence Research</em>, <em>16</em>, 321–357. https://arxiv.org/abs/1106.1813
+                                                        Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P.
+                                                        (2002). SMOTE: Synthetic minority over-sampling technique.
+                                                        <em>Journal of Artificial Intelligence Research</em>,
+                                                        <em>16</em>, 321–357. https://arxiv.org/abs/1106.1813
                                                     </p>
 
                                                     <p>
-                                                        Lin, T. Y., Goyal, P., Girshick, R., He, K., & Dollár, P. (2017). Focal loss for dense object detection. <em>arXiv</em>. https://arxiv.org/abs/1708.02002
+                                                        Lin, T. Y., Goyal, P., Girshick, R., He, K., & Dollár, P.
+                                                        (2017). Focal loss for dense object detection. <em>arXiv</em>.
+                                                        https://arxiv.org/abs/1708.02002
                                                     </p>
                                                 </div>
                                             </div>
 
-                                            
+
 
                                             <div class="page-number"></div>
                                         </div>
