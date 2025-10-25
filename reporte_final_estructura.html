@@ -1547,7 +1547,7 @@ ${html}
                             </div>
                             <div style="height: 20px; clear: both;"></div>
                             <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración:
-                                GridSearchCV</div>
+                                LogisticRegression</div>
                             <pre class="code-block"><code>lr_model = LogisticRegression(
     random_state=SEED,
     max_iter=2000,
@@ -1615,8 +1615,8 @@ ${html}
                                     <li>Rendimiento superior en dominios de texto fino</li>
                                 </ul>
                             </div>
-
-                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración de entrenamiento</div>
+                            <div style="height: 20px; clear: both;"></div>
+                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración: TrainingArguments</div>
                             <pre class="code-block"><code>
 TrainingArguments(
     output_dir=f"{config.OUTPUT_DIR}/fold_{fold}",
@@ -1641,11 +1641,7 @@ TrainingArguments(
                                 Los argumentos de entrenamiento configuran el proceso de fine-tuning de DeBERTa. Se utiliza un scheduler coseno con warmup del 5%, early stopping basado en F1-macro, y se guardan solo los 2 mejores checkpoints para optimizar memoria.
                             </p>
 
-                            <p style="margin-top: 15px;"><strong>Framework:</strong> PyTorch + Hugging Face Transformers
-                            </p>
-                            <p style="margin-top: 10px;"><strong>Hiperparámetros clave:</strong> lr=2e‑5, batch_size=16,
-                                epochs=6,
-                                weight_decay=0.01, warmup_ratio=0.05, max_len=128</p>
+                            
 
                         </div>
 
