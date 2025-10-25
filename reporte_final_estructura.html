@@ -906,65 +906,6 @@ ${html}
             </div>
         </div>
 
-        <!-- PAGE 2.1: Metodología -->
-        <div class="page-section">
-            <div class="section">
-                <div class="section-title">🧭 Metodología</div>
-
-                <div class="section-subtitle">Análisis de los datos y preprocesamiento</div>
-                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                    El dataset <em>Poem Sentiment</em> presenta textos breves, con fuerte desbalance hacia la clase
-                    <code>no_impact</code> y matices poéticos/arcaicos. Se implementaron dos estrategias de
-                    preprocesamiento diferentes, de acuerdo con el tipo de modelo:
-                </p>
-                <ul style="line-height: 2;">
-                    <li><strong>Baselines clásicos (MultinomialNB, Regresión Logística):</strong> preprocesamiento
-                        optimizado para poesía inglesa antigua (expansión de contracciones arcaicas, normalización de
-                        signos, limpieza suave). Tras tokenizar, se aplicó
-                        <code>CountVectorizer(max_features=10000)</code>
-                        y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo
-                        <code>mixed</code>).
-                        Esta decisión busca maximizar señal léxica útil para modelos basados en bolsa de palabras.
-                    </li>
-                    <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no
-                            destructivo</em>
-                        (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando los
-                        matices poéticos para que el tokenizador subword capture semántica contextual. Se excluye la
-                        clase
-                        <code>mixed</code> en todos los splits.
-                    </li>
-                </ul>
-                <div class="highlight-box">
-                    <strong>Justificación de la elección:</strong> en enfoques clásicos conviene estandarizar la forma
-                    superficial de las palabras para que la frecuencia sea informativa; en transformadores, el
-                    tokenizador y el contexto atenúan la necesidad de limpiar agresivamente, y remover stopwords puede
-                    incluso eliminar matices útiles en poesía.
-                </div>
-
-                <div class="section-subtitle">Modelos de IA empleados</div>
-                <ul style="line-height: 2;">
-                    <li><strong>Multinomial Naive Bayes:</strong> probabilístico, rápido y efectivo con conteos de
-                        tokens; se ajustó y luego se <em>tuneó</em> el hiperparámetro <code>alpha</code> vía
-                        <code>GridSearchCV</code>.
-                    </li>
-                    <li><strong>Regresión Logística:</strong> baseline lineal con <code>class_weight='balanced'</code>
-                        para mitigar desbalance sin sobremuestreo.</li>
-                    <li><strong>DeBERTa‑v3‑base:</strong> transformador preentrenado ajustado finamente con técnicas de
-                        regularización (Focal Loss, label smoothing, early stopping) y optimizado por F1‑macro.</li>
-                </ul>
-
-                <div class="section-subtitle">Herramientas y tecnologías</div>
-                <div class="specifications">
-                    <div class="spec-card"><strong>Frameworks</strong> PyTorch, Hugging Face Transformers</div>
-                    <div class="spec-card"><strong>ML clásico</strong> scikit‑learn, imbalanced‑learn</div>
-                    <div class="spec-card"><strong>Gestión de datos</strong> pandas, numpy, datasets (HF)</div>
-                    <div class="spec-card"><strong>Gráficos</strong> matplotlib, seaborn</div>
-                    <div class="spec-card"><strong>NLP utilitario</strong> NLTK</div>
-                    <div class="spec-card"><strong>I/O</strong> fastparquet/pyarrow (URIs hf://)</div>
-                </div>
-            </div>
-        </div>
-
         <!-- TABLE OF CONTENTS -->
         <div style="page-break-after: always; padding: 40px 0;">
             <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">
@@ -1073,10 +1014,69 @@ ${html}
                 </div>
             </div>
 
+            <!-- PAGE 2.1: Metodología -->
+            <div class="page-section">
+                <div class="section">
+                    <div class="section-title">🧭 2. Metodología</div>
+
+                    <div class="section-subtitle">Análisis de los datos y preprocesamiento</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        El dataset <em>Poem Sentiment</em> presenta textos breves, con fuerte desbalance hacia la clase
+                        <code>no_impact</code> y matices poéticos/arcaicos. Se implementaron dos estrategias de
+                        preprocesamiento diferentes, de acuerdo con el tipo de modelo:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Baselines clásicos (MultinomialNB, Regresión Logística):</strong> preprocesamiento
+                            optimizado para poesía inglesa antigua (expansión de contracciones arcaicas, normalización de
+                            signos, limpieza suave). Tras tokenizar, se aplicó
+                            <code>CountVectorizer(max_features=10000)</code>
+                            y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo
+                            <code>mixed</code>).
+                            Esta decisión busca maximizar señal léxica útil para modelos basados en bolsa de palabras.
+                        </li>
+                        <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no
+                                destructivo</em>
+                            (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando los
+                            matices poéticos para que el tokenizador subword capture semántica contextual. Se excluye la
+                            clase
+                            <code>mixed</code> en todos los splits.
+                        </li>
+                    </ul>
+                    <div class="highlight-box">
+                        <strong>Justificación de la elección:</strong> en enfoques clásicos conviene estandarizar la forma
+                        superficial de las palabras para que la frecuencia sea informativa; en transformadores, el
+                        tokenizador y el contexto atenúan la necesidad de limpiar agresivamente, y remover stopwords puede
+                        incluso eliminar matices útiles en poesía.
+                    </div>
+
+                    <div class="section-subtitle">Modelos de IA empleados</div>
+                    <ul style="line-height: 2;">
+                        <li><strong>Multinomial Naive Bayes:</strong> probabilístico, rápido y efectivo con conteos de
+                            tokens; se ajustó y luego se <em>tuneó</em> el hiperparámetro <code>alpha</code> vía
+                            <code>GridSearchCV</code>.
+                        </li>
+                        <li><strong>Regresión Logística:</strong> baseline lineal con <code>class_weight='balanced'</code>
+                            para mitigar desbalance sin sobremuestreo.</li>
+                        <li><strong>DeBERTa‑v3‑base:</strong> transformador preentrenado ajustado finamente con técnicas de
+                            regularización (Focal Loss, label smoothing, early stopping) y optimizado por F1‑macro.</li>
+                    </ul>
+
+                    <div class="section-subtitle">Herramientas y tecnologías</div>
+                    <div class="specifications">
+                        <div class="spec-card"><strong>Frameworks</strong> PyTorch, Hugging Face Transformers</div>
+                        <div class="spec-card"><strong>ML clásico</strong> scikit‑learn, imbalanced‑learn</div>
+                        <div class="spec-card"><strong>Gestión de datos</strong> pandas, numpy, datasets (HF)</div>
+                        <div class="spec-card"><strong>Gráficos</strong> matplotlib, seaborn</div>
+                        <div class="spec-card"><strong>NLP utilitario</strong> NLTK</div>
+                        <div class="spec-card"><strong>I/O</strong> fastparquet/pyarrow (URIs hf://)</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- PAGE 3: Data Section -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📊 2. Datos</div>
+                    <div class="section-title">📊 3. Datos</div>
 
                     <div class="section-subtitle">Descripción del Dataset</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
@@ -1314,7 +1314,7 @@ ${html}
             <!-- PAGE 4: Preprocesamiento -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📝 3. Preprocesamiento</div>
+                    <div class="section-title">📝 4. Preprocesamiento</div>
 
                     <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)
                     </div>
@@ -1524,7 +1524,7 @@ ${html}
                     <!-- PAGE 6: Models -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">🤖 5. Modelos Implementados</div>
+                            <div class="section-title">🤖 6. Modelos Implementados</div>
 
                             <div class="section-subtitle">5.1 Regresión Logística</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
@@ -1648,7 +1648,7 @@ TrainingArguments(
                         <!-- PAGE 7: Metrics and Training -->
                         <div class="page-section">
                             <div class="section">
-                                <div class="section-title">📊 6. Validación y Métricas</div>
+                                <div class="section-title">📊 7. Validación y Métricas</div>
                                 <div class="section-subtitle">Carga del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                     El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los
@@ -1711,7 +1711,7 @@ TrainingArguments(
                             <!-- PAGE 8: Results -->
                             <div class="page-section">
                                 <div class="section">
-                                    <div class="section-title">📈 7. Resultados</div>
+                                    <div class="section-title">📈 8. Resultados</div>
 
                                     <div class="section-subtitle">Resultados de Baselines Clásicos</div>
 
@@ -1913,7 +1913,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                 <!-- PAGE 9: Discussion -->
                                 <div class="page-section">
                                     <div class="section">
-                                        <div class="section-title">💡 8. Discusión</div>
+                                        <div class="section-title">💡 9. Discusión</div>
 
                                         <div class="section-subtitle">¿Qué se observa en los resultados?</div>
                                         <ul style="line-height: 2;">
@@ -1971,7 +1971,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                     <!-- PAGE 10: Conclusions -->
                                     <div class="page-section">
                                         <div class="section">
-                                            <div class="section-title">🎯 9. Conclusiones y Trabajo Futuro</div>
+                                            <div class="section-title">🎯 10. Conclusiones y Trabajo Futuro</div>
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
@@ -2005,7 +2005,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                         <!-- PAGE 11: References & Footer -->
                                         <div class="page-section">
                                             <div class="section">
-                                                <div class="section-title">📚 10. Referencias Bibliográficas</div>
+                                                <div class="section-title">📚 11. Referencias Bibliográficas</div>
 
                                                 <div
                                                     style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2;">
