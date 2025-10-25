@@ -1782,7 +1782,37 @@ weighted avg       0.68      0.68      0.68       104</div>
                                             Ilustración. Matriz de Confusión - Multinomial Naive Bayes Optimizado</p>
                                     </div>
 
+                                    <div class="section-subtitle" style="margin-top: 35px;">Implementación DeBERTa-v3-base para POEM_SENTIMENT</div>
+
+                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px; font-size: 11pt; margin-top: 20px; color: #444;">
+                                        <strong>ANALIZANDO DESBALANCE Y CALCULANDO CLASS WEIGHTS...</strong>
+                                    </p>
+                                    
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">Class weights (for Trainer): [1.8129033 2.112782  0.5063063]
+  • Negative (0): 1.813
+  • Positive (1): 2.113
+  • No_impact (2): 0.506</div>
+                                    </div>
+
+                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px; font-size: 11pt; margin-top: 25px; color: #444;">
+                                        <strong>Progresión de entrenamiento (6 épocas):</strong>
+                                    </p>
+
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 9pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">[318/318 06:05, Epoch 6/6]
+
+Epoch	Training Loss	Validation Loss	Accuracy	F1 Macro	F1 Weighted
+1	0.687600	0.627334	0.219048	0.219373	0.112739
+2	0.415900	0.277040	0.695238	0.677715	0.704948
+3	0.168000	0.238712	0.904762	0.879654	0.905809
+4	0.057400	0.295952	0.885714	0.855089	0.889655
+5	0.033500	0.272913	0.904762	0.878603	0.903656
+6	0.014500	0.268912	0.914286	0.890276	0.913175</div>
+                                    </div>
+
                                     <div class="section-subtitle">Resultados principales (DeBERTa‑v3‑base)</div>
+
                                     <table class="format-table">
                                         <thead>
                                             <tr>
@@ -1810,9 +1840,10 @@ weighted avg       0.68      0.68      0.68       104</div>
 
                                     <div class="highlight-box"
                                         style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
-                                        <strong>✓ Objetivo cumplido:</strong> Se alcanzó <strong>F1‑macro ≥
-                                            0.85</strong> en Validación y Test con
-                                        DeBERTa‑v3‑base, cumpliendo el objetivo del proyecto con margen.
+                                        <strong>✓ Objetivo cumplido (ALCANZADO):</strong> Se alcanzó <strong>F1‑macro = 0.8909</strong> en el conjunto de Test, 
+                                        superando la meta de <strong>F1‑macro ≥ 0.85</strong>. DeBERTa‑v3‑base demostró ser significativamente superior 
+                                        a los baselines clásicos (Regresión Logística: 0.4661 | Multinomial NB optimizado: 0.5625), justificando 
+                                        el uso de transformadores para la tarea de análisis de sentimiento en poesía.
                                     </div>
 
                                     <div class="highlight-box"
