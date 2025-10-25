@@ -19,7 +19,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Calibri, sans-serif;
             font-size: 12pt;
             line-height: 1.5;
             color: #333;
@@ -171,7 +171,8 @@
 
         .structure-item h4 {
             color: #000;
-            font-size: 1.15em;
+            font-size: 12pt;
+            font-weight: bold;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -187,7 +188,7 @@
         .structure-description {
             margin-left: 20px;
             color: #666;
-            line-height: 1.8;
+            line-height: 1.5;
         }
 
         /* Rubric */
@@ -664,7 +665,7 @@
             text-align: center;
             padding: 20px 0;
             color: #999;
-            font-size: 11pt;
+            font-size: 12pt;
             border-top: 1px solid #ddd;
             margin-top: 40px;
         }
@@ -890,7 +891,7 @@ ${html}
                 </div>
 
                 <div class="cover-main">
-                    <h1>Análisis de sentimientos en poemas</h1>
+                    <h1>Análisis de sentimientos en versos</h1>
                     <p class="cover-subtitle">Implementación y Evaluación de Tres Enfoques de Clasificación</p>
                 </div>
 
@@ -910,8 +911,15 @@ ${html}
         <div style="page-break-after: always; padding: 40px 0;">
             <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">
                 Índice</h2>
-            <ol style="font-size: 12pt; line-height: 2; margin-left: 30px; color: #333;">
-                <li>Introducción</li>
+            <ol style="font-size: 12pt; line-height: 1.5; margin-left: 30px; color: #333;">
+                <li>Introducción
+                    <ol style="margin-top: 10px; margin-left: 20px;">
+                        <li>Contexto del Problema</li>
+                        <li>Importancia Académica e Industrial</li>
+                        <li>Alcance y Limitaciones</li>
+                        <li>Objetivos</li>
+                    </ol>
+                </li>
                 <li>Marco Teórico</li>
                 <li>Metodología</li>
                 <li>Datos</li>
@@ -936,16 +944,15 @@ ${html}
         <div class="content">
             <!-- PAGE 1: Title and Author -->
             <div class="page-section">
-                <div class="section" style="text-align: center; margin-bottom: 60px;">
+                <div class="section" style="text-align: center; margin-bottom: 20px;">
                     <h2 style="font-size: 2.2em; color: #000; margin-bottom: 10px;">Análisis de sentimientos en versos
                     </h2>
-                    <p style="font-size: 1.2em; color: #000; margin-bottom: 30px;"><strong>Autor:</strong> Erik I.
-                        Osornio Botello</p>
+                    <div style="height: 20px; clear: both;"></div>
 
                     <div class="highlight-box"
                         style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A; max-width: 800px; margin: 0 auto;">
                         <h3 style="color: #000; margin-bottom: 15px;">Resumen</h3>
-                        <p style="text-align: justify; line-height: 1.8; color: #333;">
+                        <p style="text-align: justify; line-height: 1.5; color: #333;">
                             Este documento describe el desarrollo, implementación y evaluación de un sistema de análisis
                             de sentimientos sobre versos del dataset Poem Sentiment. Se comparan <strong>baselines
                                 clásicos</strong>
@@ -961,7 +968,7 @@ ${html}
             <!-- PAGE 2: Introduction Section -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📋 1. Introducción</div>
+                    <div class="section-title">1. Introducción</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                         El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa,
                         neutral) a textos.
@@ -974,7 +981,7 @@ ${html}
                     </p>
 
                     <div class="section-subtitle">Contexto del Problema</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         El análisis de sentimientos en textos poéticos presenta un desafío particular comparado con textos
                         cotidianos o técnicos. La poesía, especialmente la de épocas antiguas, emplea un lenguaje altamente
                         metafórico, ambiguo y cargado de subjetividad. Los poetas frecuentemente expresan emociones de manera
@@ -985,7 +992,7 @@ ${html}
                     </p>
 
                     <div class="section-subtitle">Importancia Académica e Industrial</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         Este proyecto es relevante en múltiples contextos:
                     </p>
                     <ul style="line-height: 2;">
@@ -999,12 +1006,12 @@ ${html}
                     </ul>
 
                     <div class="section-subtitle">Alcance y Limitaciones</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         <strong>Alcance:</strong> Este proyecto implementa tres modelos completos (Regresión Logística, Naive Bayes
                         Multinomial, DeBERTa-v3-base), documenta el pipeline de preprocesamiento, reporta métricas de desempeño
                         (F1-macro, accuracy, precision, recall) y analiza resultados con énfasis en la clase positiva.
                     </p>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         <strong>Limitaciones:</strong>
                     </p>
                     <ul style="line-height: 2;">
@@ -1022,7 +1029,7 @@ ${html}
                     <ul style="line-height: 2;">
                         <li><strong>Objetivo General:</strong> Implementar y comparar tres enfoques de clasificación (dos clásicos y uno moderno basado en Transformers) para análisis de sentimientos en poesía, demostrando la viabilidad de ambos paradigmas con énfasis en técnicas de regularización para datasets pequeños.</li>
                         <li><strong>Objetivos Específicos:</strong>
-                            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.8;">
+                            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.5;">
                                 <li>Alcanzar F1-macro ≥ 0.85 en el conjunto de prueba mediante fine-tuning de DeBERTa-v3-base con Focal Loss y class weights.</li>
                                 <li>Comparar baselines clásicos (Regresión Logística, Naive Bayes Multinomial) con transformadores, evaluando trade-offs de complejidad vs. desempeño.</li>
                                 <li>Documentar estrategias de preprocesamiento diferenciadas según el tipo de modelo, preservando matices poéticos en transformadores.</li>
@@ -1034,15 +1041,15 @@ ${html}
 
                     <div class="section-subtitle">Marco de Referencia</div>
                     <div class="highlight-box"
-                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%); border-left-color: #C41E3A;">
+                        style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);">
                         <p style="margin-bottom: 12px;">
-                            <strong>📋 Indicaciones del Proyecto:</strong> Este proyecto se fundamenta en las
+                            <strong>Indicaciones del Proyecto:</strong> Este proyecto se fundamenta en las
                             indicaciones
                             especificadas en el documento <em>Indicaciones Proyecto Poemas.pdf</em>, el cual establece
                             que:
                         </p>
                         <p
-                            style="margin-bottom: 12px; padding-left: 15px; border-left: 3px solid #C41E3A; margin-left: 0;">
+                            style="margin-bottom: 12px; padding-left: 15px;">
                             <strong>"Este proyecto es un ejercicio de aprendizaje supervisado. La idea general consiste
                                 en
                                 implementar tres clasificadores de texto para el problema de análisis de sentimientos en
@@ -1064,10 +1071,10 @@ ${html}
             <!-- PAGE 1.5: Marco Teórico -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📚 2. Marco Teórico</div>
+                    <div class="section-title">2. Marco Teórico</div>
 
                     <div class="section-subtitle">Análisis de Sentimientos (Sentiment Analysis)</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         El análisis de sentimientos es una tarea fundamental en el procesamiento de lenguaje natural (NLP) que busca 
                         determinar la orientación emocional (positiva, negativa o neutra) de un texto. Formalmente, es un problema 
                         de clasificación multiclase donde se asigna una etiqueta de sentimiento a cada documento basándose en su 
@@ -1075,7 +1082,7 @@ ${html}
                     </p>
 
                     <div class="section-subtitle">Enfoques Clásicos vs. Transformadores</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         Existen dos paradigmas principales para esta tarea:
                     </p>
                     <ul style="line-height: 2;">
@@ -1088,7 +1095,7 @@ ${html}
                     </ul>
 
                     <div class="section-subtitle">Desafíos en Análisis de Sentimientos de Poesía</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         El lenguaje poético presenta características únicas que lo hacen más desafiante:
                     </p>
                     <ul style="line-height: 2;">
@@ -1103,7 +1110,7 @@ ${html}
                     </ul>
 
                     <div class="section-subtitle">Técnicas de Regularización para Datasets Pequeños</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         Con 1,101 ejemplos (pequeño para deep learning), se aplican técnicas para mejorar generalización:
                     </p>
                     <ul style="line-height: 2;">
@@ -1122,10 +1129,10 @@ ${html}
             <!-- PAGE 2.1: Metodología -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">🧭 3. Metodología</div>
+                    <div class="section-title">3. Metodología</div>
 
                     <div class="section-subtitle">Análisis de los datos y preprocesamiento</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         El dataset <em>Poem Sentiment</em> presenta textos breves, con fuerte desbalance hacia la clase
                         <code>no_impact</code> y matices poéticos/arcaicos. Se implementaron dos estrategias de
                         preprocesamiento diferentes, de acuerdo con el tipo de modelo:
@@ -1181,7 +1188,7 @@ ${html}
             <!-- PAGE 3: Data Section -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📊 4. Datos</div>
+                    <div class="section-title">4. Datos</div>
 
                     <div class="section-subtitle">Descripción del Dataset</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
@@ -1236,7 +1243,7 @@ ${html}
                             alt="Gráfico de Distribución de Longitudes de Versos por Clase"
                             style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
                         <p
-                            style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                            style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                             Ilustración 1. Distribución de longitudes por clase</p>
                     </div>
 
@@ -1315,7 +1322,7 @@ ${html}
                             alt="Gráfico de Distribución de Clases en Datos de Entrenamiento"
                             style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
                         <p
-                            style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                            style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                             Figura 1: Distribución de Sentimientos en los Datos de Entrenamiento Original</p>
                     </div>
 
@@ -1324,7 +1331,7 @@ ${html}
                         <strong>⚠️ Problema de Desbalance:</strong> La mayoría de los versos pertenecen a la clase "No
                         impacto",
                         mientras que la clase "Mixto" tiene muy pocos ejemplos. Este desbalance puede generar:
-                        <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px; line-height: 1.8;">
+                        <ul style="margin-left: 20px; margin-top: 10px; margin-bottom: 10px; line-height: 1.5;">
                             <li><strong>Bias hacia la clase mayoritaria:</strong> Los modelos tienden a predecir con
                                 mayor frecuencia la clase predominante (No impacto), lo que puede inflar el accuracy
                                 aparente, pero reducir la capacidad de identificar correctamente las clases
@@ -1336,7 +1343,7 @@ ${html}
                             <li><strong>Métricas poco confiables para clases minoritarias:</strong> Las métricas de
                                 rendimiento pueden ser engañosas si se interpretan sin considerar el desbalance.</li>
                         </ul>
-                        <p style="margin-top: 12px; text-align: justify; line-height: 1.6; font-size: 11pt;">
+                        <p style="margin-top: 12px; text-align: justify; line-height: 1.5; font-size: 12pt;">
                             Dado el tamaño reducido y el desbalance, estos conjuntos pueden no ser representativos de la
                             distribución real de clases.
                             Esto significa que las métricas de evaluación (accuracy, F1, recall, precision) pueden ser
@@ -1355,7 +1362,7 @@ ${html}
                     </ul>
 
                     <div class="section-subtitle">Distribución de Clases (Post Balanceo con SMOTE)</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         <strong>Modelos Clásicos (Naive Bayes, Logistic Regression):</strong> Se aplicó SMOTE en el
                         conjunto de entrenamiento para generar muestras sintéticas de clases minoritarias y lograr
                         balanceo perfecto entre las tres clases.
@@ -1380,14 +1387,14 @@ ${html}
                             </tr>
                         </tbody>
                     </table>
-                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                    <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                         SMOTE generó 1,665 muestras de entrenamiento perfectamente balanceadas (555 por clase) a partir
                         de 843 originales.</p>
 
                     <div style="height: 20px;"></div>
 
                     <div class="section-subtitle">Exclusión de la clase "Mixta" (Mixed) en Evaluación</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         La clase "mixed" (label=3) fue excluida de todos los modelos tanto en entrenamiento como en
                         evaluación.
                         Esta decisión se basa en tres razones fundamentales:
@@ -1408,7 +1415,7 @@ ${html}
                             significativamente las
                             métricas de desempeño y la interpretabilidad de los resultados.</li>
                     </ul>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         Por lo tanto, todos los resultados reportados (F1-macro, exactitud, matrices de confusión, etc.)
                         se calculan
                         considerando únicamente las tres clases principales: negativo, positivo y sin impacto.
@@ -1419,11 +1426,11 @@ ${html}
             <!-- PAGE 4: Preprocesamiento -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📝 5. Preprocesamiento</div>
+                    <div class="section-title">5. Preprocesamiento</div>
 
                     <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)
                     </div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         El preprocesamiento aplicado ha sido cuidadosamente diseñado para optimizar la clasificación de
                         sentimientos en poesía inglesa antigua, equilibrando la limpieza textual con
                         la preservación de características semánticas relevantes. A diferencia de los enfoques estándar
@@ -1457,13 +1464,13 @@ ${html}
                             al no modificar conjuntos de validación y prueba.</li>
                     </ul>
 
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                         Este diseño integrado maximiza la capacidad del modelo para distinguir entre sentimientos en
                         textos antiguos, priorizando la precisión sobre la simplicidad de preprocesamiento.
                     </p>
 
                     <div class="section-subtitle">Implementación: Función preprocess_poetry_text</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         La siguiente función implementa esta estrategia de preprocesamiento optimizada para poesía:
                     </p>
 
@@ -1487,7 +1494,7 @@ ${html}
 
 
                     <div class="section-subtitle">Preprocesamiento en DeBERTa-v3-base</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         El preprocesamiento aplicado en DeBERTa-v3-base es <strong>ligero y no destructivo</strong>,
                         diseñado específicamente para preservar las características estilísticas y semánticas de la
                         poesía:
@@ -1515,7 +1522,7 @@ ${html}
                     </ul>
 
                     <div class="section-subtitle">Técnicas de Balanceo de Clases</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                         Dado el desbalance del dataset,
                         se aplicaron técnicas específicas de balanceo según el tipo de modelo:
                     </p>
@@ -1537,7 +1544,7 @@ ${html}
                             capacidad de generalización del modelo.</li>
                     </ul>
 
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
+                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                         Este enfoque diferenciado permite optimizar cada modelo de acuerdo a sus características,
                         mejorando el desempeño sin comprometer la evaluación independiente.
                     </p>
@@ -1551,7 +1558,7 @@ ${html}
                     <!-- PAGE 5.1: Implementación -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">🛠️ 6. Implementación</div>
+                            <div class="section-title">6. Implementación</div>
 
                             <div class="section-subtitle">Pipeline de desarrollo</div>
                             <div class="structure-list">
@@ -1626,13 +1633,11 @@ ${html}
                         </div>
                     </div>
 
-                    <!-- PAGE 6: Models -->
+                        <!-- PAGE 6: Models -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">Modelos</div>
-
-                            <div class="section-subtitle">6.1 Regresión Logística</div>
-                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            <div class="section-title">7. Modelos Implementados</div>                            <div class="section-subtitle">6.1 Regresión Logística</div>
+                            <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                 La regresión logística fue seleccionada por su capacidad para manejar eficazmente
                                 representaciones vectorizadas
                                 del texto. Este modelo aprende a estimar la probabilidad de pertenencia a cada clase
@@ -1662,7 +1667,7 @@ ${html}
 )</code></pre>
 
                             <div class="section-subtitle">6.2 Naive Bayes Multinomial</div>
-                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                 El modelo Multinomial Naive Bayes se utiliza, en este caso, con ajuste de
                                 hiperparámetros mediante
                                 búsqueda en cuadrícula (GridSearchCV) para optimizar el parámetro de suavizado alpha.
@@ -1693,7 +1698,7 @@ ${html}
 )</code></pre>
 
                             <div class="section-subtitle">6.3 DeBERTa‑v3‑base (fine‑tuning)</div>
-                            <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                            <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                 Los transformadores preentrenados como <strong>DeBERTa‑v3‑base</strong> capturan
                                 relaciones contextuales y semántica a nivel sub‑palabra mediante auto‑atención.
                                 En este trabajo se realizó <em>fine‑tuning</em> para el dataset Poem
@@ -1742,7 +1747,7 @@ TrainingArguments(
     logging_steps=50,
     report_to="none"
 )</code></pre>
-                            <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">
+                            <p style="text-align: justify; line-height: 1.5; margin-top: 15px;">
                                 Los argumentos de entrenamiento configuran el proceso de fine-tuning de DeBERTa. Se utiliza un scheduler coseno con warmup del 5%, early stopping basado en F1-macro, y se guardan solo los 2 mejores checkpoints para optimizar memoria.
                             </p>
 
@@ -1753,9 +1758,9 @@ TrainingArguments(
                         <!-- PAGE 7: Metrics and Training -->
                         <div class="page-section">
                             <div class="section">
-                                <div class="section-title">📊 8. Validación y Métricas</div>
+                                <div class="section-title">8. Validación y Métricas</div>
                                 <div class="section-subtitle">Carga del Dataset</div>
-                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                     El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los
                                     archivos están disponibles en formato Parquet
                                     y se pueden cargar directamente usando la siguiente configuración:
@@ -1779,28 +1784,28 @@ TrainingArguments(
                                     </code>
                                 </div>
 
-                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                     <strong>URL del Dataset:</strong> <a
                                         href="https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer"
                                         target="_blank"
                                         style="color: #C41E3A; text-decoration: none;">https://huggingface.co/datasets/google-research-datasets/poem_sentiment/viewer</a>
                                 </p>
 
-                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                     Este método permite cargar directamente los splits de entrenamiento, validación y
                                     prueba en DataFrames de pandas,
                                     facilitando el preprocesamiento y manipulación de los datos para el análisis
                                     posterior.
                                 </p>
                                 <div class="section-subtitle">División del Dataset</div>
-                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                     Se utilizó la división estándar del dataset proporcionada por Hugging Face para
                                     garantizar coherencia
                                     y reproducibilidad de los resultados.
                                 </p>
 
                                 <div class="section-subtitle">Métricas de Evaluación</div>
-                                <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                                <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                     Se utilizaron las siguientes métricas para evaluar el desempeño de los modelos:
                                 </p>
                                 <ul style="line-height: 2;">
@@ -1816,18 +1821,18 @@ TrainingArguments(
                             <!-- PAGE 8: Results -->
                             <div class="page-section">
                                 <div class="section">
-                                    <div class="section-title">📈 9. Resultados</div>
+                                    <div class="section-title">9. Resultados</div>
 
                                     <div class="section-subtitle">Resultados de Baselines Clásicos</div>
 
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
                                         <strong>Regresión Logística</strong> con class_weight='balanced'
                                     </p>
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
                                         Validación: F1‑macro = 0.4310
                                     </p>
                                     
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="margin-bottom: 10px;"><strong>Validación - Classification Report:</strong></div>
                                         <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
 
@@ -1854,20 +1859,20 @@ weighted avg       0.67      0.69      0.64       104</div>
                                     <div style="text-align: center; margin: 30px 0;">
                                         <img src="mc_rl.png" alt="Matriz de Confusión - Regresión Logística"
                                             style="max-width: 55%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                        <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                        <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                                             Ilustración. Matriz de Confusión - Regresión Logística</p>
                                     </div>
                                     <div style="height: 20px; clear: both;"></div>
 
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt; margin-top: 30px;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt; margin-top: 30px;">
                                         <strong>Multinomial Naive Bayes</strong> optimizado con GridSearchCV
                                     </p>
                                     
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt;">
                                         Test: F1‑macro = 0.5625
                                     </p>
                                     
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="margin-bottom: 10px;"><strong>Test - Classification Report (Ajustado):</strong></div>
                                         <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
 
@@ -1883,7 +1888,7 @@ weighted avg       0.68      0.68      0.68       104</div>
                                     <div style="text-align: center; margin: 30px 0;">
                                         <img src="nb_m.png" alt="Matriz de Confusión - Multinomial Naive Bayes Optimizado"
                                             style="max-width: 55%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                        <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                        <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                                             Ilustración. Matriz de Confusión - Multinomial Naive Bayes Optimizado</p>
                                     </div>
 
@@ -1918,22 +1923,22 @@ weighted avg       0.68      0.68      0.68       104</div>
 
 
 
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px; font-size: 11pt; margin-top: 20px; color: #444;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px; font-size: 12pt; margin-top: 20px; color: #444;">
                                         <strong>ANALIZANDO DESBALANCE Y CALCULANDO CLASS WEIGHTS...</strong>
                                     </p>
                                     
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="white-space: pre; text-align: left;">Class weights (for Trainer): [1.8129033 2.112782  0.5063063]
   • Negative (0): 1.813
   • Positive (1): 2.113
   • No_impact (2): 0.506</div>
                                     </div>
 
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px; font-size: 11pt; margin-top: 25px; color: #444;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px; font-size: 12pt; margin-top: 25px; color: #444;">
                                         <strong>Progresión de entrenamiento (6 épocas):</strong>
                                     </p>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 9pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 9pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="white-space: pre; text-align: left;">[318/318 06:05, Epoch 6/6]
 
 Epoch	Training Loss	Validation Loss	Accuracy	F1 Macro	F1 Weighted
@@ -1945,7 +1950,7 @@ Epoch	Training Loss	Validation Loss	Accuracy	F1 Macro	F1 Weighted
 6	0.014500	0.268912	0.914286	0.890276	0.913175</div>
                                     </div>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="white-space: pre; text-align: left;">RESULTADOS FINALES EN VALIDATION SET:
   Accuracy:    0.9143
   F1-Macro:    0.8903
@@ -1958,11 +1963,11 @@ RESULTADOS FINALES EN TEST SET:
                                     </div>
 
 
-                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt; margin-top: 25px; color: #444;">
+                                    <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px; font-size: 12pt; margin-top: 25px; color: #444;">
                                         <strong>Reporte detallado de clasificación (Test Set):</strong>
                                     </p>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="white-space: pre; text-align: left;">CLASSIFICATION REPORT (Test Set):
               precision    recall  f1-score   support
 
@@ -1975,7 +1980,7 @@ RESULTADOS FINALES EN TEST SET:
 weighted avg       0.92      0.91      0.91       104</div>
                                     </div>
 
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.8; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.5; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="white-space: pre; text-align: left;">FINE-TUNING DEBERTA-V3-BASE COMPLETADO:
 
  TÉCNICAS APLICADAS:
@@ -1992,7 +1997,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                     <div style="text-align: center; margin: 30px 0;">
                                         <img src="deberta.png" alt="Matriz de Confusión - DeBERTa-v3-base"
                                             style="max-width: 60%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                        <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                        <p style="text-align: center; color: #666; font-size: 12pt; margin-top: 10px; font-style: italic;">
                                             Ilustración. Matriz de Confusión - DeBERTa-v3-base (Conjunto de Test)</p>
                                     </div>
 
@@ -2018,7 +2023,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                 <!-- PAGE 9: Discussion -->
                                 <div class="page-section">
                                     <div class="section">
-                                        <div class="section-title">💡 10. Discusión</div>
+                                        <div class="section-title">10. Discusión</div>
 
                                         <div class="section-subtitle">¿Qué se observa en los resultados?</div>
                                         <ul style="line-height: 2;">
@@ -2037,7 +2042,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                         </ul>
 
                                         <div class="section-subtitle">¿Fue exitoso el entrenamiento?</div>
-                                        <p style="text-align: justify; line-height: 1.8;">
+                                        <p style="text-align: justify; line-height: 1.5;">
                                             Sí. La métrica objetivo (<strong>F1‑macro ≥ 0.85</strong>) se cumplió con
                                             margen. Las curvas por época
                                             (con early stopping) y el uso de regularización indican un proceso estable y
@@ -2060,7 +2065,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                             </li>
                                             <li><strong>Generalización:</strong> ampliar datos o realizar
                                                 <em>fine‑tuning</em> por dominio/autor:
-                                                <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                                                <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.5;">
                                                     <li><strong>Por dominio:</strong> Poesía medieval vs. moderna vs. romántica (cada estilo tiene características diferentes). Un modelo entrenado específicamente en poesía romántica (con énfasis en descripciones líricas de la naturaleza y emociones) podría capturar mejor los matices del sentimiento positivo en ese contexto, comparado con un modelo general entrenado en múltiples épocas simultáneamente.</li>
                                                     <li><strong>Por autor:</strong> Ajustar el modelo específicamente para William Shakespeare, Emily Dickinson, etc. (cada poeta tiene su propio estilo y forma de expresar sentimientos). Shakespeare tiende a usar lenguaje elaborado y formal; Dickinson emplea puntuación experimental y abstracciones. Un modelo fine-tuned por autor sería más preciso en detectar sentimientos bajo el estilo específico de ese poeta.</li>
                                                 </ul>
@@ -2076,7 +2081,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                     <!-- PAGE 10: Conclusions -->
                                     <div class="page-section">
                                         <div class="section">
-                                            <div class="section-title">🎯 11. Conclusiones y Trabajo Futuro</div>
+                                            <div class="section-title">11. Conclusiones y Trabajo Futuro</div>
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
@@ -2110,10 +2115,10 @@ weighted avg       0.92      0.91      0.91       104</div>
                                         <!-- PAGE 11: References & Footer -->
                                         <div class="page-section">
                                             <div class="section">
-                                                <div class="section-title">📚 12. Referencias Bibliográficas</div>
+                                                <div class="section-title">12. Referencias Bibliográficas</div>
 
                                                 <div
-                                                    style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2.2; font-size: 11pt;">
+                                                    style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2.2; font-size: 12pt;">
                                                     
                                                     <p style="margin-bottom: 15px;">
                                                         Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. <em>arXiv</em>. https://arxiv.org/abs/1810.04805
