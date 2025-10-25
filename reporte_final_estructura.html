@@ -315,6 +315,18 @@
             color: #000;
         }
 
+        /* Code blocks */
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 4px solid #C41E3A;
+            margin: 15px 0;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
         /* Responsiveness */
         @media (max-width: 768px) {
             .header {
@@ -912,7 +924,8 @@ ${html}
                         <code>CountVectorizer(max_features=10000)</code>
                         y balanceo con <code>SMOTE</code> únicamente sobre el entrenamiento (excluyendo
                         <code>mixed</code>).
-                        Esta decisión busca maximizar señal léxica útil para modelos basados en bolsa de palabras.</li>
+                        Esta decisión busca maximizar señal léxica útil para modelos basados en bolsa de palabras.
+                    </li>
                     <li><strong>DeBERTa‑v3‑base (fine‑tuning):</strong> preprocesamiento <em>ligero y no
                             destructivo</em>
                         (normalizar comillas/guiones, eliminar duplicados, sin stemming ni stopwords), preservando los
@@ -1238,7 +1251,9 @@ ${html}
 
                     <div class="section-subtitle">Distribución de Clases (Post Balanceo con SMOTE)</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        <strong>Modelos Clásicos (Naive Bayes, Logistic Regression):</strong> Se aplicó SMOTE en el conjunto de entrenamiento para generar muestras sintéticas de clases minoritarias y lograr balanceo perfecto entre las tres clases.
+                        <strong>Modelos Clásicos (Naive Bayes, Logistic Regression):</strong> Se aplicó SMOTE en el
+                        conjunto de entrenamiento para generar muestras sintéticas de clases minoritarias y lograr
+                        balanceo perfecto entre las tres clases.
                     </p>
                     <table class="format-table">
                         <thead>
@@ -1261,27 +1276,36 @@ ${html}
                         </tbody>
                     </table>
                     <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                        SMOTE generó 1,665 muestras de entrenamiento perfectamente balanceadas (555 por clase) a partir de 843 originales.</p>
+                        SMOTE generó 1,665 muestras de entrenamiento perfectamente balanceadas (555 por clase) a partir
+                        de 843 originales.</p>
 
                     <div style="height: 20px;"></div>
 
                     <div class="section-subtitle">Exclusión de la clase "Mixta" (Mixed) en Evaluación</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        La clase "mixed" (label=3) fue excluida de todos los modelos tanto en entrenamiento como en evaluación. 
+                        La clase "mixed" (label=3) fue excluida de todos los modelos tanto en entrenamiento como en
+                        evaluación.
                         Esta decisión se basa en tres razones fundamentales:
                     </p>
                     <ul style="line-height: 2;">
-                        <li><strong>Distribución minoritaria:</strong> La clase "mixed" representa solo 5.5% del set de entrenamiento, 
+                        <li><strong>Distribución minoritaria:</strong> La clase "mixed" representa solo 5.5% del set de
+                            entrenamiento,
                             lo que la hace altamente minoritaria y dificulta el entrenamiento robusto.</li>
-                        <li><strong>Ambigüedad conceptual:</strong> Esta clase agrupa versos con sentimientos contradictorios o ambiguos, 
-                            donde coexisten emociones positivas y negativas simultáneamente. Para una aplicación práctica de análisis 
-                            de sentimientos en poesía, es más útil clasificar en tres categorías bien definidas (negativo, positivo, sin impacto).</li>
-                        <li><strong>Mejora de robustez del modelo:</strong> Excluir la clase "mixed" permite un problema de clasificación 
-                            más claro y robusto, centrado en sentimientos claramente expresados, lo que mejora significativamente las 
+                        <li><strong>Ambigüedad conceptual:</strong> Esta clase agrupa versos con sentimientos
+                            contradictorios o ambiguos,
+                            donde coexisten emociones positivas y negativas simultáneamente. Para una aplicación
+                            práctica de análisis
+                            de sentimientos en poesía, es más útil clasificar en tres categorías bien definidas
+                            (negativo, positivo, sin impacto).</li>
+                        <li><strong>Mejora de robustez del modelo:</strong> Excluir la clase "mixed" permite un problema
+                            de clasificación
+                            más claro y robusto, centrado en sentimientos claramente expresados, lo que mejora
+                            significativamente las
                             métricas de desempeño y la interpretabilidad de los resultados.</li>
                     </ul>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        Por lo tanto, todos los resultados reportados (F1-macro, exactitud, matrices de confusión, etc.) se calculan 
+                        Por lo tanto, todos los resultados reportados (F1-macro, exactitud, matrices de confusión, etc.)
+                        se calculan
                         considerando únicamente las tres clases principales: negativo, positivo y sin impacto.
                     </p>
                 </div>
@@ -1291,31 +1315,53 @@ ${html}
             <div class="page-section">
                 <div class="section">
                     <div class="section-title">📝 3. Preprocesamiento</div>
-                    
-                    <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)</div>
+
+                    <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)
+                    </div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        El preprocesamiento aplicado ha sido cuidadosamente diseñado para optimizar la clasificación de sentimientos en poesía inglesa antigua (siglos XVII-XIX), equilibrando la limpieza textual con la preservación de características semánticas relevantes. A diferencia de los enfoques estándar que aplican normalización agresiva, nuestra estrategia reconoce que el lenguaje poético arcaico contiene matices significativos para la detección de sentimientos.
+                        El preprocesamiento aplicado ha sido cuidadosamente diseñado para optimizar la clasificación de
+                        sentimientos en poesía inglesa antigua (siglos XVII-XIX), equilibrando la limpieza textual con
+                        la preservación de características semánticas relevantes. A diferencia de los enfoques estándar
+                        que aplican normalización agresiva, nuestra estrategia reconoce que el lenguaje poético arcaico
+                        contiene matices significativos para la detección de sentimientos.
                     </p>
-                    
+
                     <ul style="line-height: 2;">
-                        <li><strong>Preservación del contexto poético:</strong> El enfoque mantiene palabras arcaicas y poéticas (como "doth", "hath", "ne'er") que, aunque no sean comunes en el inglés moderno, poseen un alto valor predictivo para la clasificación de sentimientos en textos históricos. Estas palabras no se eliminan como stopwords, ya que a menudo aparecen en contextos emotivos específicos que el modelo necesita capturar.</li>
-                        
-                        <li><strong>Normalización de contracciones antiguas:</strong> Se expandieron contracciones arcaicas ("'twas" → "it was", "o'er" → "over") a palabras completas para mejorar la representación vectorial sin perder información léxica. Esta técnica aumenta la consistencia del vocabulario sin introducir ambigüedad, permitiendo que el vectorizador de conteo (CountVectorizer) capte patrones más robustos.</li>
-                        
-                        <li><strong>Limpieza moderada de puntuación:</strong> Se normalizó la puntuación de manera selectiva, removiendo caracteres especiales y de formato histórico, pero manteniendo la estructura de oraciones. Esta aproximación evita la pérdida de información contextual que podría ser relevante para modelos basados en bolsa de palabras, donde la proximidad léxica importa.</li>
-                        
-                        <li><strong>Vectorización con CountVectorizer y balanceo SMOTE:</strong> Después del preprocesamiento, se utilizó CountVectorizer con un vocabulario máximo de 10,000 features para capturar términos frecuentes relevantes. Aplicamos SMOTE solo en el conjunto de entrenamiento para corregir el desbalance de clases de forma sintética, evitando sobreajuste al no modificar conjuntos de validación y prueba.</li>
+                        <li><strong>Preservación del contexto poético:</strong> El enfoque mantiene palabras arcaicas y
+                            poéticas (como "doth", "hath", "ne'er") que, aunque no sean comunes en el inglés moderno,
+                            poseen un alto valor predictivo para la clasificación de sentimientos en textos históricos.
+                            Estas palabras no se eliminan como stopwords, ya que a menudo aparecen en contextos emotivos
+                            específicos que el modelo necesita capturar.</li>
+
+                        <li><strong>Normalización de contracciones antiguas:</strong> Se expandieron contracciones
+                            arcaicas ("'twas" → "it was", "o'er" → "over") a palabras completas para mejorar la
+                            representación vectorial sin perder información léxica. Esta técnica aumenta la consistencia
+                            del vocabulario sin introducir ambigüedad, permitiendo que el vectorizador de conteo
+                            (CountVectorizer) capte patrones más robustos.</li>
+
+                        <li><strong>Limpieza moderada de puntuación:</strong> Se normalizó la puntuación de manera
+                            selectiva, removiendo caracteres especiales y de formato histórico, pero manteniendo la
+                            estructura de oraciones. Esta aproximación evita la pérdida de información contextual que
+                            podría ser relevante para modelos basados en bolsa de palabras, donde la proximidad léxica
+                            importa.</li>
+
+                        <li><strong>Vectorización con CountVectorizer y balanceo SMOTE:</strong> Después del
+                            preprocesamiento, se utilizó CountVectorizer con un vocabulario máximo de 10,000 features
+                            para capturar términos frecuentes relevantes. Aplicamos SMOTE solo en el conjunto de
+                            entrenamiento para corregir el desbalance de clases de forma sintética, evitando sobreajuste
+                            al no modificar conjuntos de validación y prueba.</li>
                     </ul>
-                    
+
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        Este diseño integrado maximiza la capacidad del modelo para distinguir entre sentimientos en textos antiguos, priorizando la precisión sobre la simplicidad de preprocesamiento.
+                        Este diseño integrado maximiza la capacidad del modelo para distinguir entre sentimientos en
+                        textos antiguos, priorizando la precisión sobre la simplicidad de preprocesamiento.
                     </p>
 
                     <div class="section-subtitle">Implementación: Función preprocess_poetry_text</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                         La siguiente función implementa esta estrategia de preprocesamiento optimizada para poesía:
                     </p>
-                    
+
                     <div class="spec-card">
                         <strong>📝 Ejemplos de Preprocesamiento:</strong>
                         <div
@@ -1333,25 +1379,32 @@ ${html}
 
                     <div style="height: 20px; clear: both;"></div>
 
-                    
+
 
                     <div class="section-subtitle">Preprocesamiento en DeBERTa-v3-base</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        El preprocesamiento aplicado en DeBERTa-v3-base es <strong>ligero y no destructivo</strong>, diseñado específicamente para preservar las características estilísticas y semánticas de la poesía:
+                        El preprocesamiento aplicado en DeBERTa-v3-base es <strong>ligero y no destructivo</strong>,
+                        diseñado específicamente para preservar las características estilísticas y semánticas de la
+                        poesía:
                     </p>
-                    
+
                     <ul style="line-height: 2;">
                         <li><strong>Operaciones realizadas:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li>Normalización de comillas y guiones: convierte variantes Unicode (", —, –) a ASCII estándar para evitar tokens raros</li>
+                                <li>Normalización de comillas y guiones: convierte variantes Unicode (", —, –) a ASCII
+                                    estándar para evitar tokens raros</li>
                                 <li>Colapso de espacios múltiples y recorte de espacios al inicio/final</li>
                                 <li>Eliminación de versos duplicados por coincidencia exacta</li>
                             </ul>
                         </li>
                         <li><strong>Decisiones importantes:</strong>
                             <ul style="margin-top: 8px; margin-left: 20px;">
-                                <li><strong>Sin stemming ni stopwords:</strong> En poesía, la morfología completa y palabras aparentemente "vacías" portan matices de sentimiento. Removerlas degrada la señal</li>
-                                <li><strong>Sin lowercasing forzado:</strong> El tokenizador subword (BPE) de DeBERTa maneja mayúsculas; además, en poesía las mayúsculas pueden tener valor estilístico</li>
+                                <li><strong>Sin stemming ni stopwords:</strong> En poesía, la morfología completa y
+                                    palabras aparentemente "vacías" portan matices de sentimiento. Removerlas degrada la
+                                    señal</li>
+                                <li><strong>Sin lowercasing forzado:</strong> El tokenizador subword (BPE) de DeBERTa
+                                    maneja mayúsculas; además, en poesía las mayúsculas pueden tener valor estilístico
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -1364,20 +1417,31 @@ ${html}
                     <ul style="line-height: 2;">
                         <li><strong>Selección de clases minoritarias:</strong> Se identifican las clases que tienen
                             pocas muestras (por ejemplo: “negative”, “positive” y “mixed”).</li>
-                        <li><strong>SMOTE (Synthetic Minority Over-sampling Technique):</strong> Para los modelos clásicos (Multinomial Naive Bayes y Regresión Logística), se aplicó SMOTE exclusivamente en el conjunto de entrenamiento para generar sintéticamente nuevas muestras de las clases minoritarias. Esto corrige el desbalance sin perder información, permitiendo que los modelos aprendan a distinguir mejor entre sentimientos.</li>
-                        <li><strong>Focal Loss y Class Weights:</strong> Para DeBERTa-v3-base, se utilizó Focal Loss combinada con pesos de clases para manejar el desbalance. Este enfoque es más eficaz en redes neuronales profundas, ya que el Focal Loss penaliza más los ejemplos mal clasificados de las clases minoritarias.</li>
-                        <li><strong>Preservación de sets de validación y prueba:</strong> Tanto SMOTE como los pesos de clase se aplicaron únicamente al conjunto de entrenamiento. Los conjuntos de validación y prueba mantuvieron su distribución original para garantizar evaluación realista de la capacidad de generalización del modelo.</li>
+                        <li><strong>SMOTE (Synthetic Minority Over-sampling Technique):</strong> Para los modelos
+                            clásicos (Multinomial Naive Bayes y Regresión Logística), se aplicó SMOTE exclusivamente en
+                            el conjunto de entrenamiento para generar sintéticamente nuevas muestras de las clases
+                            minoritarias. Esto corrige el desbalance sin perder información, permitiendo que los modelos
+                            aprendan a distinguir mejor entre sentimientos.</li>
+                        <li><strong>Focal Loss y Class Weights:</strong> Para DeBERTa-v3-base, se utilizó Focal Loss
+                            combinada con pesos de clases para manejar el desbalance. Este enfoque es más eficaz en
+                            redes neuronales profundas, ya que el Focal Loss penaliza más los ejemplos mal clasificados
+                            de las clases minoritarias.</li>
+                        <li><strong>Preservación de sets de validación y prueba:</strong> Tanto SMOTE como los pesos de
+                            clase se aplicaron únicamente al conjunto de entrenamiento. Los conjuntos de validación y
+                            prueba mantuvieron su distribución original para garantizar evaluación realista de la
+                            capacidad de generalización del modelo.</li>
                     </ul>
 
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        Este enfoque diferenciado permite optimizar cada modelo de acuerdo a sus características, mejorando el desempeño sin comprometer la evaluación independiente.
+                        Este enfoque diferenciado permite optimizar cada modelo de acuerdo a sus características,
+                        mejorando el desempeño sin comprometer la evaluación independiente.
                     </p>
 
                 </div>
 
                 <!-- PAGE 5: Text Representation -->
                 <div class="page-section">
-                    
+
 
                     <!-- PAGE 5.1: Implementación -->
                     <div class="page-section">
@@ -1397,7 +1461,8 @@ ${html}
                                             <li>Exclusión de clase <code>mixed</code> y balanceo con <code>SMOTE</code>
                                                 (solo train)</li>
                                             <li>Entrenamiento de <code>MultinomialNB</code> y
-                                                <code>LogisticRegression</code></li>
+                                                <code>LogisticRegression</code>
+                                            </li>
                                             <li>Ajuste de <code>alpha</code> (NB) con <code>GridSearchCV</code></li>
                                             <li>Evaluación macro‑F1 (sin clase <code>mixed</code>) y matrices de
                                                 confusión</li>
@@ -1422,32 +1487,6 @@ ${html}
                                 </div>
                             </div>
 
-                            <div class="section-subtitle">Ejemplos de aplicación</div>
-                            <div class="spec-card">
-                                <strong>Inferencia con DeBERTa‑v3‑base (conceptual)</strong>
-                                <div style="margin-top: 10px;
-                                            font-family: 'Courier New', monospace;
-                                            background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                                    <code>texto = "Sunshine fills my heart with joy."
-# 1) tokenizar → input_ids, attention_mask (max_len=128)
-# 2) pasar por el modelo → logits
-# 3) pred = argmax(logits) → {0: negative, 1: positive, 2: no_impact}</code>
-                                </div>
-                            </div>
-
-                            <div class="spec-card" style="margin-top: 15px;">
-                                <strong>Uso de pipeline clásico</strong>
-                                <div style="margin-top: 10px;
-                                            font-family: 'Courier New', monospace;
-                                            background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                                    <code># (resumen)
-tokens = preprocess_poetry_text(verso)
-vec = CountVectorizer(max_features=10000)
-X = vec.transform([" ".join(tokens)])
-pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
-                                </div>
-                            </div>
-
                             <div class="section-subtitle" style="margin-top: 25px;">Optimización y ajustes
                                 (hiperparámetros)</div>
                             <div class="specifications">
@@ -1455,7 +1494,8 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                     <strong>MultinomialNB</strong>
                                     <ul style="margin-top: 8px; padding-left: 20px;">
                                         <li><code>GridSearchCV</code> sobre
-                                            <code>alpha ∈ {0.01, 0.1, 0.5, 1.0, 5.0, 10.0}</code></li>
+                                            <code>alpha ∈ {0.01, 0.1, 0.5, 1.0, 5.0, 10.0}</code>
+                                        </li>
                                         <li><em>Scoring</em>: F1‑macro, CV=5</li>
                                     </ul>
                                 </div>
@@ -1463,7 +1503,8 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                     <strong>Regresión Logística</strong>
                                     <ul style="margin-top: 8px; padding-left: 20px;">
                                         <li><code>class_weight='balanced'</code>, <code>max_iter=2000</code>,
-                                            <code>solver='liblinear'</code></li>
+                                            <code>solver='liblinear'</code>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="spec-card">
@@ -1505,27 +1546,23 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                 </ul>
                             </div>
                             <div style="height: 20px; clear: both;"></div>
-                            <p style="margin-top: 15px;"><strong>Librería:</strong>
-                                sklearn.linear_model.LogisticRegression</p>
-                            <p style="margin-top: 15px;"><strong>Parámetros:</strong> max_iter=1000</p>
 
-                            <div style="text-align: center; margin: 30px 0;">
-                                <img src="logistic_regression.png" alt="Parámetros utilizados para regresión logística"
-                                    style="max-width: 70%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                <p
-                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                                    Ilustración 6. Parámetros utilizados para regresión logística</p>
-                            </div>
+                            <pre class="code-block"><code>lr_model = LogisticRegression(
+    random_state=SEED,
+    max_iter=2000,
+    class_weight='balanced',
+    C=1.0,
+    solver='liblinear'
+)</code></pre>
 
                             <div class="section-subtitle">5.2 Naive Bayes Multinomial</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                El modelo Naive Bayes Multinomial está especialmente diseñado para trabajar con datos
-                                representados como
-                                frecuencias de palabras, como los obtenidos mediante técnicas de Bag-of-Words o TF-IDF.
-                                Asume independencia entre las características (palabras), lo
-                                que simplifica el
-                                cálculo de probabilidades y permite un entrenamiento muy rápido incluso con grandes
-                                volúmenes de texto.
+                                El modelo Multinomial Naive Bayes se utiliza, en este caso, con ajuste de hiperparámetros mediante
+                                búsqueda en cuadrícula (GridSearchCV) para optimizar el parámetro de suavizado alpha.
+                                Este enfoque probabilístico calcula probabilidades condicionales de palabras para cada
+                                clase, permitiendo una clasificación eficiente incluso con vocabularios grandes. La
+                                búsqueda exhaustiva de alpha mediante validación cruzada de 5 folds maximiza el F1-score
+                                macro, encontrando el balance óptimo entre sesgo y varianza del modelo.
                             </p>
                             <div class="spec-card">
                                 <strong>Ventajas:</strong>
@@ -1749,9 +1786,11 @@ pred = nb_model.predict(X)  # ó lr_model.predict(X)</code>
                                         <div class="section-subtitle">Limitaciones y mejoras</div>
                                         <ul style="line-height: 2;">
                                             <li><strong>Clase positive:</strong> aún mejorable con
-                                                <em>augmentations</em> suaves o calibración de umbrales.</li>
+                                                <em>augmentations</em> suaves o calibración de umbrales.
+                                            </li>
                                             <li><strong>Generalización:</strong> ampliar datos o realizar
-                                                <em>fine‑tuning</em> por dominio/autor.</li>
+                                                <em>fine‑tuning</em> por dominio/autor.
+                                            </li>
                                             <li><strong>Mixta (<code>mixed</code>):</strong> reincorporarla demandará
                                                 rediseñar pérdidas/umbral o recolectar más muestras.</li>
                                             <li><strong>Recursos:</strong> modelos mayores (DeBERTa‑large,
