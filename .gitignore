@@ -1,0 +1,30 @@
+# Model files and checkpoints
+*.pt
+*.pth
+*.safetensors
+
+# Directories with models
+results/
+deberta_results/
+artifacts/
+
+# Jupyter notebooks
+*.ipynb
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Playwright
+.playwright-mcp/
+
+# Temporary files
+*.tmp
+*.temp

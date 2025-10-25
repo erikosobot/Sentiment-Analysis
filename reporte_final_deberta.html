@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Final - Análisis de Sentimientos en Versos (DeBERTa)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 1.5;
+            font-size: 12pt;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+            line-height: 1.5;
+            color: #333;
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 2.5cm;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .header-logo {
+            margin-bottom: 20px;
+            font-size: 3em;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 0;
+            text-align: justify;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        .section-title {
+            font-size: 14pt;
+            color: #000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #C41E3A;
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+
+        .section-subtitle {
+            font-size: 12pt;
+            color: #000;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-style: italic;
+            padding-left: 20px;
+            border-left: 4px solid #C41E3A;
+        }
+
+        .intro-text {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #C41E3A;
+            margin-bottom: 30px;
+            line-height: 1.5;
+            font-size: 12pt;
+            text-align: justify;
+        }
+
+        /* Specifications */
+        .specifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .spec-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #C41E3A;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .spec-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(196, 30, 58, 0.2);
+        }
+
+        .spec-card strong {
+            color: #000;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* Lists */
+        ul,
+        ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        li strong {
+            color: #4A4A4A;
+        }
+
+        /* Structure sections */
+        .structure-list {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .structure-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .structure-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .structure-item h4 {
+            color: #000;
+            font-size: 1.15em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .structure-item h4:before {
+            content: "▸";
+            margin-right: 10px;
+            font-size: 1.3em;
+            color: #4A4A4A;
+        }
+
+        .structure-description {
+            margin-left: 20px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Rubric */
+        .rubric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .rubric-item {
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(139, 21, 56, 0.2);
+        }
+
+        .rubric-percentage {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .rubric-description {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+
+        /* Deliverables */
+        .deliverables {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #C41E3A;
+        }
+
+        .deliverable-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .deliverable-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .deliverable-icon {
+            width: 30px;
+            height: 30px;
+            background: #C41E3A;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Format Table */
+        .format-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .format-table th {
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .format-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .format-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .format-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .footer-highlight {
+            color: #4A4A4A;
+            font-weight: bold;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-left: 4px solid #C41E3A;
+            padding: 15px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            color: #000;
+        }
+
+        .highlight-box strong {
+            color: #000;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .header {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 30px 20px;
+                text-align: justify;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .specifications,
+            .rubric-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .structure-item h4 {
+                font-size: 1.05em;
+            }
+
+            .format-table {
+                font-size: 0.9em;
+            }
+
+            .format-table th,
+            .format-table td {
+                padding: 10px;
+            }
+
+            p,
+            li,
+            td {
+                font-size: 12pt;
+                line-height: 1.5;
+                text-align: justify;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .spec-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 2.5cm;
+                margin: 0;
+                font-size: 12pt;
+                line-height: 1.5;
+                counter-reset: page 1;
+            }
+
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .header {
+                page-break-after: avoid;
+                padding: 30px 0;
+            }
+
+            .content {
+                padding: 0;
+                text-align: justify;
+            }
+
+            p,
+            li,
+            td,
+            th {
+                font-size: 12pt;
+                line-height: 1.5;
+                text-align: justify;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                margin: 2.5cm;
+
+                @bottom-center {
+                    content: counter(page);
+                    font-size: 12pt;
+                    font-family: Arial, sans-serif;
+                }
+            }
+        }
+
+        /* Code styles */
+        code {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        /* COVER PAGE STYLES */
+        .cover-page {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            color: #000;
+            text-align: center;
+            padding: 60px 60px 80px 60px;
+            page-break-after: always;
+            position: relative;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #C41E3A, rgba(196, 30, 58, 0) 50%, rgba(196, 30, 58, 0));
+        }
+
+        .cover-page::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(196, 30, 58, 0), #C41E3A 50%, rgba(196, 30, 58, 0));
+        }
+
+        .cover-content {
+            max-width: 600px;
+            animation: fadeInCover 0.8s ease;
+        }
+
+        @keyframes fadeInCover {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cover-logos {
+            display: flex;
+            justify-content: space-between;
+            gap: 0;
+            margin-bottom: 50px;
+            align-items: center;
+            width: 100%;
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .cover-logo {
+            flex: 0 0 auto;
+            background: rgba(139, 21, 56, 0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(139, 21, 56, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .cover-logo img {
+            max-width: 100px;
+            height: auto;
+            filter: brightness(1);
+            transition: transform 0.3s ease;
+        }
+
+        .cover-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .cover-institution {
+            margin-bottom: 60px;
+            border-bottom: 2px solid #C41E3A;
+            padding-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .cover-institution h2 {
+            font-size: 2em;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
+            color: #000;
+        }
+
+        .cover-institution p {
+            font-size: 1.15em;
+            opacity: 1;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            color: #000;
+        }
+
+        .cover-course {
+            margin-bottom: 90px;
+            font-size: 1.25em;
+            font-style: italic;
+            opacity: 1;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+            color: #000;
+        }
+
+        .cover-main {
+            margin-bottom: 100px;
+        }
+
+        .cover-main h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: none;
+            line-height: 1.1;
+            letter-spacing: -0.5px;
+            color: #000;
+        }
+
+        .cover-subtitle {
+            font-size: 1.4em;
+            opacity: 1;
+            font-style: italic;
+            line-height: 1.5;
+            font-weight: 300;
+            color: #000;
+        }
+
+        .cover-author {
+            margin-bottom: 70px;
+            font-size: 1.1em;
+        }
+
+        .cover-author p:first-child {
+            margin-bottom: 12px;
+            opacity: 1;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .cover-author p:last-child {
+            font-size: 1.4em;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #000;
+        }
+
+        .cover-date {
+            font-size: 1.1em;
+            margin-top: 80px;
+            padding-top: 30px;
+            border-top: 1px solid #C41E3A;
+        }
+
+        .cover-date p:first-child {
+            margin-bottom: 12px;
+            opacity: 1;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .cover-date p:last-child {
+            font-size: 1.3em;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            color: #000;
+        }
+
+        /* Print styles for cover */
+        @media print {
+            .cover-page {
+                page-break-after: always;
+                background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+                color: white;
+            }
+        }
+
+        code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            display: block;
+            overflow-x: auto;
+        }
+
+        /* Footer con numeración de página */
+        .page-number {
+            text-align: center;
+            padding: 20px 0;
+            color: #999;
+            font-size: 11pt;
+            border-top: 1px solid #ddd;
+            margin-top: 40px;
+        }
+
+        @media print {
+            .page-number {
+                display: none;
+            }
+        }
+
+        /* Download Button */
+        .download-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #8B1538 0%, #C41E3A 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(139, 21, 56, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 21, 56, 0.4);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        @media print {
+            .download-container {
+                display: none;
+            }
+        }
+
+        /* Page Break Control */
+        .page-section {
+            page-break-after: always;
+            page-break-inside: avoid;
+            padding: 20px 0;
+            margin-bottom: 1cm;
+        }
+
+        .page-section:last-child {
+            page-break-after: avoid;
+        }
+
+        .section-page-break {
+            page-break-after: always;
+        }
+
+        /* Evitar rupturas dentro de elementos */
+        .page-section .section {
+            page-break-inside: avoid;
+        }
+
+        .section-subtitle {
+            page-break-after: avoid;
+        }
+
+        .section-title {
+            page-break-after: avoid;
+        }
+
+        ul,
+        ol {
+            page-break-inside: avoid;
+        }
+
+        .format-table {
+            page-break-inside: avoid;
+        }
+
+        .spec-card {
+            page-break-inside: avoid;
+        }
+
+        .highlight-box {
+            page-break-inside: avoid;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="cover-page">
+            <h1>Análisis de sentimientos en versos</h1>
+            <p><em>Fine-tuning de microsoft/deberta-v3-base y comparación con enfoques alternativos</em></p>
+            <p><strong>Autor:</strong> Erik I. Osornio Botello</p>
+            <p><strong>Fecha:</strong> 24 de Octubre de 2025</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Resumen ejecutivo</div>
+            <p>
+                Este informe documenta el desarrollo y evaluación de un sistema de clasificación de sentimiento en versos
+                poéticos. Se fine-tuneó el modelo preentrenado <code>microsoft/deberta-v3-base</code> en el dataset
+                "Poem Sentiment" (Google Research, disponible en Hugging Face). El modelo final obtuvo en el conjunto de
+                prueba <strong>F1-macro = 0.8909</strong> y <strong>Accuracy = 0.9135</strong>, superando el umbral requerido
+                (F1-macro ≥ 0.85).
+            </p>
+            <p>
+                El pipeline documentado incluye: importación y descripción de datos, preprocesamiento específico para
+                poesía, comparación conceptual de tres familias de arquitecturas (baseline clásico, neural ligero, y
+                transformer), detalles de entrenamiento (Focal Loss, label smoothing, early stopping) y análisis de resultados.
+            </p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">1. Datos</div>
+
+            <div class="section-subtitle">Origen y formato</div>
+            <p>
+                El dataset proviene de Google Research y está disponible en Hugging Face: <a href="https://huggingface.co/datasets/google-research-datasets/poem_sentiment" target="_blank">google-research-datasets/poem_sentiment</a>.
+                Los splits originales se encuentran como archivos Parquet. Para reproducibilidad, se utilizó la división de splits proporcionada por el dataset.
+            </p>
+
+            <div class="section-subtitle">Preprocesamiento de splits y selección de clases</div>
+            <p>
+                Por motivos de claridad y evaluación del problema tripartito, la clase "mixto" fue excluida del experimento primario, por su baja frecuencia y ambigüedad en etiquetas. Después de la exclusión los conteos finales usados en el experimento fueron:
+            </p>
+            <table class="format-table">
+                <thead>
+                    <tr><th>Split</th><th># Ejemplos</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Entrenamiento</td><td>843</td></tr>
+                    <tr><td>Validación</td><td>105</td></tr>
+                    <tr><td>Prueba (Test)</td><td>104</td></tr>
+                    <tr><td><strong>Total</strong></td><td><strong>1,052</strong></td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-subtitle">Distribución por clase (post-filtrado)</div>
+            <p>
+                Tras excluir "mixto" la distribución aproximada en entrenamiento fue: <em>no_impact ≈ 66%, negative ≈ 18%, positive ≈ 16%</em>. Este desbalance guió el diseño de la función de pérdida y las estrategias de entrenamiento (ver sección Metodología).
+            </p>
+
+            <div class="section-subtitle">Columnas relevantes</div>
+            <ul>
+                <li><strong>verse_text:</strong> Texto del verso.</li>
+                <li><strong>label:</strong> Etiqueta numérica (0: negative, 1: positive, 2: no_impact) tras el remapeo.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">2. Preprocesamiento</div>
+
+            <p>
+                El preprocesamiento escogido es intencionalmente <strong>no destructivo</strong> para preservar rasgos estilísticos de la poesía. Las decisiones principales:
+            </p>
+
+            <ul>
+                <li><strong>Normalización de comillas y guiones:</strong> Unificar variantes Unicode para evitar tokens raros.</li>
+                <li><strong>Colapsado de espacios múltiples y trim:</strong> Eliminación de espacios redundantes y recorte de extremos.</li>
+                <li><strong>Eliminación de duplicados:</strong> Remoción de versos idénticos dentro de cada split para evitar leakage.</li>
+            </ul>
+
+            <div class="spec-card">
+                <strong>Decisiones deliberadas no aplicadas:</strong>
+                <ul>
+                    <li>No se aplicó <strong>stemming</strong> ni lematización automática: en poesía la morfología aporta señales importantes.</li>
+                    <li>No se forzó <strong>lowercasing</strong>: los tokenizadores subword modernos manejan mayúsculas, y en poesía las mayúsculas pueden ser informativas.</li>
+                    <li>No se removieron stopwords: palabras funcionales pueden cambiar significado en contextos poéticos (ej. negaciones).</li>
+                </ul>
+            </div>
+
+            <p>
+                Este pipeline reduce ruido tipográfico pero preserva matices semánticos. Para la tokenización se utilizó el tokenizer asociado a DeBERTa-v3-base con un <code>max_length=128</code> y truncamiento por la derecha cuando fue necesario.
+            </p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3. Arquitecturas implementadas (visión general)</div>
+
+            <p>Se documentaron y/o consideraron tres familias de modelos:</p>
+
+            <div class="section-subtitle">A) Baseline clásico: TF-IDF + LinearSVC</div>
+            <p>Rápido de entrenar, interpretable (pesos de n-gramas), útil como punto de referencia para textos cortos. Limitado en captar contexto y polisemia.</p>
+
+            <div class="section-subtitle">B) Neural ligero: TextCNN / BiLSTM</div>
+            <p>Arquitecturas que usan embeddings (preentrenados o entrenables). Mejor capturan patrones locales y dependencias secuenciales que TF-IDF. Requieren mayor cuidado con regularización y pueden sobreajustar en datasets pequeños.</p>
+
+            <div class="section-subtitle">C) Transformador preentrenado: DeBERTa-v3-base (fine-tuning)</div>
+            <p>Arquitectura final elegida para el experimento principal: captura semántica profunda y contexto. Requiere GPU para entrenamiento eficiente pero ofrece la mejor performance en general para tareas de clasificación de texto.</p>
+
+        </div>
+
+        <div class="section">
+            <div class="section-title">4. Metodología y detalles de entrenamiento</div>
+
+            <div class="section-subtitle">Configuración principal (DeBERTa fine-tuning)</div>
+            <ul>
+                <li><strong>Modelo:</strong> microsoft/deberta-v3-base (Hugging Face Transformers)</li>
+                <li><strong>Tokenizador:</strong> tokenizer del checkpoint (subword)</li>
+                <li><strong>Max length:</strong> 128 tokens</li>
+                <li><strong>Batch size:</strong> 16 (train), 32 (eval)</li>
+                <li><strong>Learning rate:</strong> 2e-5</li>
+                <li><strong>Epochs:</strong> 6 (con early stopping por validación, patience=3)</li>
+                <li><strong>Scheduler:</strong> cosine with warmup (warmup_ratio=0.05)</li>
+                <li><strong>Weight decay:</strong> 0.01</li>
+            </ul>
+
+            <div class="section-subtitle">Función de pérdida y técnicas para imbalance</div>
+            <p>
+                Para mitigar el desbalance de clases se utilizó <strong>Focal Loss</strong> (γ=1.5) combinada con <strong>class weights</strong> calculados a partir de la frecuencia inversa de clases. Además se aplicó <strong>label smoothing = 0.1</strong> para reducir overconfidence. Early stopping evitó entrenamientos excesivos.
+            </p>
+
+            <div class="section-subtitle">Regularización y reproducibilidad</div>
+            <ul>
+                <li>Seed fijo (42) para <code>numpy</code>, <code>torch</code> y <code>transformers</code>.</li>
+                <li>Checkpointing: guardado de mejores pesos por F1-macro en validación.</li>
+                <li>Registro de hyperparámetros y resultados por época (logs).</li>
+            </ul>
+
+        </div>
+
+        <div class="section">
+            <div class="section-title">5. Resultados y evaluación</div>
+
+            <div class="spec-card">
+                <strong>Resultado final (Test set, checkpoint seleccionado):</strong>
+                <ul>
+                    <li><strong>Accuracy:</strong> 0.9135</li>
+                    <li><strong>F1-macro:</strong> 0.8909</li>
+                    <li><strong>F1-weighted:</strong> 0.9136</li>
+                </ul>
+            </div>
+
+            <div class="section-subtitle">Comparación resumida</div>
+            <table class="format-table">
+                <thead>
+                    <tr><th>Modelo</th><th>F1-macro (Test)</th><th>Notas</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>TF-IDF + LinearSVC</td><td>Pendiente</td><td>Baseline clásico (rápido)</td></tr>
+                    <tr><td>TextCNN / BiLSTM</td><td>Pendiente</td><td>Baseline neural ligero</td></tr>
+                    <tr style="background:#eef8ff"><td><strong>DeBERTa-v3-base (Fine-tuned)</strong></td><td><strong>0.8909</strong></td><td><strong>Focal Loss + weights; label smoothing</strong></td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-subtitle">Métricas por clase (Test)</div>
+            <table class="format-table">
+                <thead>
+                    <tr><th>Clase</th><th>Precision</th><th>Recall</th><th>F1</th><th>Support</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>negative</td><td>0.86</td><td>1.00</td><td>0.93</td><td>19</td></tr>
+                    <tr><td style="background:#fff7e6">positive</td><td>0.81</td><td>0.81</td><td>0.81</td><td>16</td></tr>
+                    <tr><td>no_impact</td><td>0.95</td><td>0.91</td><td>0.93</td><td>69</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-subtitle">Análisis breve</div>
+            <ul>
+                <li>La clase <strong>negative</strong> muestra recall perfecto, indicando que los ejemplos negativos son detectados consistentemente.</li>
+                <li>La clase <strong>positive</strong> es la más desafiante (F1=0.81), con algunas confusiones con <em>no_impact</em> cuando la valoración es sutil o metafórica.</li>
+                <li>La estrategia de Focal Loss + class weights elevó la F1-macro hasta 0.8909, superando el requisito del proyecto.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">6. Ejemplos de uso e inferencia</div>
+
+            <p>Ejemplos de versos y etiqueta esperada:</p>
+            <table class="format-table">
+                <thead><tr><th>Verso</th><th>Etiqueta esperada</th><th>Justificación</th></tr></thead>
+                <tbody>
+                    <tr><td>"The night is dark and full of fears."</td><td>negative</td><td>Marcadores negativos explícitos: "dark", "fears"</td></tr>
+                    <tr><td>"Sunshine fills my heart with joy."</td><td>positive</td><td>Sentimiento explícito: "joy", "sunshine"</td></tr>
+                    <tr><td>"The sky is blue and the grass is green."</td><td>no_impact</td><td>Descripción neutra sin carga emocional</td></tr>
+                </tbody>
+            </table>
+
+            <div class="section-subtitle">Pipeline de inferencia (resumen)</div>
+            <ol>
+                <li>Aplicar preprocesamiento ligero (normalización de comillas/guiones, colapsado de espacios).</li>
+                <li>Tokenizar con tokenizer de DeBERTa (max_length=128).</li>
+                <li>Pasar tensores al modelo (GPU si está disponible).</li>
+                <li>Aplicar <code>argmax</code> a los logits y mapear índices: 0→negative, 1→positive, 2→no_impact.</li>
+            </ol>
+
+            <div class="code"># Ejemplo (pseudocódigo)
+# text -> preprocess -> tokenizer -> model -> logits -> argmax -> label
+</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">7. Discusión y limitaciones</div>
+
+            <p>
+                Los resultados muestran que un transformador preentrenado ajustado con técnicas para imbalance puede ofrecer
+                desempeño robusto en tareas de clasificación de sentimiento para poesía. Se identificaron sin embargo
+                limitaciones importantes:
+            </p>
+            <ul>
+                <li><strong>Desbalance de clases:</strong> Afecta a la clase positive; se mitigó parcialmente con Focal Loss y weights.</li>
+                <li><strong>Dataset pequeño:</strong> Con ~1k ejemplos finales, la varianza entre seeds y checkpoints puede ser significativa.</li>
+                <li><strong>Exclusión de la clase "mixto":</strong> Simplifica el problema; reincorporarla requeriría etiquetas más numerosas o enfoque multi-label/soft labels.</li>
+            </ul>
+
+            <div class="spec-card">
+                <strong>Mejoras sugeridas:</strong>
+                <ol>
+                    <li>Data augmentation controlado (paráfrasis, back-translation) para la clase positive.</li>
+                    <li>Ensemble de checkpoints o de distintos seeds para reducir varianza y mejorar robustez.</li>
+                    <li>Probar DeBERTa-v3-large si recursos GPU lo permiten; o quantización 8-bit para despliegue CPU.</li>
+                    <li>Evaluar la reintroducción de la clase "mixto" con mayor recolección de etiquetas o estrategia multi-label.</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">8. Conclusiones</div>
+            <ul>
+                <li>Se construyó y evaluó un pipeline reproducible para clasificación de sentimiento en versos usando DeBERTa.</li>
+                <li>El modelo fine-tuned alcanzó <strong>F1-macro = 0.8909</strong> en Test (cumple requisito ≥ 0.85).</li>
+                <li>Las técnicas aplicadas (Focal Loss, class weights, label smoothing, early stopping) contribuyeron significativamente al rendimiento.</li>
+                <li>Trabajo futuro: completar baselines clásicos y ligeros para comparación cuantitativa, data augmentation para mejorar class positive y despliegue mediante API y quantization.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Referencias</div>
+            <ol>
+                <li>He, P., Liu, X., Gao, J., & Chen, W. (2020). DeBERTa: Decoding-enhanced BERT with Disentangled Attention. arXiv:2006.03654.</li>
+                <li>Lin, T. Y., Goyal, P., Girshick, R., He, K., & Dollár, P. (2017). Focal Loss for Dense Object Detection. ICCV.</li>
+                <li>Wolf, T., et al. (2020). Transformers: State-of-the-art Natural Language Processing. EMNLP.</li>
+                <li>Google Research. (2021). Poem Sentiment Dataset. Hugging Face Datasets. https://huggingface.co/datasets/google-research-datasets/poem_sentiment</li>
+                <li>Hugging Face Transformers Documentation. https://huggingface.co/docs/transformers/</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <p>Reporte generado automáticamente a partir del notebook <strong>Analisis-Sentimientos-DeBERTa-v3-base-final.ipynb</strong>.</p>
+            <p>Erik I. Osornio Botello — 24/10/2025</p>
+        </div>
+    </div>
+</body>
+
+</html>
