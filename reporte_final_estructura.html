@@ -1084,9 +1084,9 @@ ${html}
                                 modelos complejos desde cero. No obstante, con transformadores preentrenados y técnicas
                                 de regularización (early stopping, class weights/Focal Loss, label smoothing) es posible
                                 lograr buen desempeño.</li>
-                            <li><strong>Data Augmentation:</strong> Debido al desbalance inicial de clases, se aplicó
-                                data augmentation únicamente en el conjunto de entrenamiento para equilibrar la
-                                distribución de clases.</li>
+                            <li><strong>Balanceo de Clases:</strong> Se aplicaron técnicas de balanceo: SMOTE en modelos
+                                clásicos (Naive Bayes, Logistic Regression) y Focal Loss con class weights en DeBERTa
+                                para mitigar el desbalance inherente del dataset.</li>
                         </ul>
                     </div>
 
@@ -1230,40 +1230,61 @@ ${html}
 
                     <div class="section-subtitle">Estrategias de Mitigación</div>
                     <ul style="line-height: 2;">
-                        <li><strong>Data Augmentation:</strong> Aplicada solo en el entrenamiento para balancear las
-                            clases</li>
-                        <li><strong>Class weights:</strong> Pesos por clase en el transformador (DeBERTa) mediante Focal
-                            Loss + class weights para penalizar predicciones
-                            incorrectas de clases minoritarias</li>
+                        <li><strong>SMOTE (Modelos Clásicos):</strong> Aplicada en el entrenamiento de Naive Bayes y
+                            Logistic Regression para sobremuestreo sintético y balanceo de clases minoritarias</li>
+                        <li><strong>Focal Loss + Class weights (DeBERTa):</strong> Pesos por clase en el transformador
+                            (DeBERTa) mediante Focal Loss (γ=1.5) + class weights para penalizar predicciones
+                            incorrectas de clases minoritarias y mejorar generalización</li>
                     </ul>
 
-                    <div class="section-subtitle">Distribución de Clases (Post Data Augmentation)</div>
+                    <div class="section-subtitle">Distribución de Clases (Post Balanceo con SMOTE)</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Modelos Clásicos (Naive Bayes, Logistic Regression):</strong> Se aplicó SMOTE en el conjunto de entrenamiento para generar muestras sintéticas de clases minoritarias y lograr balanceo perfecto entre las tres clases.
+                    </p>
                     <table class="format-table">
                         <thead>
                             <tr>
-                                <th>Sentimiento</th>
+                                <th>Técnica</th>
+                                <th>Negativo</th>
+                                <th>Positivo</th>
+                                <th>No impacto</th>
                                 <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><strong>No impacto (No impact)</strong></td>
-                                <td>2,775</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Negativo (Negative)</strong></td>
-                                <td>2,325</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Positivo (Positive)</strong></td>
-                                <td>1,995</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Mixto (Mixed)</strong></td>
-                                <td>735</td>
+                            <tr style="background: #fff3cd;">
+                                <td><strong>SMOTE (Entrenamiento) </strong></td>
+                                <td>555</td>
+                                <td>555</td>
+                                <td>555</td>
+                                <td>1,665</td>
                             </tr>
                         </tbody>
                     </table>
+                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                        SMOTE generó 1,665 muestras de entrenamiento perfectamente balanceadas (555 por clase) a partir de 843 originales.</p>
+
+                    <div style="height: 20px;"></div>
+
+                    <div class="section-subtitle">Exclusión de la clase "Mixta" (Mixed) en Evaluación</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        La clase "mixed" (label=3) fue excluida de todos los modelos tanto en entrenamiento como en evaluación. 
+                        Esta decisión se basa en tres razones fundamentales:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Distribución minoritaria:</strong> La clase "mixed" representa solo 5.5% del set de entrenamiento, 
+                            lo que la hace altamente minoritaria y dificulta el entrenamiento robusto.</li>
+                        <li><strong>Ambigüedad conceptual:</strong> Esta clase agrupa versos con sentimientos contradictorios o ambiguos, 
+                            donde coexisten emociones positivas y negativas simultáneamente. Para una aplicación práctica de análisis 
+                            de sentimientos en poesía, es más útil clasificar en tres categorías bien definidas (negativo, positivo, sin impacto).</li>
+                        <li><strong>Mejora de robustez del modelo:</strong> Excluir la clase "mixed" permite un problema de clasificación 
+                            más claro y robusto, centrado en sentimientos claramente expresados, lo que mejora significativamente las 
+                            métricas de desempeño y la interpretabilidad de los resultados.</li>
+                    </ul>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Por lo tanto, todos los resultados reportados (F1-macro, exactitud, matrices de confusión, etc.) se calculan 
+                        considerando únicamente las tres clases principales: negativo, positivo y sin impacto.
+                    </p>
                 </div>
             </div>
 
@@ -1271,161 +1292,87 @@ ${html}
             <div class="page-section">
                 <div class="section">
                     <div class="section-title">📝 3. Preprocesamiento</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        El texto se sometió a un pipeline de preprocesamiento con dos funciones principales:
-                        <code>clean_text</code> y <code>preprocess_text</code>.
-                    </p>
-
-                    <div class="section-subtitle">Limpieza de Texto (clean_text)</div>
+                    
+                    <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        Esta función realiza operaciones de limpieza básica para normalizar los datos textuales:
+                        El preprocesamiento aplicado ha sido cuidadosamente diseñado para optimizar la clasificación de sentimientos en poesía inglesa antigua (siglos XVII-XIX), equilibrando la limpieza textual con la preservación de características semánticas relevantes. A diferencia de los enfoques estándar que aplican normalización agresiva, nuestra estrategia reconoce que el lenguaje poético arcaico contiene matices significativos para la detección de sentimientos.
                     </p>
+                    
                     <ul style="line-height: 2;">
-                        <li>Conversión a minúsculas para uniformidad</li>
-                        <li>Eliminación de URLs y etiquetas HTML</li>
-                        <li>Remoción de menciones de usuarios (@usuario) y símbolos de hashtags (#)</li>
-                        <li>Eliminación de puntuación y números</li>
-                        <li>Reducción de espacios en blanco redundantes</li>
+                        <li><strong>Preservación del contexto poético:</strong> El enfoque mantiene palabras arcaicas y poéticas (como "doth", "hath", "ne'er") que, aunque no sean comunes en el inglés moderno, poseen un alto valor predictivo para la clasificación de sentimientos en textos históricos. Estas palabras no se eliminan como stopwords, ya que a menudo aparecen en contextos emotivos específicos que el modelo necesita capturar.</li>
+                        
+                        <li><strong>Normalización de contracciones antiguas:</strong> Se expandieron contracciones arcaicas ("'twas" → "it was", "o'er" → "over") a palabras completas para mejorar la representación vectorial sin perder información léxica. Esta técnica aumenta la consistencia del vocabulario sin introducir ambigüedad, permitiendo que el vectorizador de conteo (CountVectorizer) capte patrones más robustos.</li>
+                        
+                        <li><strong>Limpieza moderada de puntuación:</strong> Se normalizó la puntuación de manera selectiva, removiendo caracteres especiales y de formato histórico, pero manteniendo la estructura de oraciones. Esta aproximación evita la pérdida de información contextual que podría ser relevante para modelos basados en bolsa de palabras, donde la proximidad léxica importa.</li>
+                        
+                        <li><strong>Vectorización con CountVectorizer y balanceo SMOTE:</strong> Después del preprocesamiento, se utilizó CountVectorizer con un vocabulario máximo de 10,000 features para capturar términos frecuentes relevantes. Aplicamos SMOTE solo en el conjunto de entrenamiento para corregir el desbalance de clases de forma sintética, evitando sobreajuste al no modificar conjuntos de validación y prueba.</li>
                     </ul>
-
-                    <div class="section-subtitle">Preprocesamiento Completo (preprocess_text)</div>
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        A continuación, el texto limpio se somete a un procesamiento adicional para preparar los datos
-                        para modelos de NLP:
-                    </p>
-                    <ul style="line-height: 2;">
-                        <li><strong>Tokenización:</strong> El texto se divide en palabras individuales</li>
-                        <li><strong>Eliminación de stopwords:</strong> Se eliminan palabras comunes sin contenido
-                            semántico relevante (como “the”, “and”, “is”) utilizando la lista de NLTK</li>
-                        <li><strong>Lematización:</strong> Cada palabra se reduce a su forma base (por ejemplo,
-                            “running” → “run”, “cars” → “car”) usando WordNetLemmatizer.</li>
-                        <li><strong>Reconstrucción del texto:</strong> Los tokens resultantes se unen nuevamente en un
-                            string, listo para su análisis o entrada a un modelo</li>
-                    </ul>
-
+                    
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        Este pipeline permite obtener un texto limpio, normalizado y representativo, adecuado para
-                        técnicas de NLP como modelos clásicos y transformadores,
-                        Naive Bayes o TF-IDF, mejorando la calidad de las predicciones y reduciendo el ruido en los
-                        datos.
+                        Este diseño integrado maximiza la capacidad del modelo para distinguir entre sentimientos en textos antiguos, priorizando la precisión sobre la simplicidad de preprocesamiento.
                     </p>
 
+                    <div class="section-subtitle">Implementación: Función preprocess_poetry_text</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        La siguiente función implementa esta estrategia de preprocesamiento optimizada para poesía:
+                    </p>
+                    
                     <div class="spec-card">
                         <strong>📝 Ejemplos de Preprocesamiento:</strong>
                         <div
                             style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                            <p><strong>Original:</strong> "with pale blue berries. in these peaceful shades"</p>
-                            <p><strong>Procesado:</strong> "pale blue berry peaceful shade"</p>
+                            <p><strong>Original (0):</strong> "with pale blue berries. in these peaceful shades--"</p>
+                            <p><strong>Procesado:</strong> "with pale blue berries in these peaceful shades"</p>
                             <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
-                            <p><strong>Original:</strong> "it flows so long as falls the rain,"</p>
-                            <p><strong>Procesado:</strong> "flow long fall rain"</p>
+                            <p><strong>Original (1):</strong> "it flows so long as falls the rain,"</p>
+                            <p><strong>Procesado:</strong> "it flows so long as falls the rain"</p>
+                            <hr style="border: none; border-top: 1px solid #ddd; margin: 10px 0;">
+                            <p><strong>Original (2):</strong> "and that is why, the lonesome day,"</p>
+                            <p><strong>Procesado:</strong> "and that is why the lonesome day"</p>
                         </div>
                     </div>
 
                     <div style="height: 20px; clear: both;"></div>
 
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        Se puede observar que, tras aplicar procesamiento, se reduce la longitud de la oración original,
-                        se removió puntuación y stopwords.
-                    </p>
+                    
 
-                    <div class="section-subtitle">Data Augmentation</div>
+                    <div class="section-subtitle">Preprocesamiento en DeBERTa-v3-base</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                        Se implementó un pipeline de aumento de datos utilizando la librería <code>nlpaug</code> para
-                        balancear
-                        las clases minoritarias. El objetivo principal es balancear las clases minoritarias en el
-                        dataset y mejorar la capacidad del modelo para generalizar.
-                        El proceso incluye:
+                        El preprocesamiento aplicado en DeBERTa-v3-base es <strong>ligero y no destructivo</strong>, diseñado específicamente para preservar las características estilísticas y semánticas de la poesía:
+                    </p>
+                    
+                    <ul style="line-height: 2;">
+                        <li><strong>Operaciones realizadas:</strong>
+                            <ul style="margin-top: 8px; margin-left: 20px;">
+                                <li>Normalización de comillas y guiones: convierte variantes Unicode (", —, –) a ASCII estándar para evitar tokens raros</li>
+                                <li>Colapso de espacios múltiples y recorte de espacios al inicio/final</li>
+                                <li>Eliminación de versos duplicados por coincidencia exacta</li>
+                            </ul>
+                        </li>
+                        <li><strong>Decisiones importantes:</strong>
+                            <ul style="margin-top: 8px; margin-left: 20px;">
+                                <li><strong>Sin stemming ni stopwords:</strong> En poesía, la morfología completa y palabras aparentemente "vacías" portan matices de sentimiento. Removerlas degrada la señal</li>
+                                <li><strong>Sin lowercasing forzado:</strong> El tokenizador subword (BPE) de DeBERTa maneja mayúsculas; además, en poesía las mayúsculas pueden tener valor estilístico</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="section-subtitle">Técnicas de Balanceo de Clases</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Dado el desbalance del dataset,
+                        se aplicaron técnicas específicas de balanceo según el tipo de modelo:
                     </p>
                     <ul style="line-height: 2;">
                         <li><strong>Selección de clases minoritarias:</strong> Se identifican las clases que tienen
-                            pocas muestras (por ejemplo: “negative”, “positive” y “mixed”)
-                            y se les aplica un mayor número de "augmentations" para equilibrar la distribución de
-                            clases.</li>
-                        <li><strong>Generación de nuevas muestras:</strong> Para cada texto en el dataset se generan
-                            varias versiones alternativas reemplazando palabras por sinónimos usando WordNet.</li>
-                        <li><strong>Proporción de aumentos:</strong> Las clases minoritarias reciben más aumentos que
-                            las clases mayoritarias, logrando un balance más uniforme.</li>
-                        <li><strong>Creación de dataset final:</strong> Los textos originales y los aumentados se
-                            combinan en un nuevo DataFrame.</li>
+                            pocas muestras (por ejemplo: “negative”, “positive” y “mixed”).</li>
+                        <li><strong>SMOTE (Synthetic Minority Over-sampling Technique):</strong> Para los modelos clásicos (Multinomial Naive Bayes y Regresión Logística), se aplicó SMOTE exclusivamente en el conjunto de entrenamiento para generar sintéticamente nuevas muestras de las clases minoritarias. Esto corrige el desbalance sin perder información, permitiendo que los modelos aprendan a distinguir mejor entre sentimientos.</li>
+                        <li><strong>Focal Loss y Class Weights:</strong> Para DeBERTa-v3-base, se utilizó Focal Loss combinada con pesos de clases para manejar el desbalance. Este enfoque es más eficaz en redes neuronales profundas, ya que el Focal Loss penaliza más los ejemplos mal clasificados de las clases minoritarias.</li>
+                        <li><strong>Preservación de sets de validación y prueba:</strong> Tanto SMOTE como los pesos de clase se aplicaron únicamente al conjunto de entrenamiento. Los conjuntos de validación y prueba mantuvieron su distribución original para garantizar evaluación realista de la capacidad de generalización del modelo.</li>
                     </ul>
 
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        Esto produce un dataset más grande y balanceado, que reduce el sesgo hacia clases mayoritarias y
-                        ayuda a mejorar el entrenamiento de modelos de NLP.
+                        Este enfoque diferenciado permite optimizar cada modelo de acuerdo a sus características, mejorando el desempeño sin comprometer la evaluación independiente.
                     </p>
-
-                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 20px;">
-                        Este procedimiento es especialmente útil en problemas de clasificación de texto donde algunas
-                        categorías tienen muy pocas muestras, ya que incrementa la diversidad de los datos
-                        sin necesidad de recolectar más ejemplos reales.
-
-                    </p>
-
-                    <div class="spec-card">
-                        <strong>📝 Ejemplos de Data Augmentation:</strong>
-                        <div
-                            style="margin-top: 15px; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 4px;">
-                            <p><strong>Original:</strong> "right wrong john"</p>
-                            <p><strong>Aumento 1:</strong> "right unseasonable john"</p>
-                            <p><strong>Aumento 2:</strong> "right ill timed john"</p>
-                            <p><strong>Aumento 3:</strong> "right wrong king john"</p>
-                            <p><strong>Aumento 4:</strong> "mightily wrong john"</p>
-                        </div>
-                    </div>
-
-                    <p style="text-align: justify; line-height: 1.8; margin-top: 20px;">
-                        Tras aplicar aumentos, se puede observar que en cada aumento se cambia la palabra <em>wrong</em>
-                        (malo) por un sinónimo diferente:
-                        <em>unseasonable</em>, <em>ill timed</em>, <em>mightily wrong john</em>, haciendo el dataset más
-                        diverso. A la clase mayoritaria se le
-                        aplicaron 5 aumentos y a las minoritarias 14 por cada muestra. De esta manera, se genera una
-                        representación más rica de cada clase
-                        sin necesidad de recolectar datos nuevos.
-                    </p>
-
-                    <p style="text-align: justify; line-height: 1.8; margin-top: 20px;">
-                        La distribución resultante se puede observar en la Tabla 2:
-                    </p>
-
-                    <table class="format-table" style="margin-top: 15px;">
-                        <thead>
-                            <tr>
-                                <th>Sentimiento</th>
-                                <th>Total</th>
-                                <th>Porcentaje</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>No impacto (No impact)</strong></td>
-                                <td>2,775</td>
-                                <td>35.45%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Negativo (Negative)</strong></td>
-                                <td>2,325</td>
-                                <td>29.69%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Positivo (Positive)</strong></td>
-                                <td>1,995</td>
-                                <td>25.48%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Mixto (Mixed)</strong></td>
-                                <td>735</td>
-                                <td>9.39%</td>
-                            </tr>
-                            <tr style="background: #f0f0f0; font-weight: bold;">
-                                <td><strong>Total</strong></td>
-                                <td>7,830</td>
-                                <td>100%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                        Tabla 2. Distribución de clases después de aplicar aumentos</p>
 
                 </div>
 
