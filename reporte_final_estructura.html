@@ -1893,7 +1893,7 @@ weighted avg       0.92      0.91      0.91       104</div>
 
                                     <div class="highlight-box"
                                         style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
-                                        <strong>✓ Objetivo cumplido (ALCANZADO):</strong> Se alcanzó <strong>F1‑macro = 0.8909</strong> en el conjunto de Test, 
+                                        <strong>Objetivo cumplido (ALCANZADO):</strong> Se alcanzó <strong>F1‑macro = 0.8909</strong> en el conjunto de Test, 
                                         superando la meta de <strong>F1‑macro ≥ 0.85</strong>. DeBERTa‑v3‑base demostró ser significativamente superior 
                                         a los baselines clásicos (Regresión Logística: 0.4661 | Multinomial NB optimizado: 0.5625), justificando 
                                         el uso de transformadores para la tarea de análisis de sentimiento en poesía.
@@ -1920,12 +1920,12 @@ weighted avg       0.92      0.91      0.91       104</div>
                                             <li><strong>DeBERTa‑v3‑base</strong> alcanza F1‑macro ≈ 0.891 en Test,
                                                 superando ampliamente a los baselines clásicos.</li>
                                             <li>Por clase (Test): <em>negative</em> logra <strong>recall ≈ 1.00</strong>
-                                                (marcadores afectivos más explícitos);
-                                                <em>positive</em> es la más desafiante (<strong>precision/recall ≈
-                                                    0.81</strong>), con confusiones hacia
-                                                <code>no_impact</code> cuando el verso es más descriptivo que
-                                                valorativo; <em>no_impact</em> mantiene
-                                                precisión alta (≈ 0.95) y recall ≈ 0.91.
+                                                (marcadores explícitos); <em>positive</em> es desafiante (F1 ≈ 0.81) porque el 
+                                                sentimiento positivo en poesía es sutil y metafórico, frecuentemente confundido con 
+                                                <code>no_impact</code> cuando el poeta describe la belleza sin expresar explícitamente 
+                                                alegría. Ejemplo: un verso como <em>"The golden light upon the hills"</em> expresa belleza 
+                                                (sentimiento positivo), pero el modelo puede clasificarlo como neutro por la ausencia de 
+                                                palabras emocionales directas; <em>no_impact</em> es fácil de detectar (precisión ≈ 0.95, recall ≈ 0.91).
                                             </li>
                                             <li>La combinación de <em>class weights</em> + Focal Loss + label smoothing
                                                 favorece el balance entre clases bajo desbalance.</li>
@@ -1941,12 +1941,11 @@ weighted avg       0.92      0.91      0.91       104</div>
 
                                         <div class="section-subtitle">Escenarios de uso</div>
                                         <ul style="line-height: 2;">
-                                            <li>Curaduría y analítica de colecciones poéticas (tendencias afectivas por
+                                            <li>Analítica de colecciones poéticas (tendencias afectivas por
                                                 autor/época).</li>
                                             <li>Herramientas de apoyo editorial, talleres de escritura y análisis
                                                 literario asistido.</li>
-                                            <li>Estudios de marcadores afectivos y estilísticos en humanidades
-                                                digitales.</li>
+                                            
                                         </ul>
 
                                         <div class="section-subtitle">Limitaciones y mejoras</div>
@@ -1955,9 +1954,13 @@ weighted avg       0.92      0.91      0.91       104</div>
                                                 <em>augmentations</em> suaves o calibración de umbrales.
                                             </li>
                                             <li><strong>Generalización:</strong> ampliar datos o realizar
-                                                <em>fine‑tuning</em> por dominio/autor.
+                                                <em>fine‑tuning</em> por dominio/autor:
+                                                <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.8;">
+                                                    <li><strong>Por dominio:</strong> Poesía medieval vs. moderna vs. romántica (cada estilo tiene características diferentes). Un modelo entrenado específicamente en poesía romántica (con énfasis en descripciones líricas de la naturaleza y emociones) podría capturar mejor los matices del sentimiento positivo en ese contexto, comparado con un modelo general entrenado en múltiples épocas simultáneamente.</li>
+                                                    <li><strong>Por autor:</strong> Ajustar el modelo específicamente para William Shakespeare, Emily Dickinson, etc. (cada poeta tiene su propio estilo y forma de expresar sentimientos). Shakespeare tiende a usar lenguaje elaborado y formal; Dickinson emplea puntuación experimental y abstracciones. Un modelo fine-tuned por autor sería más preciso en detectar sentimientos bajo el estilo específico de ese poeta.</li>
+                                                </ul>
                                             </li>
-                                            <li><strong>Mixta (<code>mixed</code>):</strong> reincorporarla demandará
+                                            <li><strong>Clase mixta (<code>mixed</code>):</strong> reincorporarla demandará
                                                 rediseñar pérdidas/umbral o recolectar más muestras.</li>
                                             <li><strong>Recursos:</strong> modelos mayores (DeBERTa‑large,
                                                 RoBERTa‑large) y <em>ensembles</em> podrían subir el techo de desempeño
@@ -1978,8 +1981,8 @@ weighted avg       0.92      0.91      0.91       104</div>
                                                     clave: limpieza ligera para el transformador y normalización léxica
                                                     + CountVectorizer para baselines.</li>
                                                 <li>Los <strong>baselines clásicos</strong> sirvieron como referencia y
-                                                    análisis de sensibilidad, pero el transformador capturó mejor los
-                                                    matices poéticos.</li>
+                                                    análisis de sensibilidad, pero el transformador entendió mejor los
+                                                    detalles y sutilezas del lenguaje poético.</li>
                                                 <li><strong>Impacto profesional:</strong> este proyecto consolida el
                                                     manejo de pipelines de NLP modernos (Transformers) y comparativos
                                                     clásicos, útil para prototipado rápido y despliegue en analítica
@@ -1988,13 +1991,13 @@ weighted avg       0.92      0.91      0.91       104</div>
 
                                             <div class="section-subtitle">Trabajo futuro</div>
                                             <ul style="line-height: 2;">
-                                                <li>Explorar <em>ensembles</em> de checkpoints/seeds y modelos mayores
+                                                <li>Explorar modelos mayores
                                                     (DeBERTa‑large, RoBERTa).</li>
                                                 <li>Mejorar la clase <em>positive</em> con <em>augmentations</em> suaves
                                                     y calibración de umbrales.</li>
                                                 <li>Reincorporar la clase <code>mixed</code> con estrategias de pérdida
                                                     (p. ej., <em>asymmetric loss</em>) o más datos.</li>
-                                                <li>Preparar un demo de inferencia (Gradio/FastAPI) y monitoreo en
+                                                <li>Preparar un demo de inferencia (FastAPI) en
                                                     producción.</li>
                                             </ul>
                                         </div>
@@ -2030,19 +2033,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                                 </div>
                                             </div>
 
-                                            <!-- Footer -->
-                                            <div class="footer">
-                                                <p>📊 <span class="footer-highlight">Reporte Final: Análisis de
-                                                        sentimientos en versos - Diplomado en Inteligencia
-                                                        Artificial</span></p>
-                                                <p style="font-size: 0.9em; color: #999;">Autor: Erik I. Osornio Botello
-                                                </p>
-                                                <p style="margin-top: 15px; color: #999; font-size: 0.85em;">
-                                                    Este reporte presenta el desarrollo, implementación y evaluación de
-                                                    un sistema completo de análisis de sentimientos
-                                                    utilizando tres enfoques distintos.
-                                                </p>
-                                            </div>
+                                            
 
                                             <div class="page-number"></div>
                                         </div>
