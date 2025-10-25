@@ -12,6 +12,17 @@
             box-sizing: border-box;
         }
 
+        /* Links without styling */
+        a {
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+
         p {
             text-align: justify;
             line-height: 1.5;
@@ -912,31 +923,30 @@ ${html}
             <h2 style="font-size: 1.8em; color: #000; margin-bottom: 30px; text-align: center; font-weight: bold;">
                 Índice</h2>
             <ol style="font-size: 12pt; line-height: 1.5; margin-left: 30px; color: #333;">
-                <li>Introducción
+                <li><a href="#sec1">Introducción</a>
                     <ol style="margin-top: 10px; margin-left: 20px;">
-                        <li>Contexto del Problema</li>
-                        <li>Importancia Académica e Industrial</li>
-                        <li>Alcance y Limitaciones</li>
-                        <li>Objetivos</li>
+                        <li><a href="#sec1">Contexto del Problema</a></li>
+                        <li><a href="#sec1">Importancia Académica e Industrial</a></li>
+                        <li><a href="#sec1">Alcance y Limitaciones</a></li>
+                        <li><a href="#sec1">Objetivos</a></li>
                     </ol>
                 </li>
-                <li>Marco Teórico</li>
-                <li>Metodología</li>
-                <li>Datos</li>
-                <li>Preprocesamiento</li>
-                <li>Implementación
+                <li><a href="#sec2">Marco Teórico</a></li>
+                <li><a href="#sec3">Metodología</a></li>
+                <li><a href="#sec4">Datos</a></li>
+                <li><a href="#sec5">Preprocesamiento</a></li>
+                <li><a href="#sec6">Implementación</a>
                     <ol style="margin-top: 10px; margin-left: 20px;">
-                        <li>Regresión Logística</li>
-                        <li>Naive Bayes Multinomial</li>
-                        <li>DeBERTa‑v3‑base (fine‑tuning)</li>
+                        <li><a href="#sec6">Regresión Logística</a></li>
+                        <li><a href="#sec6">Naive Bayes Multinomial</a></li>
+                        <li><a href="#sec6">DeBERTa‑v3‑base (fine‑tuning)</a></li>
                     </ol>
                 </li>
-                <li>Modelos Implementados</li>
-                <li>Validación y Métricas</li>
-                <li>Resultados</li>
-                <li>Discusión</li>
-                <li>Conclusiones y Trabajo Futuro</li>
-                <li>Referencias Bibliográficas</li>
+                <li><a href="#sec8">Validación y Métricas</a></li>
+                <li><a href="#sec9">Resultados</a></li>
+                <li><a href="#sec10">Discusión</a></li>
+                <li><a href="#sec11">Conclusiones y Trabajo Futuro</a></li>
+                <li><a href="#sec11">Referencias Bibliográficas</a></li>
             </ol>
         </div>
 
@@ -968,7 +978,7 @@ ${html}
             <!-- PAGE 2: Introduction Section -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">1. Introducción</div>
+                    <div class="section-title" id="sec1">1. Introducción</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
                         El análisis de sentimientos busca asignar una polaridad (por ejemplo: positiva, negativa,
                         neutral) a textos.
@@ -1071,7 +1081,7 @@ ${html}
             <!-- PAGE 1.5: Marco Teórico -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">2. Marco Teórico</div>
+                    <div class="section-title" id="sec2">2. Marco Teórico</div>
 
                     <div class="section-subtitle">Análisis de Sentimientos (Sentiment Analysis)</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
@@ -1129,7 +1139,7 @@ ${html}
             <!-- PAGE 2.1: Metodología -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">3. Metodología</div>
+                    <div class="section-title" id="sec3">3. Metodología</div>
 
                     <div class="section-subtitle">Análisis de los datos y preprocesamiento</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
@@ -1188,7 +1198,7 @@ ${html}
             <!-- PAGE 3: Data Section -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">4. Datos</div>
+                    <div class="section-title" id="sec4">4. Datos</div>
 
                     <div class="section-subtitle">Descripción del Dataset</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
@@ -1426,7 +1436,7 @@ ${html}
             <!-- PAGE 4: Preprocesamiento -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">5. Preprocesamiento</div>
+                    <div class="section-title" id="sec5">5. Preprocesamiento</div>
 
                     <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)
                     </div>
@@ -1558,7 +1568,7 @@ ${html}
                     <!-- PAGE 5.1: Implementación -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">6. Implementación</div>
+                            <div class="section-title" id="sec6">6. Implementación</div>
 
                             <div class="section-subtitle">Pipeline de desarrollo</div>
                             <div class="structure-list">
@@ -1636,7 +1646,7 @@ ${html}
                         <!-- PAGE 6: Models -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">7. Modelos Implementados</div>                            <div class="section-subtitle">6.1 Regresión Logística</div>
+                            <div class="section-title">Modelos Implementados</div>                            <div class="section-subtitle">6.1 Regresión Logística</div>
                             <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                 La regresión logística fue seleccionada por su capacidad para manejar eficazmente
                                 representaciones vectorizadas
@@ -1758,7 +1768,7 @@ TrainingArguments(
                         <!-- PAGE 7: Metrics and Training -->
                         <div class="page-section">
                             <div class="section">
-                                <div class="section-title">8. Validación y Métricas</div>
+                                <div class="section-title" id="sec7">7. Validación y Métricas</div>
                                 <div class="section-subtitle">Carga del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.5; margin-bottom: 15px;">
                                     El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los
@@ -1821,7 +1831,7 @@ TrainingArguments(
                             <!-- PAGE 8: Results -->
                             <div class="page-section">
                                 <div class="section">
-                                    <div class="section-title">9. Resultados</div>
+                                    <div class="section-title" id="sec8">8. Resultados</div>
 
                                     <div class="section-subtitle">Resultados de Baselines Clásicos</div>
 
@@ -2023,7 +2033,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                 <!-- PAGE 9: Discussion -->
                                 <div class="page-section">
                                     <div class="section">
-                                        <div class="section-title">10. Discusión</div>
+                                        <div class="section-title" id="sec9">9. Discusión</div>
 
                                         <div class="section-subtitle">¿Qué se observa en los resultados?</div>
                                         <ul style="line-height: 2;">
@@ -2081,7 +2091,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                     <!-- PAGE 10: Conclusions -->
                                     <div class="page-section">
                                         <div class="section">
-                                            <div class="section-title">11. Conclusiones y Trabajo Futuro</div>
+                                            <div class="section-title" id="sec10">10. Conclusiones y Trabajo Futuro</div>
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
@@ -2115,7 +2125,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                         <!-- PAGE 11: References & Footer -->
                                         <div class="page-section">
                                             <div class="section">
-                                                <div class="section-title">12. Referencias Bibliográficas</div>
+                                                <div class="section-title" id="sec11">11. Referencias Bibliográficas</div>
 
                                                 <div
                                                     style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2.2; font-size: 12pt;">
