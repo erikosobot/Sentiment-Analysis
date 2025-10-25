@@ -932,10 +932,6 @@ ${html}
             </ol>
         </div>
 
-        <div class="download-container">
-            <button class="download-btn" onclick="downloadAsWord()">📥 Descargar Word</button>
-        </div>
-
         <!-- Main Content -->
         <div class="content">
             <!-- PAGE 1: Title and Author -->
@@ -977,12 +973,63 @@ ${html}
                         rendimiento y trade-offs.
                     </p>
 
+                    <div class="section-subtitle">Contexto del Problema</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        El análisis de sentimientos en textos poéticos presenta un desafío particular comparado con textos
+                        cotidianos o técnicos. La poesía, especialmente la de épocas antiguas, emplea un lenguaje altamente
+                        metafórico, ambiguo y cargado de subjetividad. Los poetas frecuentemente expresan emociones de manera
+                        indirecta, mediante descripciones de la naturaleza, objetos abstractos o figuras literarias, lo que
+                        dificulta la detección automática del sentimiento. Este proyecto aborda la clasificación de versos
+                        de poemas ingleses antiguos en categorías de sentimiento (positivo, negativo, sin impacto),
+                        utilizando un dataset curado de 1,101 ejemplos disponible en Hugging Face.
+                    </p>
+
+                    <div class="section-subtitle">Importancia Académica e Industrial</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Este proyecto es relevante en múltiples contextos:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Académico:</strong> Consolida conocimientos de aprendizaje supervisado, procesamiento de
+                            lenguaje natural (NLP), y comparación de paradigmas clásicos vs. modernos (Transformers). Proporciona
+                            experiencia práctica en gestión de datos desbalanceados, regularización y evaluación de modelos.</li>
+                        <li><strong>Industrial/Aplicado:</strong> Las técnicas son transferibles a análisis de sentimientos en
+                            reseñas de libros, críticas literarias, análisis de opiniones en redes sociales, y herramientas de
+                            asistencia editorial. La metodología de comparación entre baselines y transformadores es aplicable
+                            a cualquier tarea de clasificación de texto con recursos limitados.</li>
+                    </ul>
+
+                    <div class="section-subtitle">Alcance y Limitaciones</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Alcance:</strong> Este proyecto implementa tres modelos completos (Regresión Logística, Naive Bayes
+                        Multinomial, DeBERTa-v3-base), documenta el pipeline de preprocesamiento, reporta métricas de desempeño
+                        (F1-macro, accuracy, precision, recall) y analiza resultados con énfasis en la clase positiva.
+                    </p>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Limitaciones:</strong>
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Tamaño del dataset:</strong> Con 1,101 ejemplos y desbalance hacia la clase "sin impacto",
+                            los modelos pueden tener capacidad de generalización limitada fuera de poesía antigua en inglés.</li>
+                        <li><strong>Clase "mixta" excluida:</strong> La clase "mixed" se excluyó por baja frecuencia (5.5%) y
+                            ambigüedad conceptual, limitando la completitud del análisis.</li>
+                        <li><strong>Dominio específico:</strong> Los modelos se entrenan en poesía inglesa de Project Gutenberg,
+                            por lo que su desempeño en otros idiomas, épocas o géneros no se garantiza.</li>
+                        <li><strong>Recursos computacionales:</strong> No se exploraron modelos más grandes (DeBERTa-large,
+                            RoBERTa-large) ni ensembles por limitaciones de tiempo/recursos, dejando margen para mejora.</li>
+                    </ul>
+
                     <div class="section-subtitle">Objetivos</div>
                     <ul style="line-height: 2;">
-                        <li>Construir y comparar tres modelos de análisis de sentimientos.</li>
-                        <li>Evaluar rendimiento con métricas estándar (accuracy, precision, recall, F1, AUC cuando
-                            aplique).</li>
-                        <li>Documentar decisiones de diseño y parámetros.</li>
+                        <li><strong>Objetivo General:</strong> Implementar y comparar tres enfoques de clasificación (dos clásicos y uno moderno basado en Transformers) para análisis de sentimientos en poesía, demostrando la viabilidad de ambos paradigmas con énfasis en técnicas de regularización para datasets pequeños.</li>
+                        <li><strong>Objetivos Específicos:</strong>
+                            <ul style="margin-top: 8px; margin-left: 20px; line-height: 1.8;">
+                                <li>Alcanzar F1-macro ≥ 0.85 en el conjunto de prueba mediante fine-tuning de DeBERTa-v3-base con Focal Loss y class weights.</li>
+                                <li>Comparar baselines clásicos (Regresión Logística, Naive Bayes Multinomial) con transformadores, evaluando trade-offs de complejidad vs. desempeño.</li>
+                                <li>Documentar estrategias de preprocesamiento diferenciadas según el tipo de modelo, preservando matices poéticos en transformadores.</li>
+                                
+                                <li>Proporcionar recomendaciones reproducibles para análisis de sentimientos en dominios especializados (poesía, literatura, textos arcaicos).</li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <div class="section-subtitle">Marco de Referencia</div>
@@ -1011,6 +1058,64 @@ ${html}
                             la implementación.
                         </p>
                     </div>
+                </div>
+            </div>
+
+            <!-- PAGE 1.5: Marco Teórico -->
+            <div class="page-section">
+                <div class="section">
+                    <div class="section-title">📚 1.5 Marco Teórico</div>
+
+                    <div class="section-subtitle">Análisis de Sentimientos (Sentiment Analysis)</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        El análisis de sentimientos es una tarea fundamental en el procesamiento de lenguaje natural (NLP) que busca 
+                        determinar la orientación emocional (positiva, negativa o neutra) de un texto. Formalmente, es un problema 
+                        de clasificación multiclase donde se asigna una etiqueta de sentimiento a cada documento basándose en su 
+                        contenido lingüístico.
+                    </p>
+
+                    <div class="section-subtitle">Enfoques Clásicos vs. Transformadores</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Existen dos paradigmas principales para esta tarea:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Enfoques Clásicos (Bolsa de Palabras):</strong> Modelos como Naive Bayes y Regresión Logística 
+                        trabajan con representaciones de frecuencia (TF-IDF, CountVectorizer). Son rápidos, interpretables y eficientes 
+                        con datos pequeños, pero no capturan relaciones contextuales o semánticas complejas.</li>
+                        <li><strong>Transformadores (Contextuales):</strong> Modelos como BERT, DeBERTa utilizan mecanismos de 
+                        auto-atención para capturar dependencias de largo alcance y contexto. Requieren más datos y recursos, pero 
+                        son superiores en capturar matices lingüísticos, especialmente en dominios especializados como la poesía.</li>
+                    </ul>
+
+                    <div class="section-subtitle">Desafíos en Análisis de Sentimientos de Poesía</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        El lenguaje poético presenta características únicas que lo hacen más desafiante:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Ambigüedad Semántica:</strong> Los poemas emplean metáforas, simbolismo y dobles sentidos que 
+                        dificultan la extracción automática de sentimientos.</li>
+                        <li><strong>Expresión Indirecta:</strong> Las emociones se comunican implícitamente a través de descripciones 
+                        de objetos, naturaleza o estados abstractos, no mediante palabras emocionales explícitas.</li>
+                        <li><strong>Escasez de Datos Etiquetados:</strong> Hay pocos datasets de sentimientos en poesía comparado con 
+                        reseñas de productos o redes sociales, lo que requiere técnicas de regularización robustas.</li>
+                        <li><strong>Vocabulario Arcaico:</strong> La poesía antigua contiene palabras y estructuras lingüísticas 
+                        obsoletas que requieren preprocesamiento especializado.</li>
+                    </ul>
+
+                    <div class="section-subtitle">Técnicas de Regularización para Datasets Pequeños</div>
+                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
+                        Con 1,101 ejemplos (pequeño para deep learning), se aplican técnicas para mejorar generalización:
+                    </p>
+                    <ul style="line-height: 2;">
+                        <li><strong>SMOTE:</strong> Sobremuestreo sintético de clases minoritarias para balanceo en modelos clásicos.</li>
+                        <li><strong>Focal Loss:</strong> Función de pérdida que penaliza más ejemplos mal clasificados de clases 
+                        minoritarias, evitando que el modelo ignore clases raras.</li>
+                        <li><strong>Class Weights:</strong> Asignación de pesos inversamente proporcionales a la frecuencia de clase.</li>
+                        <li><strong>Label Smoothing:</strong> Técnica que suaviza etiquetas one-hot (0.1 en clases incorrectas) para 
+                        evitar sobrefitting.</li>
+                        <li><strong>Early Stopping:</strong> Detención del entrenamiento cuando la métrica de validación no mejora, 
+                        evitando sobreajuste.</li>
+                    </ul>
                 </div>
             </div>
 
@@ -1320,7 +1425,7 @@ ${html}
                     </div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                         El preprocesamiento aplicado ha sido cuidadosamente diseñado para optimizar la clasificación de
-                        sentimientos en poesía inglesa antigua (siglos XVII-XIX), equilibrando la limpieza textual con
+                        sentimientos en poesía inglesa antigua, equilibrando la limpieza textual con
                         la preservación de características semánticas relevantes. A diferencia de los enfoques estándar
                         que aplican normalización agresiva, nuestra estrategia reconoce que el lenguaje poético arcaico
                         contiene matices significativos para la detección de sentimientos.
