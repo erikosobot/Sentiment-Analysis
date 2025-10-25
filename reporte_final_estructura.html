@@ -912,23 +912,23 @@ ${html}
                 Índice</h2>
             <ol style="font-size: 12pt; line-height: 2; margin-left: 30px; color: #333;">
                 <li>Introducción</li>
+                <li>Marco Teórico</li>
                 <li>Metodología</li>
                 <li>Datos</li>
                 <li>Preprocesamiento</li>
-                <li>Representación de texto</li>
-                <li>Modelos implementados
+                <li>Implementación
                     <ol style="margin-top: 10px; margin-left: 20px;">
                         <li>Regresión Logística</li>
                         <li>Naive Bayes Multinomial</li>
                         <li>DeBERTa‑v3‑base (fine‑tuning)</li>
                     </ol>
                 </li>
-                <li>Entrenamiento y validación</li>
-                <li>Métricas y evaluación</li>
+                <li>Modelos Implementados</li>
+                <li>Validación y Métricas</li>
                 <li>Resultados</li>
                 <li>Discusión</li>
-                <li>Conclusiones y trabajo futuro</li>
-                <li>Referencias</li>
+                <li>Conclusiones y Trabajo Futuro</li>
+                <li>Referencias Bibliográficas</li>
             </ol>
         </div>
 
@@ -1064,7 +1064,7 @@ ${html}
             <!-- PAGE 1.5: Marco Teórico -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📚 1.5 Marco Teórico</div>
+                    <div class="section-title">📚 2. Marco Teórico</div>
 
                     <div class="section-subtitle">Análisis de Sentimientos (Sentiment Analysis)</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
@@ -1122,7 +1122,7 @@ ${html}
             <!-- PAGE 2.1: Metodología -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">🧭 2. Metodología</div>
+                    <div class="section-title">🧭 3. Metodología</div>
 
                     <div class="section-subtitle">Análisis de los datos y preprocesamiento</div>
                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
@@ -1181,7 +1181,7 @@ ${html}
             <!-- PAGE 3: Data Section -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📊 3. Datos</div>
+                    <div class="section-title">📊 4. Datos</div>
 
                     <div class="section-subtitle">Descripción del Dataset</div>
                     <p style="text-align: justify; line-height: 1.5; margin-bottom: 20px;">
@@ -1419,7 +1419,7 @@ ${html}
             <!-- PAGE 4: Preprocesamiento -->
             <div class="page-section">
                 <div class="section">
-                    <div class="section-title">📝 4. Preprocesamiento</div>
+                    <div class="section-title">📝 5. Preprocesamiento</div>
 
                     <div class="section-subtitle">Preprocesamiento para Modelos Clásicos (NB y Regresión Logística)
                     </div>
@@ -1551,7 +1551,7 @@ ${html}
                     <!-- PAGE 5.1: Implementación -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">🛠️ Implementación</div>
+                            <div class="section-title">🛠️ 6. Implementación</div>
 
                             <div class="section-subtitle">Pipeline de desarrollo</div>
                             <div class="structure-list">
@@ -1629,9 +1629,9 @@ ${html}
                     <!-- PAGE 6: Models -->
                     <div class="page-section">
                         <div class="section">
-                            <div class="section-title">🤖 6. Modelos Implementados</div>
+                            <div class="section-title">Modelos</div>
 
-                            <div class="section-subtitle">5.1 Regresión Logística</div>
+                            <div class="section-subtitle">6.1 Regresión Logística</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                 La regresión logística fue seleccionada por su capacidad para manejar eficazmente
                                 representaciones vectorizadas
@@ -1661,7 +1661,7 @@ ${html}
     solver='liblinear'
 )</code></pre>
 
-                            <div class="section-subtitle">5.2 Naive Bayes Multinomial</div>
+                            <div class="section-subtitle">6.2 Naive Bayes Multinomial</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                 El modelo Multinomial Naive Bayes se utiliza, en este caso, con ajuste de
                                 hiperparámetros mediante
@@ -1692,7 +1692,7 @@ ${html}
     verbose=1
 )</code></pre>
 
-                            <div class="section-subtitle">5.3 DeBERTa‑v3‑base (fine‑tuning)</div>
+                            <div class="section-subtitle">6.3 DeBERTa‑v3‑base (fine‑tuning)</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                 Los transformadores preentrenados como <strong>DeBERTa‑v3‑base</strong> capturan
                                 relaciones contextuales y semántica a nivel sub‑palabra mediante auto‑atención.
@@ -1753,7 +1753,7 @@ TrainingArguments(
                         <!-- PAGE 7: Metrics and Training -->
                         <div class="page-section">
                             <div class="section">
-                                <div class="section-title">📊 7. Validación y Métricas</div>
+                                <div class="section-title">📊 8. Validación y Métricas</div>
                                 <div class="section-subtitle">Carga del Dataset</div>
                                 <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                     El dataset se obtuvo desde el repositorio de Hugging Face utilizando pandas. Los
@@ -1816,7 +1816,7 @@ TrainingArguments(
                             <!-- PAGE 8: Results -->
                             <div class="page-section">
                                 <div class="section">
-                                    <div class="section-title">📈 8. Resultados</div>
+                                    <div class="section-title">📈 9. Resultados</div>
 
                                     <div class="section-subtitle">Resultados de Baselines Clásicos</div>
 
@@ -2018,7 +2018,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                 <!-- PAGE 9: Discussion -->
                                 <div class="page-section">
                                     <div class="section">
-                                        <div class="section-title">💡 9. Discusión</div>
+                                        <div class="section-title">💡 10. Discusión</div>
 
                                         <div class="section-subtitle">¿Qué se observa en los resultados?</div>
                                         <ul style="line-height: 2;">
@@ -2076,7 +2076,7 @@ weighted avg       0.92      0.91      0.91       104</div>
                                     <!-- PAGE 10: Conclusions -->
                                     <div class="page-section">
                                         <div class="section">
-                                            <div class="section-title">🎯 10. Conclusiones y Trabajo Futuro</div>
+                                            <div class="section-title">🎯 11. Conclusiones y Trabajo Futuro</div>
 
                                             <div class="section-subtitle">Conclusiones</div>
                                             <ul style="line-height: 2;">
@@ -2110,31 +2110,38 @@ weighted avg       0.92      0.91      0.91       104</div>
                                         <!-- PAGE 11: References & Footer -->
                                         <div class="page-section">
                                             <div class="section">
-                                                <div class="section-title">📚 11. Referencias Bibliográficas</div>
+                                                <div class="section-title">📚 12. Referencias Bibliográficas</div>
 
                                                 <div
-                                                    style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2;">
-                                                    <p>Pedregosa, F., Varoquaux, G., Gramfort, A., et al. (2011).
-                                                        <em>Scikit-learn: Machine Learning in Python</em>.
-                                                        Journal of Machine Learning Research, 12, 2825-2830.
+                                                    style="background: #f8f9fa; padding: 25px; border-radius: 8px; line-height: 2.2; font-size: 11pt;">
+                                                    
+                                                    <p style="margin-bottom: 15px;">
+                                                        Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT: Pre-training of deep bidirectional transformers for language understanding. <em>arXiv</em>. https://arxiv.org/abs/1810.04805
                                                     </p>
 
-
-
-                                                    <p>Google Research. (s.f.). <em>Poem sentiment</em> [Conjunto de
-                                                        datos]. Hugging Face.
-                                                        Disponible en:
-                                                        https://huggingface.co/datasets/google-research-datasets/poem_sentiment
+                                                    <p style="margin-bottom: 15px;">
+                                                        Google Research Datasets. (s.f.). <em>Poem sentiment dataset</em>. Hugging Face. https://huggingface.co/datasets/google-research-datasets/poem_sentiment
                                                     </p>
 
-                                                    <p>Goodfellow, I., Bengio, Y., & Courville, A. (2016). <em>Deep
-                                                            Learning</em>.
-                                                        MIT Press. [Referencia para arquitecturas de redes neuronales]
+                                                    <p style="margin-bottom: 15px;">
+                                                        He, P., Liu, X., Gao, J., & Chen, W. (2021). DeBERTa: Decoding-enhanced BERT with disentangled attention. <em>arXiv</em>. https://arxiv.org/abs/2006.03654
                                                     </p>
 
-                                                    <p>Devlin, J., Chang, M. W., Lee, K., & Toutanova, K. (2019). BERT:
-                                                        Pre-training of Deep Bidirectional Transformers
-                                                        for Language Understanding. arXiv preprint arXiv:1810.04805.</p>
+                                                    <p style="margin-bottom: 15px;">
+                                                        Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. <em>Journal of Machine Learning Research</em>, <em>12</em>, 2825–2830. https://jmlr.org/papers/v12/pedregosa11a.html
+                                                    </p>
+
+                                                    <p style="margin-bottom: 15px;">
+                                                        Wolf, T., Debut, L., Sanh, V., Chaumond, J., Delangue, C., Moi, A., ... & Rush, A. M. (2020). Transformers: State-of-the-art natural language processing. <em>arXiv</em>. https://arxiv.org/abs/1910.03771
+                                                    </p>
+
+                                                    <p style="margin-bottom: 15px;">
+                                                        Chawla, N. V., Bowyer, K. W., Hall, L. O., & Kegelmeyer, W. P. (2002). SMOTE: Synthetic minority over-sampling technique. <em>Journal of Artificial Intelligence Research</em>, <em>16</em>, 321–357. https://arxiv.org/abs/1106.1813
+                                                    </p>
+
+                                                    <p>
+                                                        Lin, T. Y., Goyal, P., Girshick, R., He, K., & Dollár, P. (2017). Focal loss for dense object detection. <em>arXiv</em>. https://arxiv.org/abs/1708.02002
+                                                    </p>
                                                 </div>
                                             </div>
 
