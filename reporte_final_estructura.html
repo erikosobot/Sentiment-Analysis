@@ -1870,6 +1870,20 @@ RESULTADOS FINALES EN TEST SET:
 weighted avg       0.92      0.91      0.91       104</div>
                                     </div>
 
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 25px 0; font-size: 10pt; line-height: 1.8; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="white-space: pre; text-align: left;">FINE-TUNING DEBERTA-V3-BASE COMPLETADO:
+
+ TÉCNICAS APLICADAS:
+   • Modelo: DeBERTa-v3-base (Fine-tuned)
+   • Preprocesamiento: Eliminación duplicados, normalización comillas/guiones, 
+     exclusión clase 'mixed'
+   • Tokenización: max_len=128
+   • Pérdida: Focal Loss (γ=1.5) con class weights
+   • Regularización: Label smoothing 0.1
+   • Entrenamiento: Hugging Face Trainer, optimizado por F1-macro
+   • Validación: Early stopping (patience=3)</div>
+                                    </div>
+
                                     <div class="highlight-box"
                                         style="background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%); border-left-color: #2e7d32; margin-top: 30px;">
                                         <strong>✓ Objetivo cumplido (ALCANZADO):</strong> Se alcanzó <strong>F1‑macro = 0.8909</strong> en el conjunto de Test, 
