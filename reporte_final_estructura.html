@@ -1718,8 +1718,11 @@ TrainingArguments(
                                     <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
                                         <strong>Regresión Logística</strong> con class_weight='balanced'
                                     </p>
+                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
+                                        Validación: F1‑macro = 0.4310
+                                    </p>
                                     
-                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto; border-left: 4px solid #C41E3A;">
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
                                         <div style="margin-bottom: 10px;"><strong>Validación - Classification Report:</strong></div>
                                         <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
 
@@ -1741,6 +1744,42 @@ weighted avg       0.62      0.67      0.60       105</div>
     accuracy                           0.69       104
    macro avg       0.64      0.45      0.47       104
 weighted avg       0.67      0.69      0.64       104</div>
+                                    </div>
+                                    <div style="height: 20px; clear: both;"></div>
+                                    <div style="text-align: center; margin: 30px 0;">
+                                        <img src="mc_rl.png" alt="Matriz de Confusión - Regresión Logística"
+                                            style="max-width: 55%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                        <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                            Ilustración. Matriz de Confusión - Regresión Logística</p>
+                                    </div>
+                                    <div style="height: 20px; clear: both;"></div>
+
+                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt; margin-top: 30px;">
+                                        <strong>Multinomial Naive Bayes</strong> optimizado con GridSearchCV
+                                    </p>
+                                    
+                                    <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px; font-size: 11pt;">
+                                        Test: F1‑macro = 0.5625
+                                    </p>
+                                    
+                                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 10pt; line-height: 1.6; font-family: 'Courier New', monospace; overflow-x: auto;">
+                                        <div style="margin-bottom: 10px;"><strong>Test - Classification Report (Ajustado):</strong></div>
+                                        <div style="white-space: pre; text-align: left;">              precision    recall  f1-score   support
+
+    negativo       0.46      0.58      0.51        19
+    positivo       0.50      0.31      0.38        16
+ sin_impacto       0.79      0.80      0.79        69
+
+    accuracy                           0.68       104
+   macro avg       0.58      0.56      0.56       104
+weighted avg       0.68      0.68      0.68       104</div>
+                                    </div>
+
+                                    <div style="text-align: center; margin: 30px 0;">
+                                        <img src="nb_m.png" alt="Matriz de Confusión - Multinomial Naive Bayes Optimizado"
+                                            style="max-width: 55%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                        <p style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
+                                            Ilustración. Matriz de Confusión - Multinomial Naive Bayes Optimizado</p>
                                     </div>
 
                                     <div class="section-subtitle">Resultados principales (DeBERTa‑v3‑base)</div>
