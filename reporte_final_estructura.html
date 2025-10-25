@@ -517,6 +517,7 @@
             max-width: none;
             margin-left: 0;
             margin-right: 0;
+            min-height: 120px;
         }
 
         .cover-logo {
@@ -541,8 +542,6 @@
 
         .cover-institution {
             margin-bottom: 60px;
-            border-bottom: 2px solid #C41E3A;
-            padding-bottom: 25px;
             letter-spacing: 0.5px;
         }
 
@@ -877,20 +876,21 @@ ${html}
                     <div class="cover-logo">
                         <img src="logo_cic.jpg" alt="Logo CIC - Centro de Investigación en Computación">
                     </div>
+                    <div class="cover-institution" style="text-align: center; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <h2 style="margin: 0; padding: 0 20px; font-size: 1.3em;">Centro de Investigación en Computación</h2>
+                        <p style="margin: 10px 0 0 0; font-size: 1em;">Diplomado en Inteligencia Artificial</p>
+                    </div>
                     <div class="cover-logo">
                         <img src="logo_ipn.jpg" alt="Logo IPN - Instituto Politécnico Nacional">
                     </div>
                 </div>
-                <div class="cover-institution">
-                    <h2>Centro de Investigación en Computación</h2>
-                </div>
 
                 <div class="cover-course">
-                    <p>Diplomado en Inteligencia Artificial</p>
+                    <p style="display: none;">Diplomado en Inteligencia Artificial</p>
                 </div>
 
                 <div class="cover-main">
-                    <h1>Análisis de sentimientos en versos</h1>
+                    <h1>Análisis de sentimientos en poemas</h1>
                     <p class="cover-subtitle">Implementación y Evaluación de Tres Enfoques de Clasificación</p>
                 </div>
 
