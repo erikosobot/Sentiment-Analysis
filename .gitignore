@@ -1,4 +1,4 @@
-# Model files and checkpoints
+# Model files and checkpoints (excluir modelos pesados)
 *.pt
 *.pth
 *.safetensors
@@ -7,9 +7,6 @@
 results/
 deberta_results/
 artifacts/
-
-# Jupyter notebooks
-*.ipynb
 
 # Python cache
 __pycache__/
@@ -28,3 +25,7 @@ __pycache__/
 # Temporary files
 *.tmp
 *.temp
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
