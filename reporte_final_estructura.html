@@ -1546,7 +1546,8 @@ ${html}
                                 </ul>
                             </div>
                             <div style="height: 20px; clear: both;"></div>
-
+                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración:
+                                GridSearchCV</div>
                             <pre class="code-block"><code>lr_model = LogisticRegression(
     random_state=SEED,
     max_iter=2000,
@@ -1557,7 +1558,8 @@ ${html}
 
                             <div class="section-subtitle">5.2 Naive Bayes Multinomial</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
-                                El modelo Multinomial Naive Bayes se utiliza, en este caso, con ajuste de hiperparámetros mediante
+                                El modelo Multinomial Naive Bayes se utiliza, en este caso, con ajuste de
+                                hiperparámetros mediante
                                 búsqueda en cuadrícula (GridSearchCV) para optimizar el parámetro de suavizado alpha.
                                 Este enfoque probabilístico calcula probabilidades condicionales de palabras para cada
                                 clase, permitiendo una clasificación eficiente incluso con vocabularios grandes. La
@@ -1567,13 +1569,15 @@ ${html}
                             <div class="spec-card">
                                 <strong>Ventajas:</strong>
                                 <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                                    <li><strong>Eficiencia Computacional:</strong> Entrena extremadamente rápido con vocabularios grandes (10,000 features). GridSearchCV con validación cruzada de 5 folds completa en segundos, permitiendo iteración rápida sin costo computacional prohibitivo.</li>
-                                    <li><strong>Optimización Automática de Hiperparámetros:</strong> GridSearchCV busca exhaustivamente el mejor alpha (suavizado) usando validación cruzada, garantizando máximo potencial sin necesidad de ajuste manual.</li>
-                                    <li><strong>Interpretabilidad:</strong> Las probabilidades condicionales palabra-clase son directamente interpretables. Permite identificar qué palabras contribuyen más a cada sentimiento, facilitando validación de resultados.</li>
-                                    <li><strong>Robustez con Datos Desbalanceados:</strong> Al entrenar sobre datos balanceados con SMOTE, mantiene rendimiento equilibrado en todas las clases. La métrica F1-macro asegura que ninguna clase sea penalizada, resultando en F1-scores altos (&gt;0.80).</li>
+                                    <li>Entrenamiento rápido y eficiente incluso con vocabularios grandes</li>
+                                    <li>Optimización automática de hiperparámetros mediante GridSearchCV</li>
+                                    <li>Probabilidades interpretables a nivel palabra-clase</li>
+                                    <li>Rendimiento equilibrado en todas las clases con datos balanceados</li>
                                 </ul>
                             </div>
-                            
+                            <div style="height: 20px; clear: both;"></div>
+                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración:
+                                GridSearchCV</div>
                             <pre class="code-block"><code>grid_search = GridSearchCV(
     estimator=MultinomialNB(),
     param_grid=param_grid,
@@ -1582,12 +1586,12 @@ ${html}
     n_jobs=-1,
     verbose=1
 )</code></pre>
-                            
+
                             <div class="section-subtitle">5.3 DeBERTa‑v3‑base (fine‑tuning)</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                 Los transformadores preentrenados como <strong>DeBERTa‑v3‑base</strong> capturan
                                 relaciones contextuales y semántica a nivel sub‑palabra mediante auto‑atención.
-                                En este trabajo se realizó <em>fine‑tuning</em> completo para el dataset Poem
+                                En este trabajo se realizó <em>fine‑tuning</em> para el dataset Poem
                                 Sentiment (excluyendo la clase <code>mixed</code>), optimizando la métrica
                                 <strong>F1‑macro</strong> y usando técnicas de regularización para manejar el
                                 desbalance y evitar sobreajuste.
@@ -1611,6 +1615,31 @@ ${html}
                                     <li>Rendimiento superior en dominios de texto fino</li>
                                 </ul>
                             </div>
+
+                            <div class="section-subtitle" style="border-left: none; padding-left: 0;">Configuración de entrenamiento</div>
+                            <pre class="code-block"><code>
+TrainingArguments(
+    output_dir=f"{config.OUTPUT_DIR}/fold_{fold}",
+    logging_dir=f"{config.LOGGING_DIR}/fold_{fold}",
+    num_train_epochs=config.NUM_EPOCHS,
+    per_device_train_batch_size=config.BATCH_SIZE,
+    per_device_eval_batch_size=config.BATCH_SIZE * 2,
+    learning_rate=config.LEARNING_RATE,
+    weight_decay=config.WEIGHT_DECAY,
+    warmup_ratio=config.WARMUP_RATIO,
+    lr_scheduler_type="cosine",
+    save_strategy="epoch",
+    evaluation_strategy="epoch",
+    load_best_model_at_end=True,
+    metric_for_best_model="f1_macro",
+    greater_is_better=True,
+    save_total_limit=2,
+    logging_steps=50,
+    report_to="none"
+)</code></pre>
+                            <p style="text-align: justify; line-height: 1.8; margin-top: 15px;">
+                                Los argumentos de entrenamiento configuran el proceso de fine-tuning de DeBERTa. Se utiliza un scheduler coseno con warmup del 5%, early stopping basado en F1-macro, y se guardan solo los 2 mejores checkpoints para optimizar memoria.
+                            </p>
 
                             <p style="margin-top: 15px;"><strong>Framework:</strong> PyTorch + Hugging Face Transformers
                             </p>
