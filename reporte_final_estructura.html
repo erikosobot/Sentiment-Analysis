@@ -1567,22 +1567,22 @@ ${html}
                             <div class="spec-card">
                                 <strong>Ventajas:</strong>
                                 <ul style="margin-top: 10px; margin-left: 0; padding-left: 20px;">
-                                    <li>Rendimiento competitivo en clasificación de textos</li>
-                                    <li>Especialmente efectivo cuando hay palabras claramente asociadas a cada
-                                        sentimiento</li>
-                                    <li>Entrenamimiento rápido y eficiente</li>
-                                    <li>Opción sólida como modelo base</li>
+                                    <li><strong>Eficiencia Computacional:</strong> Entrena extremadamente rápido con vocabularios grandes (10,000 features). GridSearchCV con validación cruzada de 5 folds completa en segundos, permitiendo iteración rápida sin costo computacional prohibitivo.</li>
+                                    <li><strong>Optimización Automática de Hiperparámetros:</strong> GridSearchCV busca exhaustivamente el mejor alpha (suavizado) usando validación cruzada, garantizando máximo potencial sin necesidad de ajuste manual.</li>
+                                    <li><strong>Interpretabilidad:</strong> Las probabilidades condicionales palabra-clase son directamente interpretables. Permite identificar qué palabras contribuyen más a cada sentimiento, facilitando validación de resultados.</li>
+                                    <li><strong>Robustez con Datos Desbalanceados:</strong> Al entrenar sobre datos balanceados con SMOTE, mantiene rendimiento equilibrado en todas las clases. La métrica F1-macro asegura que ninguna clase sea penalizada, resultando en F1-scores altos (&gt;0.80).</li>
                                 </ul>
                             </div>
-                            <p style="margin-top: 15px;"><strong>Implementación:</strong> MultinomialNB de scikit-learn
-                            </p>
-                            <div style="text-align: center; margin: 30px 0;">
-                                <img src="multinomial_nb.png" alt="Parámetros utilizados para Naive Bayes Multinomial"
-                                    style="max-width: 40%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
-                                <p
-                                    style="text-align: center; color: #666; font-size: 11pt; margin-top: 10px; font-style: italic;">
-                                    Ilustración 7. Configuración de parámetros de Naive Bayes Multinomial</p>
-                            </div>
+                            
+                            <pre class="code-block"><code>grid_search = GridSearchCV(
+    estimator=MultinomialNB(),
+    param_grid=param_grid,
+    scoring='f1_macro',
+    cv=5,
+    n_jobs=-1,
+    verbose=1
+)</code></pre>
+                            
                             <div class="section-subtitle">5.3 DeBERTa‑v3‑base (fine‑tuning)</div>
                             <p style="text-align: justify; line-height: 1.8; margin-bottom: 15px;">
                                 Los transformadores preentrenados como <strong>DeBERTa‑v3‑base</strong> capturan
